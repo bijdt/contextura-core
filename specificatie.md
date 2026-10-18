@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.6 (concept), 2026-10-18. Hoort bij contextura-core 0.9.1. Tekst onder CC BY 4.0; de
+Versie 0.7 (concept), 2026-10-18. Hoort bij contextura-core 0.10.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -86,7 +86,9 @@ Schema: `note.schema.json`.
   `projects/`, `ideas/` of `documents/` in haar index, met dezelfde uitzondering.
 - **Gegenereerd blok**: tussen `<!-- brain:lijst begin -->` en `<!-- brain:lijst einde -->` staat een
   lijst die volledig uit de frontmatter volgt. Een blok dat afwijkt van wat de frontmatter geeft, is
-  een melding. De vorm van het blok is die van de referentie-implementatie (`hubBlokken`).
+  een melding. De vorm van het blok is die van de referentie-implementatie (`hubBlokken`). De uitleg na
+  het aantal op de eerste regel (`_12 notities, <uitleg>._`) telt niet mee: een gereedschap mag er zijn
+  eigen uitleg zetten.
 - Een notitie in `topics/` of `people/` waar niets naartoe linkt, is een melding ("wees").
 - Elk pad in `attachments` moet een bestand in de brain zijn. Een bestand onder `attachments/` (behalve
   `.gitkeep`) dat in geen frontmatter en in geen tekst als `attachments/...` voorkomt, is een melding.
