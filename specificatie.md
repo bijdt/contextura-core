@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.7 (concept), 2026-10-18. Hoort bij contextura-core 0.10.0. Tekst onder CC BY 4.0; de
+Versie 0.8 (concept), 2026-10-18. Hoort bij contextura-core 0.12.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -118,8 +118,11 @@ of een regel van `nooit`; nooit gaat altijd voor op een bundel.
 
 `twin.json` (optioneel, `twin.schema.json`): versie 1, instellingen (daglimiet 1 tot 100, gesloten
 domeinen), testvragen en een log van gestelde vragen (vorm, laag, status, landing, bij vorm `raad` een
-score 0, 1 of 2). Nooit de antwoorden zelf: die worden notities. Vragen worden nooit gemaakt uit
-notities met `source: client` of `delen: nooit`, of over een gesloten domein.
+score 0, 1 of 2, bij een overgeslagen vraag optioneel de reden `bekend`, `irrelevant` of `persoonlijk`).
+Optioneel de stand van de gebruiker: `mijlpalen` (de mijlpalen die de gebruiker al zag, elk een keer) en `record`
+(`punten` en `datum` van het beste resultaat van een uitdaging). Nooit de antwoorden zelf: die worden
+notities. Vragen worden nooit gemaakt uit notities met `source: client` of `delen: nooit`, of over een
+gesloten domein. Een vaste voorraad vragen is van de toepassing (`vragenVan`, optie `voorraad`).
 
 `metingen.json` (optioneel, `metingen.schema.json`): per datum het aantal notities, raw, archief,
 wezen, lang, gelijkend, zonder description en de mediaan van het aantal links.
