@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:metingen:1",
+  "$id": "https://schema.contextura.io/metingen/1.json",
   "title": "Meetgetallen van de brain",
   "description": "Een rij per onderhoudsronde (meet): hoe groot de brain is en wat op schaal fout kan gaan. Gecontroleerd door de lint (controleerMetingen).",
   "type": "object",

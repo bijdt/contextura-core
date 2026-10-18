@@ -13,9 +13,10 @@ programma's dezelfde brain op dezelfde manier lezen, controleren en delen.
 
 | Pad | Wat |
 |---|---|
-| [`specificatie.md`](specificatie.md) | De specificatie (versie 0.9, concept) |
+| [`specificatie.md`](specificatie.md) | De specificatie (versie 0.10, concept) |
 | [`schema/`](schema/) | JSON Schema's voor de bestanden die de specificatie beschrijft |
 | [`conformiteit/`](conformiteit/) | De conformiteitstests: gevallen als gegevens (invoer en verwacht resultaat), los van een taal |
+| [`docs/`](docs/) | De site op https://schema.contextura.io: elk schema op zijn `$id` (`<naam>/<versie>.json`), gemaakt uit `schema/` |
 
 ## Status
 

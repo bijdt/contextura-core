@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:documentatie:1",
+  "$id": "https://schema.contextura.io/documentatie/1.json",
   "title": "Register van de documentatie",
   "description": "documentatie.json in de root van de brain: welke documenten er zijn (artifacts en documenten in repo's), wie ze bijhoudt, waaruit ze volgen en hoe ze opnieuw gemaakt worden. Wat er wanneer gepubliceerd is, staat niet hier maar in de lokale toestand van de werkplek. Gecontroleerd door de opdracht documentatie van de werkplek.",
   "type": "object",

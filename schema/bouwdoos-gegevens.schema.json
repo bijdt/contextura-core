@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:bouwdoos-gegevens:1",
+  "$id": "https://schema.contextura.io/bouwdoos-gegevens/1.json",
   "title": "Contextura Bouwdoos: apps/<id>.gegevens.yaml",
   "type": "object",
   "properties": {

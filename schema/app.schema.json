@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:app:1",
+  "$id": "https://schema.contextura.io/app/1.json",
   "title": "Contextura app-manifest: app.json in de repo van een project",
   "description": "Per app titel, kleur, icoon, de node-opdracht die de tegel levert, wat ze nodig heeft en of ze via de brain in te stellen is (apps/<id>.yaml). Een product mag eigen velden toevoegen (bv. een galerij); de lezer (leesManifest in app.ts) laat ze weg.",
   "type": "object",

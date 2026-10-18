@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:twin:1",
+  "$id": "https://schema.contextura.io/twin/1.json",
   "title": "Voed je twin",
   "description": "Instellingen, de vaste testvragen van de eigenaar en het log van gestelde vragen om de twin aan te vullen. Nooit de antwoorden zelf: die gaan via de inbox naar notities. Gecontroleerd door de lint (controleerTwin).",
   "type": "object",

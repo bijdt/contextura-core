@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/lezers/1.json",
+  "title": "Lezers van de brain",
+  "description": "Wie binnen het gezin naast de eigenaar mag lezen: standaard per hub, per notitie overschreven door de frontmatter lezers. De eigenaar leest altijd; source: client is altijd alleen de eigenaar. Gecontroleerd door de lint (controleerLezers); afgedwongen door de app bij het ophalen (lezersVan), nooit in de prompt.",
+  "type": "object",
+  "properties": {
+    "lezers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "not": {
+              "const": "eigenaar"
+            },
+            "description": "Slug; uniek. De eigenaar staat niet in de lijst"
+          },
+          "naam": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rol": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optioneel, vrije tekst voor de app (bv. partner, kind)"
+          }
+        },
+        "required": [
+          "id",
+          "naam"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "standaard": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lezers voor een notitie zonder hub, of met een hub die niet in hubs staat. Ontbreekt het: alleen de eigenaar"
+    },
+    "hubs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "description": "Per hub (areas/<hub>.md) de standaardlezers; een lege lijst is alleen de eigenaar"
+    }
+  },
+  "required": [
+    "lezers"
+  ],
+  "additionalProperties": false
+}

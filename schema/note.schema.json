@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:note:1",
+  "$id": "https://schema.contextura.io/note/1.json",
   "title": "Notitie-frontmatter",
   "description": "Frontmatter-contract voor elke .md buiten inbox/",
   "type": "object",

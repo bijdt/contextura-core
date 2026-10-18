@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:projecten:1",
+  "$id": "https://schema.contextura.io/projecten/1.json",
   "title": "projecten.json (register v1 en v2)",
   "description": "Het lokale register van de werkplek: welke projecten er zijn, hun groep, brain, koppelingen en geheimen-tool. Versie 2 voegt de werkplek zelf, de partijen en github.eigenaar toe; normaliseerRegistry leest versie 1 in de vorm van versie 2. Gecontroleerd door controleerRegister; een afwijking is een waarschuwing (nog geen fout). Eigen velden mogen.",
   "type": "object",

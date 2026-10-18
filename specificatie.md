@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.9 (concept), 2026-10-18. Hoort bij contextura-core 0.13.0. Tekst onder CC BY 4.0; de
+Versie 0.10 (concept), 2026-10-18. Hoort bij contextura-core 0.14.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -239,8 +239,9 @@ werkplek die publiceert (zie `staatVan` in `documentatie.ts`).
 
 - Deze tekst heeft een eigen versie (0.x tot de publicatie, dan 1.0). Een wijziging die een tot dan
   geldige brain ongeldig maakt, verhoogt de hoofdversie.
-- Elk schema draagt naam en versie in zijn `$id`: `urn:contextura-core:schema:<naam>:<versie>`. Met
-  versie 1.0 krijgen ze een vast webadres.
+- Elk schema draagt naam en versie in zijn `$id`, een vast webadres:
+  `https://schema.contextura.io/<naam>/<versie>.json`. Een schemaversie verandert niet meer zodra ze
+  gepubliceerd is; een wijziging die een tot dan geldig bestand ongeldig maakt, is een nieuwe versie.
 - De code (`contextura-core`) volgt semver en noemt de versie van deze tekst die ze implementeert.
 
 ## 15. Nog niet in deze versie

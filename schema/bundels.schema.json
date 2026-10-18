@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:contextura-core:schema:bundels:1",
+  "$id": "https://schema.contextura.io/bundels/1.json",
   "title": "Bundels van de brain",
   "description": "Delen van de brain die als geheel vrijgegeven kunnen worden, en wat nooit gedeeld wordt. Gecontroleerd door de lint (controleer); gelezen door graafUit.",
   "type": "object",
