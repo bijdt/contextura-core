@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.8 (concept), 2026-10-18. Hoort bij contextura-core 0.12.0. Tekst onder CC BY 4.0; de
+Versie 0.9 (concept), 2026-10-18. Hoort bij contextura-core 0.13.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -12,7 +12,9 @@ van beide; tot versie 1.0 wint de code en wordt de tekst bijgewerkt.
 
 **Moet**, **mag** en **niet** zijn bindend. Een implementatie is conform als ze de voorbeelden in de
 conformiteitstests van contextura-core gelijk beoordeelt: zelfde fouten, zelfde meldingen, zelfde
-graaf. Die tests verschijnen samen met de referentie-implementatie.
+graaf. Een geval is gegevens (JSON in `conformiteit/<groep>/<naam>.json`: een beschrijving, de functie,
+de invoer en het verwachte resultaat), los van een taal; `conformiteit/README.md` beschrijft de vorm per
+functie.
 
 ## 1. Begrippen
 

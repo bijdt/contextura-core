@@ -1,0 +1,32 @@
+{
+  "beschrijving": "Twee notities met dezelfde alias.",
+  "functie": "brain.controleer",
+  "invoer": {
+    "bestanden": {
+      "areas/areas.md": "---\nname: areas\ndescription: \"Index van de domeinen.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index, area]\n---\n\n# Domeinen\n\n- [[huis]]\n",
+      "areas/huis.md": "---\nname: huis\ndescription: \"Domein huis.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Huis\n\n- [[dak]]\n",
+      "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# dak\n\nZie [[huis]].\n",
+      "topics/zink.md": "---\nname: zink\ndescription: \"Notitie zink.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\naliases: [metaal]\n---\n\n# zink\n",
+      "topics/lood.md": "---\nname: lood\ndescription: \"Notitie lood.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\naliases: [metaal]\n---\n\n# lood\n"
+    }
+  },
+  "verwacht": {
+    "topics/zink.md": {
+      "fouten": [
+        "alias 'metaal' staat ook bij topics/lood.md"
+      ],
+      "meldingen": [
+        "wees: geen enkele notitie linkt hierheen"
+      ]
+    },
+    "topics/lood.md": {
+      "fouten": [
+        "alias 'metaal' staat ook bij topics/zink.md"
+      ],
+      "meldingen": [
+        "wees: geen enkele notitie linkt hierheen",
+        "lijkt op [[zink]] (topics/zink.md): aanvullen of samenvoegen, of een alias"
+      ]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "beschrijving": "Een geldig twin.json met log, reden, mijlpalen en record.",
+  "functie": "twin.controleer",
+  "invoer": {
+    "twin": {
+      "versie": 1,
+      "instellingen": {
+        "daglimiet": 10,
+        "gesloten": [
+          "gezondheid"
+        ]
+      },
+      "test": [
+        {
+          "id": "t1",
+          "vraag": "Neem ik deze opdracht aan?",
+          "laag": "oordelen"
+        }
+      ],
+      "log": [
+        {
+          "id": "a",
+          "datum": "2026-01-15",
+          "vorm": "raad",
+          "laag": "oordelen",
+          "vraag": "Wat zou ik doen?",
+          "status": "beantwoord",
+          "landing": "inbox/a.md",
+          "score": 2
+        },
+        {
+          "id": "b",
+          "datum": "2026-01-15",
+          "vorm": "mening",
+          "laag": "denken",
+          "vraag": "Iets?",
+          "status": "overgeslagen",
+          "reden": "persoonlijk"
+        }
+      ],
+      "mijlpalen": [
+        "eerste-tien"
+      ],
+      "record": {
+        "punten": 12,
+        "datum": "2026-01-15"
+      }
+    }
+  },
+  "verwacht": {
+    "fouten": []
+  }
+}

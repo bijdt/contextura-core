@@ -1,0 +1,59 @@
+{
+  "beschrijving": "Elke afwijking in twin.json is een fout met haar plaats.",
+  "functie": "twin.controleer",
+  "invoer": {
+    "twin": {
+      "versie": 2,
+      "instellingen": {
+        "daglimiet": 0,
+        "gesloten": [
+          "Geen Slug"
+        ]
+      },
+      "test": [
+        {
+          "id": "t1",
+          "laag": "voelen"
+        }
+      ],
+      "log": [
+        {
+          "id": "a",
+          "datum": "15-01-2026",
+          "vorm": "gok",
+          "laag": "denken",
+          "vraag": "Iets?",
+          "status": "beantwoord"
+        },
+        {
+          "id": "a",
+          "datum": "2026-01-15",
+          "vorm": "mening",
+          "laag": "denken",
+          "vraag": "Iets?",
+          "status": "beantwoord",
+          "landing": "inbox/x.md",
+          "score": 1,
+          "reden": "bekend"
+        }
+      ],
+      "extra": true
+    }
+  },
+  "verwacht": {
+    "fouten": [
+      "twin.json: veld 'extra' niet toegestaan",
+      "versie: 1",
+      "instellingen.daglimiet: geheel getal van 1 tot 100",
+      "instellingen.gesloten: lijst van domeinen (slugs)",
+      "test 1: vraag ontbreekt",
+      "test 1: laag 'voelen'; toegestaan: denken, weten, oordelen, ritme",
+      "log 1: datum JJJJ-MM-DD",
+      "log 1: vorm 'gok'; toegestaan: dit-of-dat, waar-niet-waar, mening, raad, gat, like",
+      "log 1: een beantwoorde vraag heeft een landing",
+      "log 2: id 'a' komt twee keer voor",
+      "log 2: score 0, 1 of 2, alleen bij vorm raad",
+      "log 2: reden bekend, irrelevant of persoonlijk, alleen bij een overgeslagen vraag"
+    ]
+  }
+}
