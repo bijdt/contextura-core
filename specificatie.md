@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.10 (concept), 2026-10-18. Hoort bij contextura-core 0.14.0. Tekst onder CC BY 4.0; de
+Versie 0.11 (concept), 2026-10-18. Hoort bij contextura-core 0.15.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -194,7 +194,8 @@ en partijen: `persoon:<slug>`, `gezin:<slug>` of `bedrijf:<slug>`. Tussen twee w
 vrijgegeven is, en `source: client` nooit (zie `relatieVan` en `magNaar` in `model.ts`). De catalogus
 `werkplekken.json` volgt in een latere versie. Een nieuwe werkplek van één persoon is `planWerkplek` in
 `werkplek.ts`: het register (versie 1, met een brain en een persona, gekoppeld met ontvanger `prive`) en per
-repo de bestanden uit de sjablonen; een extra brain is `planBrain`, de controle `controleerRegister`.
+repo de bestanden uit de sjablonen, met in de brain een persoonsnotitie voor de eigenaar (`people/<naam als
+slug>.md`), gelinkt met elke hub en omgekeerd; een extra brain is `planBrain`, de controle `controleerRegister`.
 Een brain kan **sporen** hebben (een sessie per onderwerp): per spoor een lijst hubs, of een object met
 `beschrijving`, `hubs`, `todo` (de lijsten van de to-do's van dat spoor) en `rest` (dit spoor krijgt wat bij
 geen ander hoort); `sporenVan` in `model.ts` leest beide vormen.
