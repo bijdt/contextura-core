@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:contextura-core:schema:bundels:1",
+  "title": "Bundels van de brain",
+  "description": "Delen van de brain die als geheel vrijgegeven kunnen worden, en wat nooit gedeeld wordt. Gecontroleerd door de lint (controleer); gelezen door graafUit.",
+  "type": "object",
+  "properties": {
+    "bundels": {
+      "type": "array",
+      "description": "In volgorde: bij meer passende regels is de eerste de hoofdbundel",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "titel": {
+            "type": "string",
+            "minLength": 1
+          },
+          "soort": {
+            "enum": [
+              "toepassing",
+              "kennispakket",
+              "persona",
+              "intern"
+            ]
+          },
+          "project": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Voor een toepassing: naam van het project (projects/<project>.md); een notitie die ernaar linkt, hoort erbij"
+          },
+          "kleur": {
+            "type": "object",
+            "properties": {
+              "licht": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "donker": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              }
+            },
+            "required": [
+              "licht",
+              "donker"
+            ],
+            "additionalProperties": false
+          },
+          "regels": {
+            "type": "object",
+            "description": "Een notitie hoort erbij als één regel past: map (pad-voorvoegsel), area (veld area, of de hub zelf), tag of name",
+            "properties": {
+              "mappen": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "areas": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "slug",
+          "titel",
+          "soort",
+          "kleur"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "nooit": {
+      "type": "object",
+      "properties": {
+        "kleur": {
+          "type": "object",
+          "properties": {
+            "licht": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            },
+            "donker": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            }
+          },
+          "required": [
+            "licht",
+            "donker"
+          ],
+          "additionalProperties": false
+        },
+        "regels": {
+          "type": "object",
+          "description": "Een notitie hoort erbij als één regel past: map (pad-voorvoegsel), area (veld area, of de hub zelf), tag of name",
+          "properties": {
+            "mappen": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "areas": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "notities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "description": "Wat nooit gedeeld wordt; gaat altijd voor"
+    },
+    "geen": {
+      "type": "object",
+      "properties": {
+        "kleur": {
+          "type": "object",
+          "properties": {
+            "licht": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            },
+            "donker": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            }
+          },
+          "required": [
+            "licht",
+            "donker"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "description": "Niet ingedeeld"
+    }
+  },
+  "required": [
+    "bundels"
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:contextura-core:schema:metingen:1",
+  "title": "Meetgetallen van de brain",
+  "description": "Een rij per onderhoudsronde (meet): hoe groot de brain is en wat op schaal fout kan gaan. Gecontroleerd door de lint (controleerMetingen).",
+  "type": "object",
+  "properties": {
+    "metingen": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "datum": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+          "notities": { "type": "number", "minimum": 0, "description": "Notities buiten persona/" },
+          "raw": { "type": "number", "minimum": 0 },
+          "archief": { "type": "number", "minimum": 0 },
+          "wezen": { "type": "number", "minimum": 0, "description": "topics en people zonder inkomende link" },
+          "lang": { "type": "number", "minimum": 0, "description": "Notities vanaf 400 regels" },
+          "gelijkend": { "type": "number", "minimum": 0, "description": "Paren met (bijna) dezelfde naam in dezelfde map" },
+          "zonderDescription": { "type": "number", "minimum": 0 },
+          "mediaanLinks": { "type": "number", "minimum": 0, "description": "Mediaan van het aantal uitgaande links per notitie" }
+        },
+        "required": ["datum", "notities", "raw", "archief", "wezen", "lang", "gelijkend", "zonderDescription", "mediaanLinks"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["metingen"],
+  "additionalProperties": false
+}

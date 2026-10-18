@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:contextura-core:schema:brain:1",
+  "title": "Instellingen van de brain",
+  "description": "De taal van de brain. Zonder bestand Nederlands. Mappen, velden en hun waarden zijn in elke taal dezelfde; de inhoud, de hubnamen, de skills (bij de sync) en de meldingen van de lint volgen de taal. Gecontroleerd door de lint (controleerBrainJson).",
+  "type": "object",
+  "properties": {
+    "taal": {
+      "enum": [
+        "nl",
+        "en"
+      ]
+    }
+  },
+  "required": [
+    "taal"
+  ],
+  "additionalProperties": false
+}

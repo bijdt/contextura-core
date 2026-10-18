@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:contextura-core:schema:app:1",
+  "title": "Contextura app-manifest: app.json in de repo van een project",
+  "description": "Per app titel, kleur, icoon, de node-opdracht die de tegel levert, wat ze nodig heeft en of ze via de brain in te stellen is (apps/<id>.yaml). Een product mag eigen velden toevoegen (bv. een galerij); de lezer (leesManifest in app.ts) laat ze weg.",
+  "type": "object",
+  "required": [
+    "versie",
+    "apps"
+  ],
+  "properties": {
+    "versie": {
+      "const": 1
+    },
+    "apps": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "titel",
+          "runtime",
+          "opdracht"
+        ],
+        "properties": {
+          "titel": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "beschrijving": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "kleur": {
+            "enum": [
+              "amber",
+              "teal",
+              "groen",
+              "indigo",
+              "blauw",
+              "roos",
+              "fuchsia",
+              "oranje",
+              "paars",
+              "grijs"
+            ]
+          },
+          "icoon": {
+            "enum": [
+              "bliksem",
+              "huis",
+              "blad",
+              "grafiek",
+              "document",
+              "fiets",
+              "label",
+              "ster",
+              "vierkant"
+            ]
+          },
+          "runtime": {
+            "const": "node"
+          },
+          "opdracht": {
+            "type": "array",
+            "minItems": 1,
+            "prefixItems": [
+              {
+                "const": "node"
+              }
+            ],
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "pagina": {
+            "type": "array",
+            "minItems": 1,
+            "prefixItems": [
+              {
+                "const": "node"
+              }
+            ],
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "nodig": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "connector",
+                "env"
+              ],
+              "properties": {
+                "connector": {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                "env": {
+                  "type": "object",
+                  "required": [
+                    "url",
+                    "token"
+                  ],
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "pattern": "^[A-Z][A-Z0-9_]{1,40}$",
+                      "not": {
+                        "enum": [
+                          "PATH",
+                          "HOME",
+                          "APP_DATA",
+                          "NODE_OPTIONS",
+                          "NODE_ENV",
+                          "LD_PRELOAD"
+                        ]
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "pattern": "^[A-Z][A-Z0-9_]{1,40}$",
+                      "not": {
+                        "enum": [
+                          "PATH",
+                          "HOME",
+                          "APP_DATA",
+                          "NODE_OPTIONS",
+                          "NODE_ENV",
+                          "LD_PRELOAD"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "brain": {
+            "type": "object",
+            "required": [
+              "bestanden",
+              "env"
+            ],
+            "properties": {
+              "bestanden": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[\\w-]+(/[\\w.-]+)*\\.(md|yaml|yml|json)$"
+                }
+              },
+              "schrijven": {
+                "type": "boolean"
+              },
+              "env": {
+                "type": "string",
+                "pattern": "^[A-Z][A-Z0-9_]{1,40}$",
+                "not": {
+                  "enum": [
+                    "PATH",
+                    "HOME",
+                    "APP_DATA",
+                    "NODE_OPTIONS",
+                    "NODE_ENV",
+                    "LD_PRELOAD"
+                  ]
+                }
+              }
+            }
+          },
+          "config": {
+            "type": "object",
+            "required": [
+              "pad",
+              "wijzigen"
+            ],
+            "properties": {
+              "pad": {
+                "type": "string",
+                "pattern": "^apps/[\\w-]+\\.ya?ml$"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 60
+              },
+              "wijzigen": {
+                "const": "eigenaar"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:contextura-core:schema:documentatie:1",
+  "title": "Register van de documentatie",
+  "description": "documentatie.json in de root van de brain: welke documenten er zijn (artifacts en documenten in repo's), wie ze bijhoudt, waaruit ze volgen en hoe ze opnieuw gemaakt worden. Wat er wanneer gepubliceerd is, staat niet hier maar in de lokale toestand van de werkplek. Gecontroleerd door de opdracht documentatie van de werkplek.",
+  "type": "object",
+  "required": ["versie", "documenten"],
+  "additionalProperties": false,
+  "properties": {
+    "versie": { "const": 1 },
+    "documenten": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "titel", "waar", "eigenaar", "soort", "bronnen"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Korte naam, uniek." },
+          "titel": { "type": "string", "minLength": 1 },
+          "waar": { "type": "string", "description": "De URL van het artifact, of <repo>:<pad> voor een document in een repo." },
+          "eigenaar": { "type": "string", "description": "Het project dat het document bijhoudt (een naam uit projecten.json)." },
+          "soort": { "enum": ["gegenereerd", "handwerk"] },
+          "opdracht": { "type": "string", "description": "Bij gegenereerd: de opdracht van de kern die het maakt (bv. kosten, kaart)." },
+          "levend": { "type": "boolean", "description": "Ja (standaard): dezelfde URL bij elke publicatie, geen datum in de titel, wel 'stand van'; achterhaald als een bron nieuwer is. Nee: een momentopname, nooit achterhaald." },
+          "bronnen": {
+            "type": "array",
+            "description": "<repo>:<pad> (een bestand of map in git van dat project), register (projecten.json) of data:<pad> (onder de datamap van de werkplek).",
+            "items": { "type": "string", "pattern": "^(register|data:.+|[a-z0-9][a-z0-9-]*:.+)$" }
+          },
+          "notitie": { "type": "string" }
+        }
+      }
+    }
+  }
+}

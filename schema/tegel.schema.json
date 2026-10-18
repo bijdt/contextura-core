@@ -1,0 +1,797 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:contextura-core:schema:tegel:1",
+  "title": "Contextura tegel: wat de opdracht van een project op stdout levert",
+  "description": "De lezer (leesTegel in tegel.ts) is mild: onbekende velden vallen weg, te lange teksten en lijsten worden ingekort, een ongeldig blok verdwijnt. Dit schema beschrijft wat een tegel hoort te leveren.",
+  "type": "object",
+  "required": [
+    "titel",
+    "samenvatting"
+  ],
+  "properties": {
+    "titel": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "kleur": {
+      "enum": [
+        "amber",
+        "teal",
+        "groen",
+        "indigo",
+        "blauw",
+        "roos",
+        "fuchsia",
+        "oranje",
+        "paars",
+        "grijs"
+      ]
+    },
+    "icoon": {
+      "enum": [
+        "bliksem",
+        "huis",
+        "blad",
+        "grafiek",
+        "document",
+        "fiets",
+        "label",
+        "ster",
+        "vierkant"
+      ]
+    },
+    "link": {
+      "type": "string"
+    },
+    "beeld": {
+      "type": "string"
+    },
+    "samenvatting": {
+      "type": "object",
+      "required": [
+        "tekst"
+      ],
+      "properties": {
+        "tekst": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "sub": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "toestand": {
+          "enum": [
+            "goed",
+            "let-op",
+            "actie",
+            "neutraal"
+          ]
+        }
+      }
+    },
+    "acties": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "bevestig": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "gevaar": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "blokken": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "toestand"
+            ],
+            "properties": {
+              "soort": {
+                "const": "status"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "toestand": {
+                "enum": [
+                  "goed",
+                  "let-op",
+                  "actie",
+                  "neutraal"
+                ]
+              },
+              "tekst": {
+                "type": "string",
+                "maxLength": 300
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "items"
+            ],
+            "properties": {
+              "soort": {
+                "const": "getallen"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "waarde"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "waarde": {
+                      "type": "string",
+                      "maxLength": 80
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "waarden"
+            ],
+            "properties": {
+              "soort": {
+                "const": "staven"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "waarden": {
+                "type": "array",
+                "maxItems": 96,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "labels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "nu": {
+                "type": "number"
+              },
+              "accent": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "legende": {
+                "type": "string",
+                "maxLength": 300
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "waarde",
+              "max"
+            ],
+            "properties": {
+              "soort": {
+                "const": "meter"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "waarde": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "tekst": {
+                "type": "string",
+                "maxLength": 300
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "waarde",
+              "max"
+            ],
+            "properties": {
+              "soort": {
+                "const": "voortgang"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "waarde": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "tekst": {
+                "type": "string",
+                "maxLength": 300
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "items"
+            ],
+            "properties": {
+              "soort": {
+                "const": "lijst"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "tekst"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "tekst": {
+                      "type": "string",
+                      "maxLength": 300
+                    },
+                    "sub": {
+                      "type": "string",
+                      "maxLength": 300
+                    },
+                    "waarde": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "balk": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "nadruk": {
+                      "type": "boolean"
+                    },
+                    "klaar": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              },
+              "afvinken": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "toevoegen": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "acties": {
+                "type": "array",
+                "maxItems": 8,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "label"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "bevestig": {
+                      "type": "string",
+                      "maxLength": 300
+                    },
+                    "gevaar": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "vakken"
+            ],
+            "properties": {
+              "soort": {
+                "const": "raster"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "vakken": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "kleur"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "kleur": {
+                      "enum": [
+                        "amber",
+                        "teal",
+                        "groen",
+                        "indigo",
+                        "blauw",
+                        "roos",
+                        "fuchsia",
+                        "oranje",
+                        "paars",
+                        "grijs"
+                      ]
+                    }
+                  }
+                }
+              },
+              "legende": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "kleur"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "kleur": {
+                      "enum": [
+                        "amber",
+                        "teal",
+                        "groen",
+                        "indigo",
+                        "blauw",
+                        "roos",
+                        "fuchsia",
+                        "oranje",
+                        "paars",
+                        "grijs"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "items"
+            ],
+            "properties": {
+              "soort": {
+                "const": "chips"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {
+                  "type": "string",
+                  "maxLength": 80
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "viewBox",
+              "vormen"
+            ],
+            "properties": {
+              "soort": {
+                "const": "kaart"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "viewBox": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "vormen": {
+                "type": "array",
+                "maxItems": 300,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "vorm",
+                    "rol"
+                  ],
+                  "properties": {
+                    "vorm": {
+                      "enum": [
+                        "vlak",
+                        "lijn",
+                        "cirkel"
+                      ]
+                    },
+                    "rol": {
+                      "enum": [
+                        "perceel",
+                        "haag",
+                        "muur",
+                        "gebouw",
+                        "water",
+                        "kruin",
+                        "stam",
+                        "pad",
+                        "bed",
+                        "opening",
+                        "compost",
+                        "lijn"
+                      ]
+                    },
+                    "punten": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "items": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ],
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "midden": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "straal": {
+                      "type": "number"
+                    },
+                    "id": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "kleur": {
+                      "enum": [
+                        "amber",
+                        "teal",
+                        "groen",
+                        "indigo",
+                        "blauw",
+                        "roos",
+                        "fuchsia",
+                        "oranje",
+                        "paars",
+                        "grijs"
+                      ]
+                    },
+                    "tekst": {
+                      "type": "string",
+                      "maxLength": 300
+                    }
+                  }
+                }
+              },
+              "labels": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "x",
+                    "y",
+                    "tekst"
+                  ],
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "tekst": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "klein": {
+                      "type": "boolean"
+                    },
+                    "max": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "weken": {
+                "type": "array",
+                "maxItems": 26,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "vakken"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "vakken": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "kleur": {
+                            "enum": [
+                              "amber",
+                              "teal",
+                              "groen",
+                              "indigo",
+                              "blauw",
+                              "roos",
+                              "fuchsia",
+                              "oranje",
+                              "paars",
+                              "grijs"
+                            ]
+                          },
+                          "tekst": {
+                            "type": "string",
+                            "maxLength": 300
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "nu": {
+                "type": "number"
+              },
+              "legende": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "kleur"
+                  ],
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "kleur": {
+                      "enum": [
+                        "amber",
+                        "teal",
+                        "groen",
+                        "indigo",
+                        "blauw",
+                        "roos",
+                        "fuchsia",
+                        "oranje",
+                        "paars",
+                        "grijs"
+                      ]
+                    }
+                  }
+                }
+              },
+              "noord": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "tekst",
+              "acties"
+            ],
+            "properties": {
+              "soort": {
+                "const": "vraag"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "tekst": {
+                "type": "string",
+                "maxLength": 300
+              },
+              "voorstel": {
+                "type": "string",
+                "maxLength": 300
+              },
+              "acties": {
+                "type": "array",
+                "maxItems": 8,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "label"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "label": {
+                      "type": "string",
+                      "maxLength": 80
+                    },
+                    "bevestig": {
+                      "type": "string",
+                      "maxLength": 300
+                    },
+                    "gevaar": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "soort",
+              "tekst"
+            ],
+            "properties": {
+              "soort": {
+                "const": "tekst"
+              },
+              "titel": {
+                "type": "string",
+                "maxLength": 80
+              },
+              "gevoelig": {
+                "type": "boolean"
+              },
+              "tekst": {
+                "type": "string",
+                "maxLength": 300
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
