@@ -13,14 +13,16 @@ programma's dezelfde brain op dezelfde manier lezen, controleren en delen.
 
 | Pad | Wat |
 |---|---|
-| [`specificatie.md`](specificatie.md) | De specificatie (versie 0.6, concept) |
+| [`specificatie.md`](specificatie.md) | De specificatie (versie 0.9, concept) |
 | [`schema/`](schema/) | JSON Schema's voor de bestanden die de specificatie beschrijft |
+| [`conformiteit/`](conformiteit/) | De conformiteitstests: gevallen als gegevens (invoer en verwacht resultaat), los van een taal |
 
 ## Status
 
-Concept. Tot versie 1.0 kan het formaat nog veranderen; elke versie staat bovenaan de specificatie. De
-referentie-implementatie (pure functies in TypeScript, zonder bestanden of processen) en de
-conformiteitstests verschijnen in deze repo met versie 1.0.
+Concept. Tot versie 1.0 kan het formaat nog veranderen; elke versie staat bovenaan de specificatie. Een
+implementatie is conform als ze voor elk geval in `conformiteit/` hetzelfde resultaat geeft. De
+referentie-implementatie (pure functies in TypeScript, zonder bestanden of processen, met de uitvoerder van de
+gevallen) verschijnt in deze repo met versie 1.0.
 
 De specificatie is in het Nederlands.
 
@@ -28,7 +30,7 @@ De specificatie is in het Nederlands.
 
 - De tekst van de specificatie: [CC BY 4.0](LICENSE) (vrij te gebruiken, te implementeren en te citeren,
   met naamsvermelding).
-- De schema's in `schema/`: [MIT](schema/LICENSE), zodat een implementatie ze zonder voorwaarden kan
-  inbouwen.
+- De schema's in `schema/` en de gevallen in `conformiteit/`: MIT ([schema/LICENSE](schema/LICENSE),
+  [conformiteit/LICENSE](conformiteit/LICENSE)), zodat een implementatie ze zonder voorwaarden kan inbouwen.
 
 © 2026 BIJDT
