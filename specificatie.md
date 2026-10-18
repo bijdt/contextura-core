@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.11 (concept), 2026-10-18. Hoort bij contextura-core 0.15.0. Tekst onder CC BY 4.0; de
+Versie 0.12 (concept), 2026-10-18. Hoort bij contextura-core 0.16.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -96,6 +96,8 @@ Schema: `note.schema.json`.
   `.gitkeep`) dat in geen frontmatter en in geen tekst als `attachments/...` voorkomt, is een melding.
 - Vanaf 400 regels is een notitie "lang" (melding). Twee notities in dezelfde map met een gelijke of
   bijna gelijke naam of alias zijn een melding (zie `gelijkendeNamen`).
+- De titel (de eerste kop `#`) is gewone taal met een hoofdletter; de slug blijft in `name` en de
+  bestandsnaam. Een titel die gelijk is aan de slug, is een melding (behalve in het archief).
 
 ## 5. Lezers
 

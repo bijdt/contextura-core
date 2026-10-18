@@ -21,6 +21,12 @@
         "tekst": "missing (what it contains and the date)"
       },
       {
+        "pad": "notes/dak.md",
+        "soort": "vorm",
+        "ernst": "melding",
+        "tekst": "title is the slug: write a plain title with a capital letter (the slug stays in name: and the file name)"
+      },
+      {
         "pad": "notes/kaal.md",
         "soort": "vorm",
         "ernst": "fout",

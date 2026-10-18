@@ -21,6 +21,12 @@
         "tekst": "ontbreekt (wat erin zit en de datum)"
       },
       {
+        "pad": "notes/dak.md",
+        "soort": "vorm",
+        "ernst": "melding",
+        "tekst": "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      },
+      {
         "pad": "notes/kaal.md",
         "soort": "vorm",
         "ernst": "fout",

@@ -10,11 +10,18 @@
     }
   },
   "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    },
     "topics/later.md": {
       "fouten": [
         "updated: 2999-01-01 ligt in de toekomst"
       ],
       "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)",
         "wees: geen enkele notitie linkt hierheen"
       ]
     }

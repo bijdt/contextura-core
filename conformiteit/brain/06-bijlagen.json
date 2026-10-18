@@ -14,7 +14,9 @@
       "fouten": [
         "attachments: attachments/dak/foto.jpg bestaat niet"
       ],
-      "meldingen": []
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
     },
     "attachments": {
       "fouten": [],

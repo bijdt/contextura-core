@@ -8,5 +8,12 @@
       "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# dak\n\nZie [[huis]].\n"
     }
   },
-  "verwacht": {}
+  "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    }
+  }
 }

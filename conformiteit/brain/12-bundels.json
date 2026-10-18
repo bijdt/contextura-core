@@ -10,6 +10,12 @@
     }
   },
   "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    },
     "bundels.json": {
       "fouten": [
         "bundel 'x': soort 'raar' is ongeldig; toegestaan: toepassing, kennispakket, persona, intern",

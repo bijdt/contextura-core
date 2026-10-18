@@ -10,6 +10,12 @@
     }
   },
   "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    },
     "notes/kaal.md": {
       "fouten": [
         "verplicht veld ontbreekt: type",

@@ -13,7 +13,9 @@
       "fouten": [
         "dode link [[schoorsteen]]"
       ],
-      "meldingen": []
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
     }
   }
 }

@@ -10,6 +10,12 @@
     }
   },
   "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    },
     "lezers.json": {
       "fouten": [
         "hubs: 'tuin' is geen hub (areas/tuin.md met tag 'area')"

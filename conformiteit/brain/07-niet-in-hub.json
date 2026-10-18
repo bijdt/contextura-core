@@ -10,11 +10,19 @@
     }
   },
   "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    },
     "notes/goot.md": {
       "fouten": [
         "staat niet in de hub areas/huis.md (voeg [[goot]] toe)"
       ],
-      "meldingen": []
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
     }
   }
 }

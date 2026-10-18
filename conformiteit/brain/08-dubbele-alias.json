@@ -11,11 +11,18 @@
     }
   },
   "verwacht": {
+    "notes/dak.md": {
+      "fouten": [],
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
+    },
     "topics/zink.md": {
       "fouten": [
         "alias 'metaal' staat ook bij topics/lood.md"
       ],
       "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)",
         "wees: geen enkele notitie linkt hierheen"
       ]
     },
@@ -24,6 +31,7 @@
         "alias 'metaal' staat ook bij topics/zink.md"
       ],
       "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)",
         "wees: geen enkele notitie linkt hierheen",
         "lijkt op [[zink]] (topics/zink.md): aanvullen of samenvoegen, of een alias"
       ]

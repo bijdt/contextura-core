@@ -14,13 +14,17 @@
       "fouten": [
         "name 'dak' komt ook voor als topics/dak.md"
       ],
-      "meldingen": []
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
     },
     "topics/dak.md": {
       "fouten": [
         "name 'dak' komt ook voor als notes/dak.md"
       ],
-      "meldingen": []
+      "meldingen": [
+        "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      ]
     }
   }
 }

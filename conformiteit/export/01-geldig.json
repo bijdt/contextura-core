@@ -11,7 +11,14 @@
   },
   "verwacht": {
     "geldig": true,
-    "bevindingen": [],
+    "bevindingen": [
+      {
+        "pad": "notes/dak.md",
+        "soort": "vorm",
+        "ernst": "melding",
+        "tekst": "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      }
+    ],
     "aantallen": {
       "notities": 3,
       "bijlagen": 0,
