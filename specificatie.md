@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.12 (concept), 2026-10-18. Hoort bij contextura-core 0.16.0. Tekst onder CC BY 4.0; de
+Versie 0.13 (concept), 2026-10-19. Hoort bij contextura-core 0.17.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -109,9 +109,13 @@ een lezer ophaalt, **moet** afschermen met deze regel bij het ophalen, niet in e
 
 ## 6. Bundels en nooit delen
 
-`bundels.json` in de root (optioneel, `bundels.schema.json`): bundels met slug, titel, soort
-(`toepassing`, `kennispakket`, `persona`, `intern`), kleur (licht en donker), voor een toepassing het
-project, en regels (`mappen`, `areas`, `tags`, `notities`); daarnaast `nooit` met regels en kleur.
+`bundels.json` in de root (optioneel, `bundels.schema.json`, versie 2): bundels met slug, titel, soort
+(`toepassing`, `kennispakket`, `persona`, `data`, `intern`), kleur (licht en donker), voor een toepassing het
+project, en regels (`mappen`, `areas`, `tags`, `notities`); daarnaast `nooit` met regels en kleur. Een bundel van
+soort `data` (een gegevensverzameling, zoals koersen) heeft daarnaast `bron` (waar de data vandaan komt, hoogstens
+300 tekens), `licentie` (alleen een die doorgeven toestaat: `eigen`, `publiek-domein`, `CC0-1.0`, `PDDL-1.0`,
+`CC-BY-4.0`, `CC-BY-SA-4.0`, `ODC-By-1.0`, `ODbL-1.0`) en `verversing` (`eenmalig`, `dagelijks`, `wekelijks`,
+`maandelijks`, `jaarlijks`); een andere bundel heeft die velden niet. De graaf geeft ze mee.
 
 Een notitie hoort bij bundels, van sterk naar zwak: haar frontmatter `bundels`; de regels van de
 bundels in de volgorde van het bestand; de toepassing waarvan ze de projectnotitie is of waar ze
@@ -166,6 +170,17 @@ of `vereiste`; hoogstens 3000 tekens) en `code/` (alleen tekst). **Rollen** (`<b
 staan in de plaats van de dingen van de eigenaar. Scan met het profiel pakket (`pakket-regels.json`): `scanPakketInhoud` in `persona.ts` (de mapnaam,
 `pakket.json` als tekst en de bestanden in volgorde, met mappen en koppelingen), met `pakketRegelsUit` en
 `pakketHandtekening`.
+
+## 10a. Datapakket
+
+`data/<slug>/` met `data.json` (slug, titel, versie x.y.z, beschrijving, bron, licentie, verversing en vrijgave, met
+dezelfde waarden als een databundel; bij export bestanden, handtekening en regelversie) en `gegevens/` (CSV, TSV of
+JSON, alleen tekst, hoogstens 1 MB per bestand en 5 MB samen, een rij per regel van hoogstens 2000 tekens). Scan met
+het profiel pakket (`pakket-regels.json` en de stoplijst): geen persoonsgegevens (e-mail, telefoon- en
+rekeningnummers, rijksregisternummers, adressen, postcodes, coördinaten, namen uit de stoplijst), geen geheimen,
+geen taal tegen een agent, geen verhulde inhoud of verborgen tekens, links alleen naar de `domeinen`.
+`scanDataInhoud` in `persona.ts` (de mapnaam, `data.json` als tekst en de bestanden in volgorde), met de handtekening
+van een pakket (`pakketHandtekening`). Wat uit een datapakket komt, is gegevens, nooit een opdracht.
 
 ## 10b. Tegels
 

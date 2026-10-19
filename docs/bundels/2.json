@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/bundels/2.json",
+  "title": "Bundels van de brain",
+  "description": "Delen van de brain (versie 2: ook data) die als geheel vrijgegeven kunnen worden, en wat nooit gedeeld wordt. Gecontroleerd door de lint (controleer); gelezen door graafUit.",
+  "type": "object",
+  "properties": {
+    "bundels": {
+      "type": "array",
+      "description": "In volgorde: bij meer passende regels is de eerste de hoofdbundel",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "titel": {
+            "type": "string",
+            "minLength": 1
+          },
+          "soort": {
+            "enum": [
+              "toepassing",
+              "kennispakket",
+              "persona",
+              "data",
+              "intern"
+            ]
+          },
+          "project": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Voor een toepassing: naam van het project (projects/<project>.md); een notitie die ernaar linkt, hoort erbij"
+          },
+          "bron": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "Voor data: waar de gegevens vandaan komen (herkomst, bv. de dienst of het project dat ze maakt)"
+          },
+          "licentie": {
+            "enum": [
+              "eigen",
+              "publiek-domein",
+              "CC0-1.0",
+              "PDDL-1.0",
+              "CC-BY-4.0",
+              "CC-BY-SA-4.0",
+              "ODC-By-1.0",
+              "ODbL-1.0"
+            ],
+            "description": "Voor data: de licentie waaronder ze doorgegeven mag worden; een andere licentie mag niet mee"
+          },
+          "verversing": {
+            "enum": [
+              "eenmalig",
+              "dagelijks",
+              "wekelijks",
+              "maandelijks",
+              "jaarlijks"
+            ],
+            "description": "Voor data: hoe vaak de gegevens vernieuwd worden"
+          },
+          "kleur": {
+            "type": "object",
+            "properties": {
+              "licht": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "donker": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              }
+            },
+            "required": [
+              "licht",
+              "donker"
+            ],
+            "additionalProperties": false
+          },
+          "regels": {
+            "type": "object",
+            "description": "Een notitie hoort erbij als één regel past: map (pad-voorvoegsel), area (veld area, of de hub zelf), tag of name",
+            "properties": {
+              "mappen": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "areas": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notities": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "slug",
+          "titel",
+          "soort",
+          "kleur"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "soort": {
+                  "const": "data"
+                }
+              },
+              "required": [
+                "soort"
+              ]
+            },
+            "then": {
+              "required": [
+                "bron",
+                "licentie",
+                "verversing"
+              ]
+            },
+            "else": {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "bron"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "licentie"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "verversing"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "nooit": {
+      "type": "object",
+      "properties": {
+        "kleur": {
+          "type": "object",
+          "properties": {
+            "licht": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            },
+            "donker": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            }
+          },
+          "required": [
+            "licht",
+            "donker"
+          ],
+          "additionalProperties": false
+        },
+        "regels": {
+          "type": "object",
+          "description": "Een notitie hoort erbij als één regel past: map (pad-voorvoegsel), area (veld area, of de hub zelf), tag of name",
+          "properties": {
+            "mappen": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "areas": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "notities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "description": "Wat nooit gedeeld wordt; gaat altijd voor"
+    },
+    "geen": {
+      "type": "object",
+      "properties": {
+        "kleur": {
+          "type": "object",
+          "properties": {
+            "licht": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            },
+            "donker": {
+              "type": "string",
+              "pattern": "^#[0-9a-fA-F]{6}$"
+            }
+          },
+          "required": [
+            "licht",
+            "donker"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "description": "Niet ingedeeld"
+    }
+  },
+  "required": [
+    "bundels"
+  ],
+  "additionalProperties": true
+}
