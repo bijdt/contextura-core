@@ -1,123 +1,114 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.contextura.io/note/2.json",
-  "title": "Notitie-frontmatter",
-  "description": "Frontmatter-contract voor elke .md buiten inbox/",
+  "$id": "https://schema.contextura.io/note/3.json",
+  "title": "Note frontmatter",
+  "description": "Frontmatter contract for every .md outside inbox/. Until the last 0.x release a reader also accepts the Dutch names of note/2 (with a warning); see the specification, Migration from 0.14.",
   "type": "object",
   "properties": {
     "name": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-      "description": "Slug, gelijk aan de bestandsnaam zonder .md"
+      "description": "Slug, equal to the file name without .md"
     },
     "description": {
       "type": "string",
       "minLength": 1,
       "maxLength": 250,
-      "description": "Eén regel, hoogstens 250 tekens. Verplicht (de lint meldt het tot de brain alle notities aangevuld heeft, daarna een fout)"
+      "description": "One line, at most 250 characters. Required (the lint warns until the brain has filled in all notes, an error after that)"
     },
     "type": {
-      "enum": [
-        "note",
-        "decision",
-        "reference"
-      ]
+      "enum": ["note", "decision", "reference"]
     },
     "source": {
-      "enum": [
-        "own",
-        "client",
-        "public"
-      ]
+      "enum": ["own", "client", "public"]
     },
     "status": {
-      "enum": [
-        "raw",
-        "distilled",
-        "archief"
-      ],
-      "description": "archief: blijft vindbaar, de chat en de tegels negeren het tenzij je erom vraagt; hoeft niet meer in de hub"
+      "enum": ["raw", "distilled", "archived"],
+      "description": "archived: stays findable, the chat and the tiles ignore it unless you ask for it; need not be in the hub any more"
     },
     "updated": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-      "description": "Datum in YYYY-MM-DD"
+      "description": "Date in YYYY-MM-DD"
     },
     "aliases": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "attachments": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Paths of the originals in attachments/<name>/; each must exist"
     },
     "area": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-      "description": "Slug van een hubnotitie in areas/ (areas/<area>.md bestaat)"
+      "description": "Slug of a hub note in areas/ (areas/<area>.md exists)"
     },
     "scope": {
-      "enum": [
-        "prive",
-        "werk",
-        "persona"
-      ],
-      "description": "Optioneel. persona: alleen in persona/, ingelezen uit de persona-repo door Persona-Sync; nooit met de hand"
+      "enum": ["private", "work", "persona"],
+      "description": "Optional. persona: only in persona/, imported from the persona repo by Persona-Sync; never by hand"
     },
-    "ervaring": {
-      "enum": [
-        "opdracht",
-        "werkgever",
-        "opleiding",
-        "thesis",
-        "cursus",
-        "certificaat"
-      ],
-      "description": "Optioneel. De notitie gaat over iets waaruit de eigenaar leerde; wat, staat onder een kop '## Wat ik leerde' (anders vraagt Voed je twin het)"
+    "idea": {
+      "enum": ["new", "exploring", "project", "parked", "rejected"],
+      "description": "With ideas: where the idea stands"
     },
-    "bundels": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-      },
-      "description": "Optioneel. Slugs uit bundels.json; de eerste is de hoofdbundel (kleur op de kaart). Wint van de regels in bundels.json"
+    "experience": {
+      "enum": ["engagement", "employer", "education", "thesis", "course", "certificate"],
+      "description": "Optional. The note is about something the owner learned from; what, is under a heading '## What I learned' (otherwise Feed your twin asks)"
     },
-    "delen": {
-      "enum": [
-        "nooit"
-      ],
-      "description": "Optioneel. nooit: nooit delen, ook niet in een bundel; gaat altijd voor (source: client is altijd nooit)"
+    "original": {
+      "enum": ["none"],
+      "description": "Optional. none: there is no original to upload (Feed your twin stops asking)"
     },
-    "herzien": {
+    "kind": {
+      "type": "string",
+      "description": "Optional. The kind of a document or project, in the owner's words (contract, policy, plan, …)"
+    },
+    "date": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-      "description": "Optioneel. Datum in YYYY-MM-DD waarop de inhoud bewust nagekeken is; niet in de toekomst"
+      "description": "Optional. The date of a document"
     },
-    "vervangen-door": {
+    "valid-until": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Optional. Until when a document is valid"
+    },
+    "bundles": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+      "description": "Optional. Slugs from bundles.json; the first is the main bundle (color on the map). Wins over the rules in bundles.json"
+    },
+    "share": {
+      "enum": ["never"],
+      "description": "Optional. never: never share, not in a bundle either; always wins (source: client is always never)"
+    },
+    "reviewed": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Optional. Date in YYYY-MM-DD on which the content was checked on purpose; not in the future"
+    },
+    "superseded-by": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-      "description": "Optioneel. name van de notitie die deze als geheel vervangt (moet bestaan); de chat volgt de verwijzing"
+      "description": "Optional. name of the note that replaces this one as a whole (must exist); the chat follows the reference"
     },
-    "bewaren-tot": {
+    "keep-until": {
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
-      "description": "Optioneel. Tot wanneer iets dat alleen interessant is bewaard blijft (standaard zes maanden); de onderhoudsronde legt het daarna voor"
+      "description": "Optional. Until when something that is only interesting is kept (default six months); the maintenance round presents it afterwards"
     },
-    "lezers": {
+    "readers": {
       "type": "array",
-      "items": {
-        "type": "string",
-        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-      },
-      "description": "Optioneel. Wie naast de eigenaar deze notitie mag lezen (ids uit lezers.json); overschrijft de standaard van de hub; leeg is alleen de eigenaar. Niet bij source: client"
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+      "description": "Optional. Who besides the owner may read this note (ids from readers.json); overrides the default of the hub; empty is the owner only. Not with source: client"
     }
   },
-  "required": [
-    "name",
-    "description",
-    "type",
-    "source",
-    "status",
-    "updated"
-  ],
+  "required": ["name", "description", "type", "source", "status", "updated"],
   "additionalProperties": true
 }

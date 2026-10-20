@@ -1,0 +1,28 @@
+{
+  "description": "Data bundles: a valid one with source, license and refresh; one with a license that may not be passed on and without refresh; source on a bundle that is not data.",
+  "function": "brain.check",
+  "input": {
+    "files": {
+      "areas/areas.md": "---\nname: areas\ndescription: \"Index van de domeinen.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index, area]\n---\n\n# Domeinen\n\n- [[huis]]\n",
+      "areas/huis.md": "---\nname: huis\ndescription: \"Domein huis.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Huis\n\n- [[dak]]\n",
+      "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# dak\n\nZie [[huis]].\n",
+      "bundles.json": "{\n  \"bundles\": [\n    {\n      \"slug\": \"koersen\",\n      \"title\": \"Koersen\",\n      \"kind\": \"data\",\n      \"color\": {\n        \"light\": \"#2f6fb0\",\n        \"dark\": \"#7fb3e8\"\n      },\n      \"source\": \"eigen export van de koersuitslagen\",\n      \"license\": \"own\",\n      \"refresh\": \"weekly\",\n      \"rules\": {\n        \"notes\": [\n          \"dak\"\n        ]\n      }\n    },\n    {\n      \"slug\": \"beurs\",\n      \"title\": \"Beurs\",\n      \"kind\": \"data\",\n      \"color\": {\n        \"light\": \"#2f8f5b\",\n        \"dark\": \"#7fd1a3\"\n      },\n      \"source\": \"een website\",\n      \"license\": \"alle rechten voorbehouden\"\n    },\n    {\n      \"slug\": \"huis\",\n      \"title\": \"Huis\",\n      \"kind\": \"internal\",\n      \"color\": {\n        \"light\": \"#8a6d3b\",\n        \"dark\": \"#d9b77a\"\n      },\n      \"source\": \"ergens\"\n    }\n  ]\n}\n"
+    }
+  },
+  "expected": {
+    "notes/dak.md": {
+      "errors": [],
+      "warnings": [
+        "title is the slug: write a plain title with a capital letter (the slug stays in name: and the file name)"
+      ]
+    },
+    "bundles.json": {
+      "errors": [
+        "bundle 'beurs': license 'alle rechten voorbehouden' may not be passed on; allowed: own, public-domain, CC0-1.0, PDDL-1.0, CC-BY-4.0, CC-BY-SA-4.0, ODC-By-1.0, ODbL-1.0",
+        "bundle 'beurs': refresh undefined is invalid; allowed: once, daily, weekly, monthly, yearly",
+        "bundle 'huis': source belongs only to a data bundle"
+      ],
+      "warnings": []
+    }
+  }
+}

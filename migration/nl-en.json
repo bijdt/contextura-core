@@ -1,0 +1,649 @@
+{
+  "$comment": "The translation table of contextura-core 0.15: every Dutch name of the format (0.14 and earlier) and its English name. Readers accept the old names until the last 0.x release, with a warning; the migration (migrateBrain) renames them. Keys are old names, values new names. Values under 'values' are keyed by the new (English) key they belong to.",
+  "version": 1,
+  "files": {
+    "lezers.json": "readers.json",
+    "bundels.json": "bundles.json",
+    "metingen.json": "metrics.json",
+    "documentatie.json": "documentation.json",
+    "projecten.json": "projects.json",
+    "werkplekken.json": "workspaces.json",
+    "tegel.json": "tile.json",
+    "persona-regels.json": "persona-rules.json",
+    "pakket-regels.json": "pack-rules.json"
+  },
+  "folders": {
+    "opdrachten": "requests",
+    "persona-voorstel": "persona-proposal",
+    "pakket-voorstel": "pack-proposal",
+    "pakketten": "packs",
+    "data-voorstel": "data-proposal"
+  },
+  "paths": {
+    "projects/projecten.md": "projects/projects.md",
+    "ideas/ideeen.md": "ideas/ideas.md",
+    "documents/documenten.md": "documents/documents.md",
+    "persona/werkwijze/": "persona/methods/",
+    "persona/voorkeuren/": "persona/preferences/",
+    "persona/vaardigheden/": "persona/skills/",
+    "persona/lessen/": "persona/lessons/",
+    "persona-proposal/werkwijze/": "persona-proposal/methods/",
+    "persona-proposal/voorkeuren/": "persona-proposal/preferences/",
+    "persona-proposal/vaardigheden/": "persona-proposal/skills/",
+    "persona-proposal/lessen/": "persona-proposal/lessons/"
+  },
+  "patterns": [
+    [
+      "^(packs|pack-proposal)/([^/]+)/pakket\\.json$",
+      "$1/$2/pack.json"
+    ],
+    [
+      "^(packs|pack-proposal)/([^/]+)/notities/",
+      "$1/$2/notes/"
+    ],
+    [
+      "^(data|data-proposal)/([^/]+)/gegevens/",
+      "$1/$2/files/"
+    ],
+    [
+      "^apps/([^/]+)\\.gegevens\\.yaml$",
+      "apps/$1.data.yaml"
+    ]
+  ],
+  "aliases": {
+    "projects/projects.md": "projecten",
+    "ideas/ideas.md": "ideeen",
+    "documents/documents.md": "documenten"
+  },
+  "markers": {
+    "<!-- brain:lijst begin -->": "<!-- brain:list begin -->",
+    "<!-- brain:lijst einde -->": "<!-- brain:list end -->"
+  },
+  "frontmatter": {
+    "keys": {
+      "idee": "idea",
+      "ervaring": "experience",
+      "herzien": "reviewed",
+      "bewaren-tot": "keep-until",
+      "vervangen-door": "superseded-by",
+      "bundels": "bundles",
+      "delen": "share",
+      "lezers": "readers",
+      "soort": "kind",
+      "datum": "date",
+      "geldig-tot": "valid-until",
+      "origineel": "original",
+      "categorie": "category",
+      "vrijgave": "recipients",
+      "herkomst": "origin",
+      "handtekening": "signature",
+      "regelversie": "rules-version",
+      "ingelezen": "imported",
+      "pakket": "pack"
+    },
+    "values": {
+      "status": {
+        "archief": "archived"
+      },
+      "scope": {
+        "prive": "private",
+        "werk": "work",
+        "pakket": "pack"
+      },
+      "idea": {
+        "nieuw": "new",
+        "onderzoek": "exploring",
+        "geparkeerd": "parked",
+        "verworpen": "rejected"
+      },
+      "experience": {
+        "opdracht": "engagement",
+        "werkgever": "employer",
+        "opleiding": "education",
+        "cursus": "course",
+        "certificaat": "certificate"
+      },
+      "share": {
+        "nooit": "never"
+      },
+      "original": {
+        "geen": "none"
+      },
+      "category": {
+        "werkwijze": "methods",
+        "voorkeuren": "preferences",
+        "vaardigheden": "skills",
+        "lessen": "lessons"
+      },
+      "kind": {
+        "beslisregel": "decision-rule",
+        "werkwijze": "method",
+        "afweging": "trade-off",
+        "opbouw": "structure",
+        "les": "lesson",
+        "vereiste": "requirement"
+      },
+      "recipients": {
+        "prive": "private",
+        "werk": "work",
+        "iedereen": "everyone"
+      }
+    }
+  },
+  "json": {
+    "readers.json": {
+      "keys": {
+        "lezers": "readers",
+        "naam": "name",
+        "rol": "role",
+        "standaard": "default"
+      },
+      "values": {}
+    },
+    "bundles.json": {
+      "keys": {
+        "bundels": "bundles",
+        "nooit": "never",
+        "geen": "none",
+        "titel": "title",
+        "soort": "kind",
+        "bron": "source",
+        "licentie": "license",
+        "verversing": "refresh",
+        "kleur": "color",
+        "licht": "light",
+        "donker": "dark",
+        "regels": "rules",
+        "mappen": "folders",
+        "notities": "notes"
+      },
+      "values": {
+        "kind": {
+          "toepassing": "application",
+          "kennispakket": "pack",
+          "intern": "internal"
+        },
+        "license": {
+          "eigen": "own",
+          "publiek-domein": "public-domain"
+        },
+        "refresh": {
+          "eenmalig": "once",
+          "dagelijks": "daily",
+          "wekelijks": "weekly",
+          "maandelijks": "monthly",
+          "jaarlijks": "yearly"
+        }
+      }
+    },
+    "twin.json": {
+      "keys": {
+        "versie": "version",
+        "instellingen": "settings",
+        "daglimiet": "dailyLimit",
+        "gesloten": "closed",
+        "vraag": "question",
+        "laag": "layer",
+        "domein": "domain",
+        "datum": "date",
+        "vorm": "form",
+        "bron": "source",
+        "reden": "reason",
+        "mijlpalen": "milestones",
+        "punten": "points"
+      },
+      "values": {
+        "layer": {
+          "denken": "thinking",
+          "weten": "knowing",
+          "oordelen": "judging",
+          "ritme": "rhythm"
+        },
+        "form": {
+          "dit-of-dat": "this-or-that",
+          "waar-niet-waar": "true-false",
+          "mening": "opinion",
+          "raad": "guess",
+          "gat": "gap",
+          "vertel": "tell",
+          "laad-op": "upload",
+          "los-op": "resolve"
+        },
+        "status": {
+          "beantwoord": "answered",
+          "overgeslagen": "skipped"
+        },
+        "reason": {
+          "bekend": "known",
+          "persoonlijk": "personal"
+        }
+      },
+      "prefixes": {
+        "source": {
+          "voorraad#": "pool#"
+        }
+      }
+    },
+    "metrics.json": {
+      "keys": {
+        "metingen": "metrics",
+        "datum": "date",
+        "notities": "notes",
+        "archief": "archived",
+        "wezen": "orphans",
+        "lang": "long",
+        "gelijkend": "similar",
+        "zonderDescription": "withoutDescription",
+        "mediaanLinks": "medianLinks"
+      },
+      "values": {}
+    },
+    "brain.json": {
+      "keys": {
+        "taal": "language"
+      },
+      "values": {}
+    },
+    "documentation.json": {
+      "keys": {
+        "versie": "version",
+        "documenten": "documents",
+        "titel": "title",
+        "waar": "location",
+        "eigenaar": "owner",
+        "soort": "kind",
+        "opdracht": "command",
+        "levend": "living",
+        "bronnen": "sources",
+        "notitie": "note"
+      },
+      "values": {
+        "kind": {
+          "gegenereerd": "generated",
+          "handwerk": "manual"
+        },
+        "sources": {
+          "register": "registry"
+        }
+      }
+    },
+    "projects.json": {
+      "keys": {
+        "versie": "version",
+        "eigenaar": "owner",
+        "projecten": "projects",
+        "werkplek": "workspace",
+        "werkruimteKopieen": "editorWorkspaces",
+        "partijen": "parties",
+        "geheimen": "secrets",
+        "koppelingen": "connections",
+        "hulpmiddelen": "tools",
+        "accountkoppelingen": "accountConnections",
+        "verbruik": "usage",
+        "taal": "language",
+        "naam": "name",
+        "soort": "kind",
+        "installatie": "installation",
+        "standaard": "default",
+        "leden": "members",
+        "partij": "party",
+        "rol": "role",
+        "verwijzing": "reference",
+        "laden": "load",
+        "lezen": "read",
+        "serviceaccounts": "serviceAccounts",
+        "kluis": "vault",
+        "bewaarnaam": "itemName",
+        "map": "folder",
+        "groep": "group",
+        "klant": "client",
+        "smaak": "flavor",
+        "sessie": "session",
+        "sporen": "tracks",
+        "rechten": "permissions",
+        "laag": "layer",
+        "beschrijving": "description",
+        "herkomst": "origin",
+        "bundels": "bundles",
+        "systeem": "system",
+        "waar": "where",
+        "categorie": "category",
+        "geheim": "secret",
+        "herken": "detect",
+        "domein": "domain",
+        "opdracht": "command",
+        "ontvanger": "recipient",
+        "uitsluiten": "exclude"
+      },
+      "values": {
+        "kind": {
+          "toestel": "device",
+          "dienst": "service",
+          "organisatie": "organization",
+          "persoon": "person",
+          "gezin": "household",
+          "bedrijf": "company"
+        },
+        "role": {
+          "lid": "member",
+          "lezer": "reader"
+        },
+        "group": {
+          "machinerie": "machinery",
+          "kennis": "knowledge",
+          "prive": "private",
+          "werk": "work",
+          "archief": "archived"
+        },
+        "session": {
+          "altijd": "always",
+          "op-vraag": "on-demand"
+        },
+        "permissions": {
+          "lezen": "read",
+          "schrijven": "write",
+          "lezen+schrijven": "read+write"
+        },
+        "client": {
+          "aan": "on",
+          "uit": "off"
+        },
+        "layer": {
+          "prive": "private",
+          "werk": "work",
+          "archief": "archived"
+        },
+        "scope": {
+          "prive": "private",
+          "werk": "work",
+          "archief": "archived"
+        },
+        "recipient": {
+          "prive": "private"
+        }
+      },
+      "prefixes": {
+        "*": {
+          "persoon:": "person:",
+          "gezin:": "household:",
+          "bedrijf:": "company:"
+        }
+      }
+    },
+    "tile.json": {
+      "keys": {
+        "opdracht": "command",
+        "tegel": "tile",
+        "tegels": "tiles"
+      },
+      "values": {}
+    },
+    "tile": {
+      "keys": {
+        "titel": "title",
+        "kleur": "color",
+        "icoon": "icon",
+        "beeld": "image",
+        "samenvatting": "summary",
+        "tekst": "text",
+        "toestand": "state",
+        "acties": "actions",
+        "bevestig": "confirm",
+        "gevaar": "danger",
+        "blokken": "blocks",
+        "soort": "kind",
+        "gevoelig": "sensitive",
+        "waarde": "value",
+        "waarden": "values",
+        "nu": "now",
+        "legende": "legend",
+        "balk": "bar",
+        "nadruk": "emphasis",
+        "klaar": "done",
+        "afvinken": "check",
+        "toevoegen": "add",
+        "vakken": "cells",
+        "weken": "weeks",
+        "vormen": "shapes",
+        "vorm": "shape",
+        "rol": "role",
+        "punten": "points",
+        "midden": "center",
+        "straal": "radius",
+        "klein": "small",
+        "noord": "north",
+        "voorstel": "proposal",
+        "ververst": "refreshed"
+      },
+      "values": {
+        "state": {
+          "goed": "good",
+          "let-op": "warning",
+          "actie": "action",
+          "neutraal": "neutral"
+        },
+        "kind": {
+          "getallen": "numbers",
+          "staven": "bars",
+          "voortgang": "progress",
+          "lijst": "list",
+          "raster": "grid",
+          "kaart": "map",
+          "vraag": "question",
+          "tekst": "text"
+        },
+        "shape": {
+          "vlak": "polygon",
+          "lijn": "line",
+          "cirkel": "circle"
+        },
+        "role": {
+          "perceel": "plot",
+          "haag": "hedge",
+          "muur": "wall",
+          "gebouw": "building",
+          "kruin": "crown",
+          "stam": "trunk",
+          "pad": "path",
+          "lijn": "line"
+        },
+        "color": {
+          "groen": "green",
+          "blauw": "blue",
+          "roos": "rose",
+          "oranje": "orange",
+          "paars": "purple",
+          "grijs": "gray"
+        },
+        "icon": {
+          "bliksem": "bolt",
+          "huis": "house",
+          "blad": "leaf",
+          "grafiek": "chart",
+          "fiets": "bike",
+          "ster": "star",
+          "vierkant": "square"
+        }
+      }
+    },
+    "app.json": {
+      "keys": {
+        "versie": "version",
+        "titel": "title",
+        "beschrijving": "description",
+        "kleur": "color",
+        "icoon": "icon",
+        "opdracht": "command",
+        "pagina": "page",
+        "nodig": "needs",
+        "bestanden": "files",
+        "schrijven": "write",
+        "pad": "path",
+        "wijzigen": "edit"
+      },
+      "values": {
+        "color": {
+          "groen": "green",
+          "blauw": "blue",
+          "roos": "rose",
+          "oranje": "orange",
+          "paars": "purple",
+          "grijs": "gray"
+        },
+        "icon": {
+          "bliksem": "bolt",
+          "huis": "house",
+          "blad": "leaf",
+          "grafiek": "chart",
+          "fiets": "bike",
+          "ster": "star",
+          "vierkant": "square"
+        },
+        "edit": {
+          "eigenaar": "owner"
+        }
+      }
+    },
+    "validation": {
+      "keys": {
+        "fouten": "errors",
+        "samenvatting": "summary",
+        "waarschuwingen": "warnings"
+      },
+      "values": {}
+    },
+    "kit": {
+      "keys": {
+        "bouwdoos": "kit",
+        "titel": "title",
+        "kleur": "color",
+        "beeld": "image",
+        "bron": "source",
+        "weergave": "view",
+        "acties": "actions",
+        "wie": "who",
+        "soort": "kind",
+        "pad": "path",
+        "schrijven": "write",
+        "velden": "fields",
+        "datum": "date",
+        "elke": "every",
+        "waarde": "value",
+        "eenheid": "unit"
+      },
+      "values": {
+        "kind": {
+          "eigen": "own",
+          "lijst": "list",
+          "teller": "counter",
+          "tijdlijn": "timeline",
+          "tabel": "table",
+          "grafiek": "chart"
+        },
+        "actions": {
+          "afvinken": "check",
+          "toevoegen": "add",
+          "ophogen": "increment"
+        },
+        "who": {
+          "eigenaar": "owner"
+        },
+        "color": {
+          "groen": "green",
+          "blauw": "blue",
+          "roos": "rose",
+          "oranje": "orange",
+          "paars": "purple",
+          "grijs": "gray"
+        }
+      }
+    },
+    "pack.json": {
+      "keys": {
+        "titel": "title",
+        "versie": "version",
+        "beschrijving": "description",
+        "vereisten": "requirements",
+        "rollen": "roles",
+        "vrijgave": "recipients",
+        "bestanden": "files",
+        "handtekening": "signature",
+        "regelversie": "rulesVersion",
+        "domeinen": "domains",
+        "wat": "what",
+        "toelichting": "explanation",
+        "rol": "role",
+        "betekenis": "meaning",
+        "herkomst": "origin",
+        "ingelezen": "imported"
+      },
+      "values": {
+        "recipients": {
+          "prive": "private",
+          "werk": "work",
+          "iedereen": "everyone"
+        }
+      }
+    },
+    "data.json": {
+      "keys": {
+        "titel": "title",
+        "versie": "version",
+        "beschrijving": "description",
+        "bron": "source",
+        "licentie": "license",
+        "verversing": "refresh",
+        "vrijgave": "recipients",
+        "bestanden": "files",
+        "handtekening": "signature",
+        "regelversie": "rulesVersion",
+        "herkomst": "origin",
+        "ingelezen": "imported"
+      },
+      "values": {
+        "license": {
+          "eigen": "own",
+          "publiek-domein": "public-domain"
+        },
+        "refresh": {
+          "eenmalig": "once",
+          "dagelijks": "daily",
+          "wekelijks": "weekly",
+          "maandelijks": "monthly",
+          "jaarlijks": "yearly"
+        },
+        "recipients": {
+          "prive": "private",
+          "werk": "work",
+          "iedereen": "everyone"
+        }
+      }
+    },
+    "persona-rules.json": {
+      "keys": {
+        "versie": "version",
+        "maxTekens": "maxChars",
+        "stoplijst": "stoplist",
+        "patronen": "patterns",
+        "ontvangers": "recipients"
+      },
+      "values": {
+        "recipients": {
+          "prive": "private",
+          "werk": "work",
+          "iedereen": "everyone"
+        }
+      }
+    },
+    "pack-rules.json": {
+      "keys": {
+        "versie": "version",
+        "maxTekens": "maxChars",
+        "domeinen": "domains",
+        "stoplijst": "stoplist",
+        "patronen": "patterns"
+      },
+      "values": {}
+    }
+  }
+}

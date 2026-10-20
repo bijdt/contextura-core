@@ -1,0 +1,59 @@
+{
+  "description": "Every deviation in twin.json is an error with its place.",
+  "function": "twin.check",
+  "input": {
+    "twin": {
+      "version": 2,
+      "settings": {
+        "dailyLimit": 0,
+        "closed": [
+          "Geen Slug"
+        ]
+      },
+      "test": [
+        {
+          "id": "t1",
+          "layer": "voelen"
+        }
+      ],
+      "log": [
+        {
+          "id": "a",
+          "date": "15-01-2026",
+          "form": "gok",
+          "layer": "thinking",
+          "question": "Iets?",
+          "status": "answered"
+        },
+        {
+          "id": "a",
+          "date": "2026-01-15",
+          "form": "opinion",
+          "layer": "thinking",
+          "question": "Iets?",
+          "status": "answered",
+          "landing": "inbox/x.md",
+          "score": 1,
+          "reason": "known"
+        }
+      ],
+      "extra": true
+    }
+  },
+  "expected": {
+    "errors": [
+      "twin.json: field 'extra' not allowed",
+      "version: 1",
+      "settings.dailyLimit: whole number from 1 to 100",
+      "settings.closed: list of domains (slugs)",
+      "test 1: question is missing",
+      "test 1: layer 'voelen'; allowed: thinking, knowing, judging, rhythm",
+      "log 1: date YYYY-MM-DD",
+      "log 1: form 'gok'; allowed: this-or-that, true-false, opinion, guess, gap, like, tell, upload, resolve",
+      "log 1: an answered question has a landing",
+      "log 2: id 'a' occurs twice",
+      "log 2: score 0, 1 or 2, only with form guess",
+      "log 2: reason known, irrelevant or personal, only with a skipped question"
+    ]
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/projects/1.json",
+  "title": "projects.json (registry v1 and v2)",
+  "description": "The local registry of the workspace: which projects exist, their group, brain, connections and secrets tool. Version 2 adds the workspace itself, the parties and github.owner; normalizeRegistry reads version 1 in the shape of version 2. Checked by checkRegistry; a deviation is a warning (not yet an error). Own fields are allowed. Successor of projecten/1.",
+  "type": "object",
+  "required": ["projects"],
+  "properties": {
+    "version": {
+      "enum": [1, 2],
+      "description": "Absent in version 1."
+    },
+    "owner": {
+      "type": "string",
+      "description": "Version 1: GitHub owner of the repos (template placeholder {{eigenaar}}). In version 2: github.owner."
+    },
+    "github": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "GitHub owner of the repos; template placeholder {{eigenaar}}."
+        }
+      }
+    },
+    "workspace": {
+      "type": "object",
+      "required": ["id", "kind", "owner"],
+      "description": "Version 2: this environment.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "kind": { "enum": ["device", "service", "organization"] },
+        "installation": {
+          "type": "string",
+          "description": "The installation that created this workspace, e.g. the name of the tool or the product."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "The default workspace: client material on by default, session names without suffix."
+        },
+        "owner": { "$ref": "#/$defs/partyId" },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["party", "role"],
+            "properties": {
+              "party": { "$ref": "#/$defs/partyId" },
+              "role": { "enum": ["member", "reader"] }
+            }
+          }
+        }
+      }
+    },
+    "parties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind"],
+        "properties": {
+          "id": { "$ref": "#/$defs/partyId" },
+          "kind": { "enum": ["person", "household", "company"] },
+          "name": { "type": "string" },
+          "members": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/partyId" }
+          }
+        }
+      }
+    },
+    "vaults": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Vault per group name (private, work)."
+    },
+    "secrets": {
+      "type": "object",
+      "properties": {
+        "tool": { "type": "string" },
+        "reference": { "type": "string" },
+        "load": { "type": "string" },
+        "read": { "type": "string" },
+        "cli": { "type": "string" },
+        "serviceAccounts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["vault", "itemName"],
+            "properties": {
+              "vault": { "type": "string" },
+              "itemName": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "connections": {
+      "type": "object",
+      "description": "Shared connections of the workspace (e.g. calendar)."
+    },
+    "editorWorkspaces": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Extra places where sync-workspace puts the workspace file."
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Full path of tools outside PATH."
+    },
+    "accountConnections": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/connection" }
+    },
+    "usage": {
+      "type": "object",
+      "description": "Sources for usage and costs (e.g. anthropic, github, fixed; free: free services without metering, as a risk)."
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "group"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "folder": { "type": "string" },
+          "repo": { "type": "string", "pattern": "^[^/\\s]+/[^/\\s]+$" },
+          "group": { "enum": ["machinery", "knowledge", "private", "work", "persona", "archived"] },
+          "client": { "type": "string" },
+          "vault": { "type": "string" },
+          "flavor": { "type": "string" },
+          "sync": { "type": "boolean" },
+          "brain": {
+            "type": "string",
+            "description": "Name of a project with group knowledge."
+          },
+          "remote": {
+            "type": "boolean",
+            "description": "Legacy: true means session always. Use session."
+          },
+          "session": {
+            "enum": ["always", "on-demand", "cloud"],
+            "description": "Where the session runs: always (fixed Remote Control session on the laptop), on-demand (only with sessions --project), cloud (claude --cloud, without laptop and without secrets). Wins over remote."
+          },
+          "tracks": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                {
+                  "type": "object",
+                  "required": ["hubs"],
+                  "properties": {
+                    "description": { "type": "string" },
+                    "hubs": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "todo": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "The to-do lists that belong to this track."
+                    },
+                    "rest": {
+                      "type": "boolean",
+                      "description": "This track gets what belongs to no other track."
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "persona": { "type": "object" },
+          "connections": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/connection" }
+          },
+          "owner": {
+            "$ref": "#/$defs/partyId",
+            "description": "Version 2: owner of the brain or the project."
+          },
+          "permissions": { "enum": ["read", "write"] },
+          "layer": {
+            "type": "boolean",
+            "description": "Version 2: this workspace syncs the layer to this repo (only on a device)."
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "origin": {
+                "type": "object",
+                "properties": {
+                  "client": { "enum": ["on", "off"] }
+                }
+              },
+              "bundles": { "type": ["object", "null"] }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "connection": {
+      "type": "object",
+      "required": ["system", "kind", "permissions", "where"],
+      "properties": {
+        "system": { "type": "string" },
+        "kind": { "enum": ["api", "mcp", "cli", "browser", "connector"] },
+        "permissions": { "enum": ["read", "write", "read+write"] },
+        "where": { "enum": ["pc", "server", "cloud"] },
+        "category": { "type": "string" },
+        "secret": { "type": "string" },
+        "detect": {
+          "type": "object",
+          "properties": {
+            "mcp": { "type": "string" },
+            "domain": { "type": "string" },
+            "command": { "type": "string" }
+          }
+        }
+      }
+    },
+    "partyId": {
+      "type": "string",
+      "pattern": "^(person|household|company):[a-z0-9][a-z0-9-]*$"
+    }
+  }
+}

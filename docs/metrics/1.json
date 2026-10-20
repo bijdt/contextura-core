@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/metrics/1.json",
+  "title": "Metrics of the brain",
+  "description": "One row per maintenance round (measure): how big the brain is and what can go wrong at scale. Checked by the lint (checkMetrics).",
+  "type": "object",
+  "properties": {
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+          "notes": { "type": "number", "minimum": 0, "description": "Notes outside persona/" },
+          "raw": { "type": "number", "minimum": 0 },
+          "archived": { "type": "number", "minimum": 0 },
+          "orphans": { "type": "number", "minimum": 0, "description": "topics and people without an incoming link" },
+          "long": { "type": "number", "minimum": 0, "description": "Notes of 400 lines or more" },
+          "similar": { "type": "number", "minimum": 0, "description": "Pairs with (almost) the same name in the same folder" },
+          "withoutDescription": { "type": "number", "minimum": 0 },
+          "medianLinks": { "type": "number", "minimum": 0, "description": "Median of the number of outgoing links per note" }
+        },
+        "required": ["date", "notes", "raw", "archived", "orphans", "long", "similar", "withoutDescription", "medianLinks"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["metrics"],
+  "additionalProperties": false
+}

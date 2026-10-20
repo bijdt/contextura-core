@@ -1,0 +1,72 @@
+{
+  "description": "The same kinds with the text in Dutch (language nl).",
+  "function": "export.validate",
+  "input": {
+    "files": {
+      "areas/areas.md": "---\nname: areas\ndescription: \"Index van de domeinen.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index, area]\n---\n\n# Domeinen\n\n- [[huis]]\n",
+      "areas/huis.md": "---\nname: huis\ndescription: \"Domein huis.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Huis\n\n- [[dak]]\n",
+      "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# dak\n\nZie [[huis]].\n",
+      "notes/kaal.md": "---\nname: kaal\n---\n\n# Kaal\n",
+      "apps/weg.data.yaml": "items: []\n"
+    },
+    "language": "nl"
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "path": "README.md",
+        "kind": "readme",
+        "severity": "error",
+        "text": "ontbreekt (wat erin zit en de datum)"
+      },
+      {
+        "path": "notes/dak.md",
+        "kind": "format",
+        "severity": "warning",
+        "text": "titel is de slug: schrijf een gewone titel met een hoofdletter (de slug blijft in name: en de bestandsnaam)"
+      },
+      {
+        "path": "notes/kaal.md",
+        "kind": "format",
+        "severity": "error",
+        "text": "verplicht veld ontbreekt: type"
+      },
+      {
+        "path": "notes/kaal.md",
+        "kind": "format",
+        "severity": "error",
+        "text": "verplicht veld ontbreekt: source"
+      },
+      {
+        "path": "notes/kaal.md",
+        "kind": "format",
+        "severity": "error",
+        "text": "verplicht veld ontbreekt: status"
+      },
+      {
+        "path": "notes/kaal.md",
+        "kind": "format",
+        "severity": "error",
+        "text": "verplicht veld ontbreekt: updated"
+      },
+      {
+        "path": "notes/kaal.md",
+        "kind": "format",
+        "severity": "warning",
+        "text": "description ontbreekt (verplicht: één regel, hoogstens 250 tekens)"
+      },
+      {
+        "path": "apps/weg.data.yaml",
+        "kind": "orphan",
+        "severity": "error",
+        "text": "gegevens zonder app (apps/weg.yaml ontbreekt)"
+      }
+    ],
+    "counts": {
+      "notes": 4,
+      "attachments": 0,
+      "apps": 0
+    }
+  }
+}

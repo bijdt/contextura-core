@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/tile/1.json",
+  "title": "Contextura tile: what the command of a project prints on stdout",
+  "description": "The reader (readTile in tile.ts) is lenient: unknown fields are dropped, texts and lists that are too long are shortened, an invalid block disappears. This schema describes what a tile should deliver. Successor of tegel/1.",
+  "type": "object",
+  "required": ["title", "summary"],
+  "properties": {
+    "title": { "type": "string", "maxLength": 80 },
+    "color": {
+      "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
+    },
+    "icon": {
+      "enum": ["bolt", "house", "leaf", "chart", "document", "bike", "label", "star", "square"]
+    },
+    "link": { "type": "string" },
+    "image": { "type": "string" },
+    "summary": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string", "maxLength": 300 },
+        "sub": { "type": "string", "maxLength": 300 },
+        "state": { "enum": ["good", "warning", "action", "neutral"] }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": { "type": "string", "maxLength": 80 },
+          "label": { "type": "string", "maxLength": 80 },
+          "confirm": { "type": "string", "maxLength": 300 },
+          "danger": { "type": "boolean" }
+        }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": ["kind", "state"],
+            "properties": {
+              "kind": { "const": "status" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "state": { "enum": ["good", "warning", "action", "neutral"] },
+              "text": { "type": "string", "maxLength": 300 }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "items"],
+            "properties": {
+              "kind": { "const": "numbers" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "items": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {
+                  "type": "object",
+                  "required": ["label", "value"],
+                  "properties": {
+                    "label": { "type": "string", "maxLength": 80 },
+                    "value": { "type": "string", "maxLength": 80 }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "values"],
+            "properties": {
+              "kind": { "const": "bars" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "values": {
+                "type": "array",
+                "maxItems": 96,
+                "items": { "type": "number" }
+              },
+              "labels": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "now": { "type": "number" },
+              "accent": {
+                "type": "array",
+                "items": { "type": "number" }
+              },
+              "legend": { "type": "string", "maxLength": 300 }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "value", "max"],
+            "properties": {
+              "kind": { "const": "meter" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "value": { "type": "number" },
+              "max": { "type": "number" },
+              "text": { "type": "string", "maxLength": 300 }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "value", "max"],
+            "properties": {
+              "kind": { "const": "progress" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "value": { "type": "number" },
+              "max": { "type": "number" },
+              "text": { "type": "string", "maxLength": 300 }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "items"],
+            "properties": {
+              "kind": { "const": "list" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "items": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {
+                  "type": "object",
+                  "required": ["text"],
+                  "properties": {
+                    "id": { "type": "string", "maxLength": 80 },
+                    "text": { "type": "string", "maxLength": 300 },
+                    "sub": { "type": "string", "maxLength": 300 },
+                    "value": { "type": "string", "maxLength": 80 },
+                    "bar": { "type": "number", "minimum": 0, "maximum": 1 },
+                    "emphasis": { "type": "boolean" },
+                    "done": { "type": "boolean" }
+                  }
+                }
+              },
+              "check": { "type": "string", "maxLength": 80 },
+              "add": { "type": "string", "maxLength": 80 },
+              "actions": {
+                "type": "array",
+                "maxItems": 8,
+                "items": {
+                  "type": "object",
+                  "required": ["id", "label"],
+                  "properties": {
+                    "id": { "type": "string", "maxLength": 80 },
+                    "label": { "type": "string", "maxLength": 80 },
+                    "confirm": { "type": "string", "maxLength": 300 },
+                    "danger": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "cells"],
+            "properties": {
+              "kind": { "const": "grid" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "color"],
+                  "properties": {
+                    "label": { "type": "string", "maxLength": 80 },
+                    "color": {
+                      "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
+                    }
+                  }
+                }
+              },
+              "legend": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "color"],
+                  "properties": {
+                    "label": { "type": "string", "maxLength": 80 },
+                    "color": {
+                      "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "items"],
+            "properties": {
+              "kind": { "const": "chips" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "items": {
+                "type": "array",
+                "maxItems": 30,
+                "items": { "type": "string", "maxLength": 80 }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "viewBox", "shapes"],
+            "properties": {
+              "kind": { "const": "map" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "viewBox": {
+                "type": "array",
+                "items": { "type": "number" },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "shapes": {
+                "type": "array",
+                "maxItems": 300,
+                "items": {
+                  "type": "object",
+                  "required": ["shape", "role"],
+                  "properties": {
+                    "shape": { "enum": ["polygon", "line", "circle"] },
+                    "role": {
+                      "enum": ["plot", "hedge", "wall", "building", "water", "crown", "trunk", "path", "bed", "opening", "compost", "line"]
+                    },
+                    "points": {
+                      "type": "array",
+                      "maxItems": 200,
+                      "items": {
+                        "type": "array",
+                        "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "center": {
+                      "type": "array",
+                      "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "radius": { "type": "number" },
+                    "id": { "type": "string", "maxLength": 80 },
+                    "label": { "type": "string", "maxLength": 80 },
+                    "color": {
+                      "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
+                    },
+                    "text": { "type": "string", "maxLength": 300 }
+                  }
+                }
+              },
+              "labels": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "required": ["x", "y", "text"],
+                  "properties": {
+                    "x": { "type": "number" },
+                    "y": { "type": "number" },
+                    "text": { "type": "string", "maxLength": 80 },
+                    "small": { "type": "boolean" },
+                    "max": { "type": "number" }
+                  }
+                }
+              },
+              "weeks": {
+                "type": "array",
+                "maxItems": 26,
+                "items": {
+                  "type": "object",
+                  "required": ["label", "cells"],
+                  "properties": {
+                    "label": { "type": "string", "maxLength": 80 },
+                    "cells": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "object",
+                        "properties": {
+                          "color": {
+                            "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
+                          },
+                          "text": { "type": "string", "maxLength": 300 }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "now": { "type": "number" },
+              "legend": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["label", "color"],
+                  "properties": {
+                    "label": { "type": "string", "maxLength": 80 },
+                    "color": {
+                      "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
+                    }
+                  }
+                }
+              },
+              "north": { "type": "number" }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "text", "actions"],
+            "properties": {
+              "kind": { "const": "question" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "text": { "type": "string", "maxLength": 300 },
+              "proposal": { "type": "string", "maxLength": 300 },
+              "actions": {
+                "type": "array",
+                "maxItems": 8,
+                "items": {
+                  "type": "object",
+                  "required": ["id", "label"],
+                  "properties": {
+                    "id": { "type": "string", "maxLength": 80 },
+                    "label": { "type": "string", "maxLength": 80 },
+                    "confirm": { "type": "string", "maxLength": 300 },
+                    "danger": { "type": "boolean" }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": ["kind", "text"],
+            "properties": {
+              "kind": { "const": "text" },
+              "title": { "type": "string", "maxLength": 80 },
+              "sensitive": { "type": "boolean" },
+              "text": { "type": "string", "maxLength": 300 }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

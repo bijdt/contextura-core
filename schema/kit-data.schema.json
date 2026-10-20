@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/kit-data/1.json",
+  "title": "Contextura Bouwdoos (kit): apps/<id>.data.yaml",
+  "description": "The items of a Bouwdoos app with its own data (source kind own). Successor of bouwdoos-gegevens/1 (apps/<id>.gegevens.yaml).",
+  "type": "object",
+  "properties": {
+    "items": {
+      "default": [],
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "propertyNames": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,29}$" },
+        "additionalProperties": {
+          "anyOf": [
+            { "type": "string", "maxLength": 300 },
+            { "type": "number" },
+            { "type": "boolean" }
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

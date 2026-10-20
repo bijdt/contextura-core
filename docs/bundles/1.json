@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/bundles/1.json",
+  "title": "Bundles of the brain",
+  "description": "Parts of the brain that can be released as a whole (also data), and what is never shared. Checked by the lint (check); read by graphFrom. Successor of bundels/2.",
+  "type": "object",
+  "$defs": {
+    "color": {
+      "type": "object",
+      "properties": {
+        "light": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "dark": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+      },
+      "required": ["light", "dark"],
+      "additionalProperties": false
+    },
+    "rules": {
+      "type": "object",
+      "description": "A note belongs to it when one rule fits: folder (path prefix), area (field area, or the hub itself), tag or name",
+      "properties": {
+        "folders": { "type": "array", "items": { "type": "string" } },
+        "areas": { "type": "array", "items": { "type": "string" } },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "bundles": {
+      "type": "array",
+      "description": "In order: with several fitting rules the first is the main bundle",
+      "items": {
+        "type": "object",
+        "properties": {
+          "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "title": { "type": "string", "minLength": 1 },
+          "kind": { "enum": ["application", "pack", "persona", "data", "internal"] },
+          "project": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "For an application: the name of the project (projects/<project>.md); a note that links to it belongs to it"
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "For data: where the data comes from (origin, e.g. the service or the project that makes it)"
+          },
+          "license": {
+            "enum": ["own", "public-domain", "CC0-1.0", "PDDL-1.0", "CC-BY-4.0", "CC-BY-SA-4.0", "ODC-By-1.0", "ODbL-1.0"],
+            "description": "For data: the license under which it may be passed on; another license may not go along"
+          },
+          "refresh": {
+            "enum": ["once", "daily", "weekly", "monthly", "yearly"],
+            "description": "For data: how often the data is refreshed"
+          },
+          "color": { "$ref": "#/$defs/color" },
+          "rules": { "$ref": "#/$defs/rules" }
+        },
+        "required": ["slug", "title", "kind", "color"],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": { "properties": { "kind": { "const": "data" } }, "required": ["kind"] },
+            "then": { "required": ["source", "license", "refresh"] },
+            "else": { "not": { "anyOf": [{ "required": ["source"] }, { "required": ["license"] }, { "required": ["refresh"] }] } }
+          }
+        ]
+      }
+    },
+    "never": {
+      "type": "object",
+      "properties": {
+        "color": { "$ref": "#/$defs/color" },
+        "rules": { "$ref": "#/$defs/rules" }
+      },
+      "additionalProperties": false,
+      "description": "What is never shared; always wins"
+    },
+    "none": {
+      "type": "object",
+      "properties": {
+        "color": { "$ref": "#/$defs/color" }
+      },
+      "additionalProperties": false,
+      "description": "Not classified"
+    }
+  },
+  "required": ["bundles"],
+  "additionalProperties": true
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/brain/2.json",
+  "title": "Brain settings",
+  "description": "The language of the brain. Without the file English. Folders, fields and their values are the same in every language; the content, the hub names, the skills (on sync) and the messages of the lint follow the language. Checked by the lint (checkBrainJson).",
+  "type": "object",
+  "properties": {
+    "language": {
+      "enum": ["nl", "en"]
+    }
+  },
+  "required": ["language"],
+  "additionalProperties": false
+}

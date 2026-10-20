@@ -1,0 +1,54 @@
+{
+  "description": "The Dutch names of 0.14 (index note, frontmatter fields and values, readers.json, brain.json, block markers) are accepted until 1.0, each with a warning.",
+  "function": "brain.check",
+  "input": {
+    "files": {
+      "areas/areas.md": "---\nname: areas\ndescription: \"Index of the areas.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index, area]\n---\n\n# Areas\n\n- [[house]]\n",
+      "areas/house.md": "---\nname: house\ndescription: \"Area house.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# House\n\n<!-- brain:lijst begin -->\n_1 note, generated._\n\n### Ideas\n\n- [[solar]]: Solar panels.\n<!-- brain:lijst einde -->\n",
+      "ideas/ideeen.md": "---\nname: ideeen\ndescription: \"Index of the ideas.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index]\n---\n\n# Ideas\n\n- [[solar]]\n",
+      "ideas/solar.md": "---\nname: solar\ndescription: \"Solar panels.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: house\nidee: onderzoek\nlezers: [partner]\ndelen: nooit\n---\n\n# Solar panels\n\nSee [[house]].\n",
+      "lezers.json": "{\n  \"lezers\": [\n    {\n      \"id\": \"partner\",\n      \"naam\": \"Partner\"\n    }\n  ],\n  \"standaard\": []\n}\n",
+      "brain.json": "{\n  \"taal\": \"en\"\n}\n"
+    }
+  },
+  "expected": {
+    "areas/house.md": {
+      "errors": [],
+      "warnings": [
+        "old name '<!-- brain:lijst begin -->': use '<!-- brain:list begin -->'",
+        "list out of date: regenerate the lists"
+      ]
+    },
+    "ideas/ideeen.md": {
+      "errors": [],
+      "warnings": [
+        "old name 'ideas/ideeen.md': use 'ideas/ideas.md' (keep 'ideeen' as an alias)"
+      ]
+    },
+    "ideas/solar.md": {
+      "errors": [],
+      "warnings": [
+        "old name 'idee': use 'idea'",
+        "old name 'onderzoek': use 'exploring'",
+        "old name 'lezers': use 'readers'",
+        "old name 'delen': use 'share'",
+        "old name 'nooit': use 'never'"
+      ]
+    },
+    "lezers.json": {
+      "errors": [],
+      "warnings": [
+        "old name 'lezers.json': use 'readers.json'",
+        "old name 'lezers': use 'readers'",
+        "old name 'naam': use 'name'",
+        "old name 'standaard': use 'default'"
+      ]
+    },
+    "brain.json": {
+      "errors": [],
+      "warnings": [
+        "old name 'taal': use 'language'"
+      ]
+    }
+  }
+}

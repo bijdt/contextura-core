@@ -1,73 +1,73 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.contextura.io/twin/2.json",
-  "title": "Voed je twin",
-  "description": "Instellingen, de vaste testvragen van de eigenaar en het log van gestelde vragen om de twin aan te vullen. Nooit de antwoorden zelf: die gaan via de inbox naar notities. Gecontroleerd door de lint (controleerTwin).",
+  "$id": "https://schema.contextura.io/twin/3.json",
+  "title": "Feed your twin",
+  "description": "Settings, the owner's fixed test questions and the log of asked questions to complete the twin. Never the answers themselves: those go through the inbox to notes. Checked by the lint (checkTwin).",
   "type": "object",
-  "required": ["versie", "instellingen", "test", "log"],
+  "required": ["version", "settings", "test", "log"],
   "additionalProperties": false,
   "properties": {
-    "versie": { "const": 1 },
-    "instellingen": {
+    "version": { "const": 1 },
+    "settings": {
       "type": "object",
-      "required": ["daglimiet", "gesloten"],
+      "required": ["dailyLimit", "closed"],
       "additionalProperties": false,
       "properties": {
-        "daglimiet": { "type": "integer", "minimum": 1, "maximum": 100, "description": "Hoogstens zoveel vragen per dag" },
-        "gesloten": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }, "description": "Domeinen (hubs) waarover de twin niets vraagt" }
+        "dailyLimit": { "type": "integer", "minimum": 1, "maximum": 100, "description": "At most this many questions per day" },
+        "closed": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }, "description": "Domains (hubs) the twin asks nothing about" }
       }
     },
     "test": {
       "type": "array",
-      "description": "De twintig-vragen-test: vragen waarvan de eigenaar het eigen antwoord kent (vorm raad)",
+      "description": "The twenty-questions test: questions whose answer the owner knows (form guess)",
       "items": {
         "type": "object",
-        "required": ["id", "vraag", "laag"],
+        "required": ["id", "question", "layer"],
         "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "minLength": 1 },
-          "vraag": { "type": "string", "minLength": 1 },
-          "laag": { "enum": ["denken", "weten", "oordelen", "ritme"] },
-          "domein": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }
+          "question": { "type": "string", "minLength": 1 },
+          "layer": { "enum": ["thinking", "knowing", "judging", "rhythm"] },
+          "domain": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" }
         }
       }
     },
     "log": {
       "type": "array",
-      "description": "Eén regel per gestelde vraag, nieuwste onderaan",
+      "description": "One entry per asked question, newest at the bottom",
       "items": {
         "type": "object",
-        "required": ["id", "datum", "vorm", "laag", "vraag", "status"],
+        "required": ["id", "date", "form", "layer", "question", "status"],
         "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "minLength": 1 },
-          "datum": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-          "vorm": { "enum": ["dit-of-dat", "waar-niet-waar", "mening", "raad", "gat", "like", "vertel", "laad-op", "los-op"] },
-          "laag": { "enum": ["denken", "weten", "oordelen", "ritme"] },
-          "domein": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
-          "bron": { "type": "string", "description": "De notitie waar de vraag uit kwam, of twin.json#<test-id>" },
-          "vraag": { "type": "string", "minLength": 1 },
-          "status": { "enum": ["beantwoord", "overgeslagen"] },
-          "landing": { "type": "string", "description": "Het inbox-bestand met het antwoord (verplicht als beantwoord, behalve bij like)" },
-          "score": { "enum": [0, 1, 2], "description": "Alleen bij vorm raad: hoe goed de twin het wist" },
-          "reden": { "enum": ["bekend", "irrelevant", "persoonlijk"], "description": "Alleen bij een overgeslagen vraag: waarom" }
+          "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "form": { "enum": ["this-or-that", "true-false", "opinion", "guess", "gap", "like", "tell", "upload", "resolve"] },
+          "layer": { "enum": ["thinking", "knowing", "judging", "rhythm"] },
+          "domain": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+          "source": { "type": "string", "description": "The note the question came from, twin.json#<test-id>, pool#<key> or tag#<tag>" },
+          "question": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["answered", "skipped"] },
+          "landing": { "type": "string", "description": "The inbox file with the answer (required when answered, except with like)" },
+          "score": { "enum": [0, 1, 2], "description": "Only with form guess: how well the twin knew it" },
+          "reason": { "enum": ["known", "irrelevant", "personal"], "description": "Only with a skipped question: why" }
         }
       }
     },
-    "mijlpalen": {
+    "milestones": {
       "type": "array",
-      "description": "De mijlpalen die de gebruiker al gezien heeft (namen, elk een keer)",
+      "description": "The milestones the user has seen (names, each once)",
       "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
     },
     "record": {
       "type": "object",
-      "description": "Het beste resultaat van een uitdaging",
-      "required": ["punten", "datum"],
+      "description": "The best result of a challenge",
+      "required": ["points", "date"],
       "additionalProperties": false,
       "properties": {
-        "punten": { "type": "number", "minimum": 0 },
-        "datum": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+        "points": { "type": "number", "minimum": 0 },
+        "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
       }
     }
   }

@@ -1,0 +1,62 @@
+{
+  "description": "The tracks of a brain in both shapes: an object with description, hubs, todo and rest, and a list of hubs.",
+  "function": "registry.tracks",
+  "input": {
+    "registry": {
+      "projects": [
+        {
+          "name": "brain",
+          "group": "knowledge",
+          "tracks": {
+            "huis": {
+              "description": "huis en tuin",
+              "hubs": [
+                "areas/huis.md"
+              ],
+              "todo": [
+                "Huis"
+              ]
+            },
+            "werk": [
+              "areas/werk.md"
+            ],
+            "inbox": {
+              "hubs": [],
+              "rest": true
+            }
+          }
+        }
+      ]
+    },
+    "brain": "brain"
+  },
+  "expected": [
+    {
+      "name": "huis",
+      "description": "huis en tuin",
+      "hubs": [
+        "areas/huis.md"
+      ],
+      "todo": [
+        "Huis"
+      ],
+      "rest": false
+    },
+    {
+      "name": "werk",
+      "description": "",
+      "hubs": [
+        "areas/werk.md"
+      ],
+      "todo": [],
+      "rest": false
+    },
+    {
+      "name": "inbox",
+      "description": "",
+      "hubs": [],
+      "todo": [],
+      "rest": true
+    }
+  ]
+}

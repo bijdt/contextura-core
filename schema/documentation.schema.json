@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/documentation/1.json",
+  "title": "Documentation registry",
+  "description": "documentation.json at the root of the brain: which documents exist (artifacts and documents in repos), who keeps them, what they follow from and how they are made again. What was published when is not here but in the local state of the workspace. Checked by the documentation command of the workspace (checkDocumentation). Successor of documentatie/1.",
+  "type": "object",
+  "required": ["version", "documents"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "location", "owner", "kind", "sources"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Short name, unique." },
+          "title": { "type": "string", "minLength": 1 },
+          "location": { "type": "string", "description": "The URL of the artifact, or <repo>:<path> for a document in a repo." },
+          "owner": { "type": "string", "description": "The project that keeps the document (a name from projects.json)." },
+          "kind": { "enum": ["generated", "manual"] },
+          "command": { "type": "string", "description": "With generated: the command of the core that makes it (e.g. costs, map)." },
+          "living": { "type": "boolean", "description": "Yes (default): the same URL on every publication, no date in the title but an 'as of'; stale when a source is newer. No: a snapshot, never stale." },
+          "sources": {
+            "type": "array",
+            "description": "<repo>:<path> (a file or folder in git of that project), registry (projects.json) or data:<path> (under the data folder of the workspace).",
+            "items": { "type": "string", "pattern": "^(registry|data:.+|[a-z0-9][a-z0-9-]*:.+)$" }
+          },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

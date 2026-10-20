@@ -1,142 +1,60 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.contextura.io/app/1.json",
-  "title": "Contextura app-manifest: app.json in de repo van een project",
-  "description": "Per app titel, kleur, icoon, de node-opdracht die de tegel levert, wat ze nodig heeft en of ze via de brain in te stellen is (apps/<id>.yaml). Een product mag eigen velden toevoegen (bv. een galerij); de lezer (leesManifest in app.ts) laat ze weg.",
+  "$id": "https://schema.contextura.io/app/2.json",
+  "title": "Contextura app manifest: app.json in the repo of a project",
+  "description": "Per app the title, color, icon, the node command that delivers the tile, what it needs and whether it can be configured through the brain (apps/<id>.yaml). A product may add its own fields (e.g. a gallery); the reader (readManifest in app.ts) leaves them out. Successor of app/1 (Dutch names); the file keeps version 1.",
   "type": "object",
-  "required": [
-    "versie",
-    "apps"
-  ],
+  "required": ["version", "apps"],
   "properties": {
-    "versie": {
-      "const": 1
-    },
+    "version": { "const": 1 },
     "apps": {
       "type": "object",
-      "propertyNames": {
-        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-      },
+      "propertyNames": { "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
       "additionalProperties": {
         "type": "object",
-        "required": [
-          "titel",
-          "runtime",
-          "opdracht"
-        ],
+        "required": ["title", "runtime", "command"],
         "properties": {
-          "titel": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 40
+          "title": { "type": "string", "minLength": 1, "maxLength": 40 },
+          "description": { "type": "string", "maxLength": 300 },
+          "color": {
+            "enum": ["amber", "teal", "green", "indigo", "blue", "rose", "fuchsia", "orange", "purple", "gray"]
           },
-          "beschrijving": {
-            "type": "string",
-            "maxLength": 300
+          "icon": {
+            "enum": ["bolt", "house", "leaf", "chart", "document", "bike", "label", "star", "square"]
           },
-          "kleur": {
-            "enum": [
-              "amber",
-              "teal",
-              "groen",
-              "indigo",
-              "blauw",
-              "roos",
-              "fuchsia",
-              "oranje",
-              "paars",
-              "grijs"
-            ]
-          },
-          "icoon": {
-            "enum": [
-              "bliksem",
-              "huis",
-              "blad",
-              "grafiek",
-              "document",
-              "fiets",
-              "label",
-              "ster",
-              "vierkant"
-            ]
-          },
-          "runtime": {
-            "const": "node"
-          },
-          "opdracht": {
+          "runtime": { "const": "node" },
+          "command": {
             "type": "array",
             "minItems": 1,
-            "prefixItems": [
-              {
-                "const": "node"
-              }
-            ],
-            "items": {
-              "type": "string",
-              "maxLength": 200
-            }
+            "prefixItems": [{ "const": "node" }],
+            "items": { "type": "string", "maxLength": 200 }
           },
-          "pagina": {
+          "page": {
             "type": "array",
             "minItems": 1,
-            "prefixItems": [
-              {
-                "const": "node"
-              }
-            ],
-            "items": {
-              "type": "string",
-              "maxLength": 200
-            }
+            "prefixItems": [{ "const": "node" }],
+            "items": { "type": "string", "maxLength": 200 }
           },
-          "nodig": {
+          "needs": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": [
-                "connector",
-                "env"
-              ],
+              "required": ["connector", "env"],
               "properties": {
-                "connector": {
-                  "type": "string",
-                  "maxLength": 60
-                },
+                "connector": { "type": "string", "maxLength": 60 },
                 "env": {
                   "type": "object",
-                  "required": [
-                    "url",
-                    "token"
-                  ],
+                  "required": ["url", "token"],
                   "properties": {
                     "url": {
                       "type": "string",
                       "pattern": "^[A-Z][A-Z0-9_]{1,40}$",
-                      "not": {
-                        "enum": [
-                          "PATH",
-                          "HOME",
-                          "APP_DATA",
-                          "NODE_OPTIONS",
-                          "NODE_ENV",
-                          "LD_PRELOAD"
-                        ]
-                      }
+                      "not": { "enum": ["PATH", "HOME", "APP_DATA", "NODE_OPTIONS", "NODE_ENV", "LD_PRELOAD"] }
                     },
                     "token": {
                       "type": "string",
                       "pattern": "^[A-Z][A-Z0-9_]{1,40}$",
-                      "not": {
-                        "enum": [
-                          "PATH",
-                          "HOME",
-                          "APP_DATA",
-                          "NODE_OPTIONS",
-                          "NODE_ENV",
-                          "LD_PRELOAD"
-                        ]
-                      }
+                      "not": { "enum": ["PATH", "HOME", "APP_DATA", "NODE_OPTIONS", "NODE_ENV", "LD_PRELOAD"] }
                     }
                   }
                 }
@@ -145,57 +63,29 @@
           },
           "brain": {
             "type": "object",
-            "required": [
-              "bestanden",
-              "env"
-            ],
+            "required": ["files", "env"],
             "properties": {
-              "bestanden": {
+              "files": {
                 "type": "array",
                 "minItems": 1,
                 "maxItems": 1,
-                "items": {
-                  "type": "string",
-                  "pattern": "^[\\w-]+(/[\\w.-]+)*\\.(md|yaml|yml|json)$"
-                }
+                "items": { "type": "string", "pattern": "^[\\w-]+(/[\\w.-]+)*\\.(md|yaml|yml|json)$" }
               },
-              "schrijven": {
-                "type": "boolean"
-              },
+              "write": { "type": "boolean" },
               "env": {
                 "type": "string",
                 "pattern": "^[A-Z][A-Z0-9_]{1,40}$",
-                "not": {
-                  "enum": [
-                    "PATH",
-                    "HOME",
-                    "APP_DATA",
-                    "NODE_OPTIONS",
-                    "NODE_ENV",
-                    "LD_PRELOAD"
-                  ]
-                }
+                "not": { "enum": ["PATH", "HOME", "APP_DATA", "NODE_OPTIONS", "NODE_ENV", "LD_PRELOAD"] }
               }
             }
           },
           "config": {
             "type": "object",
-            "required": [
-              "pad",
-              "wijzigen"
-            ],
+            "required": ["path", "edit"],
             "properties": {
-              "pad": {
-                "type": "string",
-                "pattern": "^apps/[\\w-]+\\.ya?ml$"
-              },
-              "titel": {
-                "type": "string",
-                "maxLength": 60
-              },
-              "wijzigen": {
-                "const": "eigenaar"
-              }
+              "path": { "type": "string", "pattern": "^apps/[\\w-]+\\.ya?ml$" },
+              "title": { "type": "string", "maxLength": 60 },
+              "edit": { "const": "owner" }
             }
           }
         }

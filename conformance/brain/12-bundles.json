@@ -1,0 +1,27 @@
+{
+  "description": "bundles.json with an unknown kind.",
+  "function": "brain.check",
+  "input": {
+    "files": {
+      "areas/areas.md": "---\nname: areas\ndescription: \"Index van de domeinen.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index, area]\n---\n\n# Domeinen\n\n- [[huis]]\n",
+      "areas/huis.md": "---\nname: huis\ndescription: \"Domein huis.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Huis\n\n- [[dak]]\n",
+      "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# dak\n\nZie [[huis]].\n",
+      "bundles.json": "{\n  \"bundles\": [\n    {\n      \"slug\": \"x\",\n      \"title\": \"X\",\n      \"kind\": \"raar\"\n    }\n  ]\n}\n"
+    }
+  },
+  "expected": {
+    "notes/dak.md": {
+      "errors": [],
+      "warnings": [
+        "title is the slug: write a plain title with a capital letter (the slug stays in name: and the file name)"
+      ]
+    },
+    "bundles.json": {
+      "errors": [
+        "bundle 'x': kind 'raar' is invalid; allowed: application, pack, persona, data, internal",
+        "bundle 'x': color must be { light, dark }"
+      ],
+      "warnings": []
+    }
+  }
+}

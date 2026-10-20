@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/readers/1.json",
+  "title": "Readers of the brain",
+  "description": "Who within the household may read besides the owner: by default per hub, per note overridden by the frontmatter readers. The owner always reads; source: client is always the owner only. Checked by the lint (checkReaders); enforced by the app when fetching (readersOf), never in the prompt.",
+  "type": "object",
+  "properties": {
+    "readers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "not": { "const": "owner" },
+            "description": "Slug; unique. The owner is not in the list"
+          },
+          "name": { "type": "string", "minLength": 1 },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional, free text for the app (e.g. partner, child)"
+          }
+        },
+        "required": ["id", "name"],
+        "additionalProperties": false
+      }
+    },
+    "default": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Readers of a note without a hub, or with a hub that is not in hubs. Missing: the owner only"
+    },
+    "hubs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "description": "Per hub (areas/<hub>.md) the default readers; an empty list is the owner only"
+    }
+  },
+  "required": ["readers"],
+  "additionalProperties": false
+}

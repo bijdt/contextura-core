@@ -1,0 +1,53 @@
+{
+  "description": "A valid twin.json with log, reason, milestones and record.",
+  "function": "twin.check",
+  "input": {
+    "twin": {
+      "version": 1,
+      "settings": {
+        "dailyLimit": 10,
+        "closed": [
+          "gezondheid"
+        ]
+      },
+      "test": [
+        {
+          "id": "t1",
+          "question": "Neem ik deze opdracht aan?",
+          "layer": "judging"
+        }
+      ],
+      "log": [
+        {
+          "id": "a",
+          "date": "2026-01-15",
+          "form": "guess",
+          "layer": "judging",
+          "question": "Wat zou ik doen?",
+          "status": "answered",
+          "landing": "inbox/a.md",
+          "score": 2
+        },
+        {
+          "id": "b",
+          "date": "2026-01-15",
+          "form": "opinion",
+          "layer": "thinking",
+          "question": "Iets?",
+          "status": "skipped",
+          "reason": "personal"
+        }
+      ],
+      "milestones": [
+        "eerste-tien"
+      ],
+      "record": {
+        "points": 12,
+        "date": "2026-01-15"
+      }
+    }
+  },
+  "expected": {
+    "errors": []
+  }
+}
