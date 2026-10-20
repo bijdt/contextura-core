@@ -413,7 +413,10 @@
         "klein": "small",
         "noord": "north",
         "voorstel": "proposal",
-        "ververst": "refreshed"
+        "ververst": "refreshed",
+        "knop": "button",
+        "invoer": "input",
+        "stap": "step"
       },
       "values": {
         "state": {
@@ -430,7 +433,11 @@
           "raster": "grid",
           "kaart": "map",
           "vraag": "question",
-          "tekst": "text"
+          "tekst": "text",
+          "getal": "number",
+          "tijd": "time",
+          "datum": "date",
+          "datum-tijd": "datetime"
         },
         "shape": {
           "vlak": "polygon",
@@ -529,7 +536,15 @@
         "datum": "date",
         "elke": "every",
         "waarde": "value",
-        "eenheid": "unit"
+        "eenheid": "unit",
+        "map": "folder",
+        "dienst": "service",
+        "entiteiten": "entities",
+        "zoek": "search",
+        "dagen": "days",
+        "entiteit": "entity",
+        "handeling": "operation",
+        "stap": "step"
       },
       "values": {
         "kind": {
@@ -538,12 +553,16 @@
           "teller": "counter",
           "tijdlijn": "timeline",
           "tabel": "table",
-          "grafiek": "chart"
+          "grafiek": "chart",
+          "notities": "notes",
+          "koppeling": "connection"
         },
         "actions": {
           "afvinken": "check",
           "toevoegen": "add",
-          "ophogen": "increment"
+          "ophogen": "increment",
+          "notitie": "note",
+          "delen": "share"
         },
         "who": {
           "eigenaar": "owner"
@@ -555,6 +574,19 @@
           "oranje": "orange",
           "paars": "purple",
           "grijs": "gray"
+        },
+        "service": {
+          "agenda": "calendar"
+        },
+        "operation": {
+          "aan-uit": "on-off",
+          "activeren": "activate",
+          "starten": "start",
+          "open-dicht": "open-close",
+          "positie": "position",
+          "temperatuur": "temperature",
+          "getal": "number",
+          "tijdstip": "datetime"
         }
       }
     },

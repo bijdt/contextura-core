@@ -1,6 +1,6 @@
 # contextura-core: specification
 
-Version 0.15 (draft), 2026-10-20. Belongs to contextura-core 0.19.0. Text under CC BY 4.0; the
+Version 0.16 (draft), 2026-10-20. Belongs to contextura-core 0.20.0. Text under CC BY 4.0; the
 reference implementation under MIT.
 
 This document describes the format itself, apart from the code: whoever reads it must be able to build
@@ -18,7 +18,9 @@ function. The messages of the cases are English; a few cases with `language: nl`
 translation.
 
 Version 0.15 gives every name of the format an English name. The Dutch names of 0.14 are still read
-until 1.0, with a warning; §15 describes the transition and the migration.
+until 1.0, with a warning; §15 describes the transition and the migration. Version 0.16 extends the kit
+(`kit/2`: the sources notes and connection, the actions note and share) and the tile (`tile/2`: `button`, and
+`input` on an action of a list); a file that was valid stays valid.
 
 ## 1. Concepts
 
@@ -244,7 +246,11 @@ color, icon, a summary with state (`good`, `warning`, `action`, `neutral`), bloc
 lenient: unknown fields are dropped, texts and lists are cut short to the `LIMITS`, an invalid block vanishes
 instead of the whole tile. An action goes as `--action <id>` (with `--item` or `--text`, `actionArguments`) to the
 same command, which answers according to `readResult` (`ok`, `message`, optionally the new `tile`). A block with
-`sensitive` shows its values only after a confirmation.
+`sensitive` shows its values only after a confirmation. A `list` with `add` may name its button (`button`, at most
+24 characters). An action of a `list` may carry an input field (`input`: `kind` `number`, `time`, `date` or
+`datetime`, a `label`, with `number` also `min`, `max` and `step`, and the current `value`): the app shows the
+field and sends its value as `--text`. The command checks that value itself; an action with an invalid input field
+is dropped, never a button that sets something without a value.
 
 ## 10c. App manifest
 
@@ -275,7 +281,15 @@ belongs to no other); `tracksOf` in `model.ts` reads both shapes.
 
 An own app without code: `apps/<id>.yaml` with `kit: 1`, title, color, image, source, view, actions and
 who (`kit.schema.json`), and the data separately in `apps/<id>.data.yaml` (`items`, at most 200;
-`kit-data.schema.json`). A data file without an app is an error. The data contains nothing with
+`kit-data.schema.json`). The source is `own` (the data file), `brain` (a YAML file in the brain, with `write` to
+change it), `notes` (notes with a `type`, `tag` or in a `folder`; the frontmatter, read only) or `connection`
+(`service` `home-assistant` with `entities`, or `calendar` with `search` words in the title and `days` ahead, 1
+to 62). A connection with Home Assistant may control what is in `write` (at most 10: `entity`, `operation`,
+`label`, `min`, `max`, `step`), and only this: `on-off` for light, switch and input_boolean, `activate` for a
+scene, `start` for a script, `open-close` and `position` for a cover, `temperature` for climate (`min` and `max`
+required, between 10 and 25 in steps of 0.5), `number` for input_number and `datetime` for input_datetime; never
+lock or alarm_control_panel. A source that only reads allows the actions `note` and `share` only (they do not
+touch the data), and a timeline over notes or a connection needs no `every`: the date itself is the moment. A data file without an app is an error. The data contains nothing with
 `source: client` and nothing that is never shared: it is in the brain and goes along in export and clone. The
 schemas are derived from the first application that uses the kit.
 
@@ -314,8 +328,8 @@ registry but with the workspace that publishes (see `checkDocumentation` and `st
 - Every schema carries its name and version in its `$id`, a fixed web address:
   `https://schema.contextura.io/<name>/<version>.json`. A schema version no longer changes once it is
   published; a change that makes a file that was valid until then invalid is a new version. The schemas of
-  0.15: `note/3`, `twin/3`, `brain/2`, `app/2`, `readers/1`, `bundles/1`, `metrics/1`, `documentation/1`,
-  `projects/1`, `tile/1`, `kit/1` and `kit-data/1`.
+  0.16: `note/3`, `twin/3`, `brain/2`, `app/2`, `readers/1`, `bundles/1`, `metrics/1`, `documentation/1`,
+  `projects/1`, `tile/2`, `kit/2` and `kit-data/1` (0.15 had `tile/1` and `kit/1`).
 - The code (`contextura-core`) follows semver and names the version of this text that it implements.
 
 ## 15. Migration from 0.14

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.contextura.io/tile/1.json",
+  "$id": "https://schema.contextura.io/tile/2.json",
   "title": "Contextura tile: what the command of a project prints on stdout",
-  "description": "The reader (readTile in tile.ts) is lenient: unknown fields are dropped, texts and lists that are too long are shortened, an invalid block disappears. This schema describes what a tile should deliver. Successor of tegel/1.",
+  "description": "The reader (readTile in tile.ts) is lenient: unknown fields are dropped, texts and lists that are too long are shortened, an invalid block disappears. This schema describes what a tile should deliver. tile/2 adds button (the label of the add button) and an input field on an action of a list.",
   "type": "object",
   "required": ["title", "summary"],
   "properties": {
@@ -149,6 +149,7 @@
               },
               "check": { "type": "string", "maxLength": 80 },
               "add": { "type": "string", "maxLength": 80 },
+              "button": { "type": "string", "maxLength": 24 },
               "actions": {
                 "type": "array",
                 "maxItems": 8,
@@ -159,7 +160,20 @@
                     "id": { "type": "string", "maxLength": 80 },
                     "label": { "type": "string", "maxLength": 80 },
                     "confirm": { "type": "string", "maxLength": 300 },
-                    "danger": { "type": "boolean" }
+                    "danger": { "type": "boolean" },
+                    "input": {
+                      "type": "object",
+                      "description": "An input field with the button; the button sends the value as text. min, max and step only with number.",
+                      "required": ["kind", "label"],
+                      "properties": {
+                        "kind": { "enum": ["number", "time", "date", "datetime"] },
+                        "label": { "type": "string", "maxLength": 60 },
+                        "min": { "type": "number" },
+                        "max": { "type": "number" },
+                        "step": { "type": "number", "exclusiveMinimum": 0 },
+                        "value": { "type": "string", "maxLength": 24 }
+                      }
+                    }
                   }
                 }
               }
