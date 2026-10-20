@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.contextura.io/note/1.json",
+  "$id": "https://schema.contextura.io/note/2.json",
   "title": "Notitie-frontmatter",
   "description": "Frontmatter-contract voor elke .md buiten inbox/",
   "type": "object",
@@ -61,6 +61,17 @@
         "persona"
       ],
       "description": "Optioneel. persona: alleen in persona/, ingelezen uit de persona-repo door Persona-Sync; nooit met de hand"
+    },
+    "ervaring": {
+      "enum": [
+        "opdracht",
+        "werkgever",
+        "opleiding",
+        "thesis",
+        "cursus",
+        "certificaat"
+      ],
+      "description": "Optioneel. De notitie gaat over iets waaruit de eigenaar leerde; wat, staat onder een kop '## Wat ik leerde' (anders vraagt Voed je twin het)"
     },
     "bundels": {
       "type": "array",

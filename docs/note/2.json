@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.contextura.io/note/2.json",
+  "title": "Notitie-frontmatter",
+  "description": "Frontmatter-contract voor elke .md buiten inbox/",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Slug, gelijk aan de bestandsnaam zonder .md"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 250,
+      "description": "Eén regel, hoogstens 250 tekens. Verplicht (de lint meldt het tot de brain alle notities aangevuld heeft, daarna een fout)"
+    },
+    "type": {
+      "enum": [
+        "note",
+        "decision",
+        "reference"
+      ]
+    },
+    "source": {
+      "enum": [
+        "own",
+        "client",
+        "public"
+      ]
+    },
+    "status": {
+      "enum": [
+        "raw",
+        "distilled",
+        "archief"
+      ],
+      "description": "archief: blijft vindbaar, de chat en de tegels negeren het tenzij je erom vraagt; hoeft niet meer in de hub"
+    },
+    "updated": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Datum in YYYY-MM-DD"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "area": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Slug van een hubnotitie in areas/ (areas/<area>.md bestaat)"
+    },
+    "scope": {
+      "enum": [
+        "prive",
+        "werk",
+        "persona"
+      ],
+      "description": "Optioneel. persona: alleen in persona/, ingelezen uit de persona-repo door Persona-Sync; nooit met de hand"
+    },
+    "ervaring": {
+      "enum": [
+        "opdracht",
+        "werkgever",
+        "opleiding",
+        "thesis",
+        "cursus",
+        "certificaat"
+      ],
+      "description": "Optioneel. De notitie gaat over iets waaruit de eigenaar leerde; wat, staat onder een kop '## Wat ik leerde' (anders vraagt Voed je twin het)"
+    },
+    "bundels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "description": "Optioneel. Slugs uit bundels.json; de eerste is de hoofdbundel (kleur op de kaart). Wint van de regels in bundels.json"
+    },
+    "delen": {
+      "enum": [
+        "nooit"
+      ],
+      "description": "Optioneel. nooit: nooit delen, ook niet in een bundel; gaat altijd voor (source: client is altijd nooit)"
+    },
+    "herzien": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Optioneel. Datum in YYYY-MM-DD waarop de inhoud bewust nagekeken is; niet in de toekomst"
+    },
+    "vervangen-door": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Optioneel. name van de notitie die deze als geheel vervangt (moet bestaan); de chat volgt de verwijzing"
+    },
+    "bewaren-tot": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Optioneel. Tot wanneer iets dat alleen interessant is bewaard blijft (standaard zes maanden); de onderhoudsronde legt het daarna voor"
+    },
+    "lezers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "description": "Optioneel. Wie naast de eigenaar deze notitie mag lezen (ids uit lezers.json); overschrijft de standaard van de hub; leeg is alleen de eigenaar. Niet bij source: client"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "type",
+    "source",
+    "status",
+    "updated"
+  ],
+  "additionalProperties": true
+}

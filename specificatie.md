@@ -1,6 +1,6 @@
 # contextura-core: specificatie
 
-Versie 0.13 (concept), 2026-10-19. Hoort bij contextura-core 0.17.0. Tekst onder CC BY 4.0; de
+Versie 0.14 (concept), 2026-10-20. Hoort bij contextura-core 0.18.0. Tekst onder CC BY 4.0; de
 referentie-implementatie onder MIT.
 
 Dit document beschrijft het formaat zelf, los van de code: wie het leest, moet een eigen
@@ -54,7 +54,7 @@ eerste deel geen map uit de rij "nee" is (behalve `persona/`) en de bestandsnaam
 Elke notitie begint met `---` en eindigt de frontmatter met `---` (of `...`). Daartussen regels
 `sleutel: waarde`, een lijst als `[a, b]` of als regels `- a` onder `sleutel:`. Waarden mogen tussen
 enkele of dubbele aanhalingstekens. Geen YAML-commentaar in de velden `name`, `type`, `source`, `status`,
-`updated`, `idee`, `area`, `soort`, `datum`, `geldig-tot`, `herzien`, `bewaren-tot` en `vervangen-door`.
+`updated`, `idee`, `area`, `soort`, `datum`, `geldig-tot`, `herzien`, `bewaren-tot`, `vervangen-door` en `ervaring`.
 
 | Veld | Verplicht | Waarde |
 |---|---|---|
@@ -68,6 +68,7 @@ enkele of dubbele aanhalingstekens. Geen YAML-commentaar in de velden `name`, `t
 | `aliases`, `tags`, `attachments` | nee | lijst van tekst; aliassen uniek over alle notities |
 | `idee` | nee | `nieuw`, `onderzoek`, `project`, `geparkeerd` of `verworpen` |
 | `scope` | nee | `prive`, `werk` of `persona` (alleen in `persona/`) |
+| `ervaring` | nee | `opdracht`, `werkgever`, `opleiding`, `thesis`, `cursus` of `certificaat` (§7) |
 | `herzien` | nee | datum van een bewuste controle, niet in de toekomst |
 | `bewaren-tot` | nee | datum |
 | `vervangen-door` | nee | `name` van een bestaande andere notitie |
@@ -131,6 +132,25 @@ Optioneel de stand van de gebruiker: `mijlpalen` (de mijlpalen die de gebruiker 
 (`punten` en `datum` van het beste resultaat van een uitdaging). Nooit de antwoorden zelf: die worden
 notities. Vragen worden nooit gemaakt uit notities met `source: client` of `delen: nooit`, of over een
 gesloten domein. Een vaste voorraad vragen is van de toepassing (`vragenVan`, optie `voorraad`).
+
+De vormen: `dit-of-dat`, `waar-niet-waar`, `mening`, `raad`, `gat` en `like` (kort: één tik of één zin),
+`vertel` en `laad-op` (zwaar: hoogstens 15 % van de vragen van een dag, minstens één) en `los-op` (onderhoud).
+
+- **vertel**: een open vraag met één doorvraag, over een notitie met `ervaring` zonder kop over wat de
+  eigenaar leerde (`## Wat ik leerde`, `## Wat ik weet`, `## Lessen`, in het Engels `## What I learned`), over
+  een project dat de laatste 30 dagen bewoog (lopend leren), of over een kennisgebied: een tag in minstens
+  drie notities waarvan geen enkele zo'n kop heeft en die geen persona-notitie draagt. Het antwoord komt onder
+  die kop in de notitie over de ervaring of het gebied; klantdetails alleen in een notitie met
+  `source: client`, algemene lessen in een eigen notitie zonder klantnamen.
+- **laad-op**: het origineel van een notitie met `ervaring` `opleiding`, `thesis`, `cursus` of `certificaat`,
+  of van een document, zonder `attachments`. Het bestand komt via de inbox in `attachments/`; heeft de
+  eigenaar het niet, dan `origineel: geen` in de frontmatter.
+- **los-op**: een notitie zonder `area` (met de hubs als keuze) en elke fout of melding van de controle
+  (`gatenVan`, derde parameter: een lijst `{ bron, melding }`, ook van een consistentiecontrole of van een
+  model dat tegenstrijdige feiten vond).
+
+Vertel en laad op vullen de dekking van de laag `weten`, elk hun eigen gat (ook over dezelfde notitie);
+los op telt niet als dekking.
 
 `metingen.json` (optioneel, `metingen.schema.json`): per datum het aantal notities, raw, archief,
 wezen, lang, gelijkend, zonder description en de mediaan van het aantal links.
