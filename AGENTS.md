@@ -16,7 +16,8 @@ clients or people, no local paths and no references to internal repositories or 
 - The house style in `design/` is maintained here, not copied from the implementation. It has its own version in
   `design/VERSION`, also at the top of `tokens.json`, `contextura.css` and the example pages; `tokens.json` and
   `contextura.css` carry the same values. A released version never changes: a changed token, class or part is a new
-  version.
+  version. A release is tagged `design-<version>` and copied to `docs/design/<version>/`, which `docs/index.html`
+  lists; tag and publish only when the owner asks.
 - The conformance cases are data. A new case or a changed expected result comes with the change to the
   specification that explains it.
 
