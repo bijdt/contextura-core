@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contextura design tokens</title>
+<link rel="stylesheet" href="contextura.css">
+<style>
+  body { margin: 0; padding: 32px 16px 56px; }
+  .sheet { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  section { display: grid; gap: 16px; }
+  header { display: grid; gap: 10px; border-bottom: 3px solid var(--ctx-ink); padding-bottom: 18px; }
+  header p, section > p { margin: 0; max-width: 66ch; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .swatch { overflow: hidden; }
+  .swatch i { display: block; height: 56px; background: var(--ctx-c); border-bottom: 1px solid var(--ctx-rule); }
+  .swatch div { padding: 8px 10px; font-size: 14px; }
+  .swatch b { display: block; }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+  .type p { margin: 0; }
+  .parts { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+  .parts .ctx-card { padding: 12px; display: grid; gap: 8px; }
+  .parts svg { width: 100%; height: auto; display: block; }
+  .meters { display: grid; gap: 10px; max-width: 360px; }
+  .meters div { display: grid; grid-template-columns: 90px 1fr 44px; gap: 10px; align-items: center; font-size: 14px; }
+  code { font-family: var(--ctx-font-mono); font-size: 13px; }
+</style>
+</head>
+<body class="ctx-page">
+<main class="sheet">
+<header>
+  <div class="ctx-lines" aria-hidden="true"><i class="ctx-home"></i><i class="ctx-work"></i><i class="ctx-company"></i><i class="ctx-platform"></i></div>
+  <p class="ctx-kicker ctx-ink">Design 0.1.0</p>
+  <h1 class="ctx-title">Tokens and parts</h1>
+  <p class="ctx-soft">Everything in <code>tokens.json</code> and <code>contextura.css</code>. The values follow the light or dark setting of the system; <code>data-theme="light"</code> or <code>"dark"</code> on the root element fixes one. The metro map built from these parts: <a href="example.html">example.html</a>.</p>
+</header>
+
+<section>
+  <div><span class="ctx-kicker ctx-platform">Colour</span><h2 class="ctx-heading">Lines</h2></div>
+  <p>Each process has the colour of a metro line. Put the class on an element, and every part inside it takes that colour through <code>--ctx-c</code>.</p>
+  <div class="swatches">
+    <div class="swatch ctx-card ctx-home"><i></i><div><b>home</b><code>.ctx-home</code></div></div>
+    <div class="swatch ctx-card ctx-work"><i></i><div><b>work</b><code>.ctx-work</code></div></div>
+    <div class="swatch ctx-card ctx-company"><i></i><div><b>company</b><code>.ctx-company</code></div></div>
+    <div class="swatch ctx-card ctx-platform"><i></i><div><b>platform</b><code>.ctx-platform</code></div></div>
+    <div class="swatch ctx-card ctx-alert"><i></i><div><b>alert</b><code>.ctx-alert</code></div></div>
+    <div class="swatch ctx-card ctx-muted"><i></i><div><b>muted</b><code>.ctx-muted</code></div></div>
+  </div>
+  <div><h2 class="ctx-heading">Paper and ink</h2></div>
+  <div class="swatches">
+    <div class="swatch ctx-card" style="--ctx-c:var(--ctx-paper)"><i></i><div><b>paper</b><code>--ctx-paper</code></div></div>
+    <div class="swatch ctx-card" style="--ctx-c:var(--ctx-surface)"><i></i><div><b>surface</b><code>--ctx-surface</code></div></div>
+    <div class="swatch ctx-card" style="--ctx-c:var(--ctx-rule)"><i></i><div><b>rule</b><code>--ctx-rule</code></div></div>
+    <div class="swatch ctx-card" style="--ctx-c:var(--ctx-ink-soft)"><i></i><div><b>ink-soft</b><code>--ctx-ink-soft</code></div></div>
+    <div class="swatch ctx-card" style="--ctx-c:var(--ctx-ink)"><i></i><div><b>ink</b><code>--ctx-ink</code></div></div>
+    <div class="swatch ctx-card" style="--ctx-c:var(--ctx-platform-ink)"><i></i><div><b>platform-ink</b><code>--ctx-platform-ink</code></div></div>
+  </div>
+</section>
+
+<section class="type">
+  <div><span class="ctx-kicker ctx-work">Type</span><h2 class="ctx-heading">Overpass and Overpass Mono</h2></div>
+  <p class="ctx-title">Everything you know</p>
+  <p class="ctx-heading">A heading in Overpass 800</p>
+  <p>Body text in Overpass 400, with <b>600 for emphasis</b>. Names and titles use 900.</p>
+  <p class="ctx-num">Overpass Mono · 0123456789 · 42 %</p>
+  <p><span class="ctx-kicker ctx-company">A kicker in mono capitals</span></p>
+</section>
+
+<section>
+  <div><span class="ctx-kicker ctx-company">Metro map</span><h2 class="ctx-heading">Parts in SVG</h2></div>
+  <p>Put <code>.ctx-map</code> on the <code>&lt;svg&gt;</code>. The geometry (positions, radius of a station, <code>rx</code> of the terminus) stays in the SVG; the classes give the stroke, fill and type.</p>
+  <div class="parts">
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><path class="ctx-line ctx-work" d="M20 40 H200"/><path class="ctx-line ctx-branch ctx-home" d="M20 80 H200"/><path class="ctx-line ctx-branch ctx-planned ctx-company" d="M20 106 H200"/></svg>
+      <b>Line</b><code>.ctx-line</code><code>.ctx-branch · .ctx-planned</code>
+    </div>
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><path class="ctx-line ctx-home" d="M20 60 H200"/><circle class="ctx-station ctx-home" cx="110" cy="60" r="52"/><text x="110" y="58" class="ctx-station-name" text-anchor="middle" style="font-size:18px">Home</text><text x="110" y="80" class="ctx-station-note" text-anchor="middle">answers · apps</text></svg>
+      <b>Station</b><code>.ctx-station</code><code>.ctx-station-name · .ctx-station-note</code>
+    </div>
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><path class="ctx-line ctx-branch ctx-work" d="M20 60 H200"/><circle class="ctx-stop ctx-work" cx="80" cy="60" r="11"/><circle class="ctx-stop ctx-planned ctx-work" cx="150" cy="60" r="11"/><text x="80" y="36" class="ctx-label ctx-halo" text-anchor="middle" style="font-size:16px">mail</text><text x="150" y="36" class="ctx-label ctx-halo" text-anchor="middle" style="font-size:16px;font-style:italic;fill:var(--ctx-ink-soft)">+ other</text></svg>
+      <b>Stop</b><code>.ctx-stop · .ctx-planned</code><code>.ctx-halo</code>
+    </div>
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><path class="ctx-line ctx-platform" d="M110 10 V110"/><path class="ctx-transfer" d="M90 54 H130 M90 66 H130"/></svg>
+      <b>Transfer</b><code>.ctx-transfer</code>
+    </div>
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><rect class="ctx-terminus" x="14" y="14" width="192" height="60" rx="30"/><text x="110" y="52" class="ctx-terminus-name" text-anchor="middle" style="font-size:20px">Exchange</text><g class="ctx-platform"><path class="ctx-line" d="M110 74 V100"/><path class="ctx-end" d="M84 104 H136"/></g></svg>
+      <b>Terminus and end</b><code>.ctx-terminus · .ctx-terminus-name</code><code>.ctx-end</code>
+    </div>
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><path class="ctx-person" d="M14 60 H206"/><circle class="ctx-person-ring" cx="110" cy="60" r="30"/><g class="ctx-person-icon"><circle cx="110" cy="50" r="7.5"/><path d="M95 76 c2.5-9 8.5-13 15-13 s12.5 4 15 13"/></g></svg>
+      <b>Person</b><code>.ctx-person · .ctx-person-ring</code><code>.ctx-person-icon</code>
+    </div>
+    <div class="ctx-card">
+      <svg class="ctx-map" viewBox="0 0 220 120" aria-hidden="true"><path class="ctx-dead-end" d="M200 50 H34"/><path class="ctx-dead-end-stop" d="M26 32 V68"/><text x="22" y="96" class="ctx-zone ctx-alert" style="font-size:13px">⊘ NEVER LEAVES</text></svg>
+      <b>Dead end</b><code>.ctx-dead-end · .ctx-dead-end-stop</code><code>.ctx-zone</code>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div><span class="ctx-kicker ctx-home">Pages</span><h2 class="ctx-heading">Parts in HTML</h2></div>
+  <div class="row">
+    <span><span class="ctx-dot ctx-work"></span>A station dot before a name <code>.ctx-dot</code></span>
+  </div>
+  <ol class="ctx-route ctx-company">
+    <li><b>Read</b><br><span class="ctx-soft">a route: <code>.ctx-route</code>, one station per item</span></li>
+    <li><b>Check</b><br><span class="ctx-soft">in the colour of its process</span></li>
+    <li class="ctx-planned"><b>Share</b><br><span class="ctx-soft"><code>.ctx-planned</code> dots the line to the next station</span></li>
+    <li><b>Done</b></li>
+  </ol>
+  <div class="row">
+    <span><span class="ctx-lamp ctx-lamp-ok" role="img" aria-label="ok"></span> ok</span>
+    <span><span class="ctx-lamp ctx-lamp-warn" role="img" aria-label="warning"></span> warning</span>
+    <span><span class="ctx-lamp ctx-lamp-alert" role="img" aria-label="error"></span> error</span>
+    <span><span class="ctx-lamp ctx-lamp-off" role="img" aria-label="off"></span> off</span>
+    <code>.ctx-lamp · .ctx-lamp-ok · -warn · -alert · -off</code>
+  </div>
+  <div class="meters">
+    <div class="ctx-home"><span>home</span><span class="ctx-meter" role="meter" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="--ctx-value:.72"><i></i></span><span class="ctx-num">72 %</span></div>
+    <div class="ctx-work"><span>work</span><span class="ctx-meter" role="meter" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="--ctx-value:.45"><i></i></span><span class="ctx-num">45 %</span></div>
+    <div class="ctx-alert"><span>budget</span><span class="ctx-meter" role="meter" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100" style="--ctx-value:.96"><i></i></span><span class="ctx-num">96 %</span></div>
+    <code>.ctx-meter, with --ctx-value from 0 to 1</code>
+  </div>
+</section>
+</main>
+</body>
+</html>

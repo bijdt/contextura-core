@@ -50,5 +50,7 @@ Also `platform-ink`, `ink-soft`, `rule`, and the lamp colours `ok` and `warn`; s
 ## Versions
 
 An implementation takes the folder over as a copy, with its version (for example `vendor/contextura-core/design/`),
-like the specification. A published version never changes: a change to a token value, a class name or the meaning
+like the specification. Each version is tagged `design-<version>` and published at
+`https://schema.contextura.io/design/<version>/`, for example
+[`design/0.1.0/contextura.css`](https://schema.contextura.io/design/0.1.0/contextura.css). A published version never changes: a change to a token value, a class name or the meaning
 of a part is a new version. Until 1.0 a minor version may rename or remove; from 1.0 that is a major version.
