@@ -1,6 +1,6 @@
 # contextura-core: specification
 
-Version 0.17 (draft), 2026-10-21. Belongs to contextura-core 0.21.0. Text under CC BY 4.0; the
+Version 0.18 (draft), 2026-10-21. Belongs to contextura-core 0.22.0. Text under CC BY 4.0; the
 reference implementation under MIT.
 
 This document describes the format itself, apart from the code: whoever reads it must be able to build
@@ -21,7 +21,9 @@ Version 0.15 gives every name of the format an English name. The Dutch names of 
 until 1.0, with a warning; §15 describes the transition and the migration. Version 0.16 extends the kit
 (`kit/2`: the sources notes and connection, the actions note and share) and the tile (`tile/2`: `button`, and
 `input` on an action of a list); a file that was valid stays valid. Version 0.17 adds the client folder
-(`client/<client>/`, §2): the knowledge of a client in one place, with the ordinary folders inside.
+(`client/<client>/`, §2): the knowledge of a client in one place, with the ordinary folders inside. Version 0.18
+makes the score of the twin fairer with few predictions (§7), adds the gallery to the app manifest (`app/3`, §10c) and
+the view floorplan to the kit (`kit/3`), each with its Dutch names in the table (§15).
 
 ## 1. Concepts
 
@@ -209,6 +211,18 @@ The layers: `thinking`, `knowing`, `judging` and `rhythm`.
 Tell and upload fill the coverage of the layer `knowing`, each their own gap (also about the same note);
 resolve does not count as coverage.
 
+**Score** (`scoreFor`): per layer and per domain, half accuracy and half coverage, from what there is.
+
+- **Accuracy**: the points of the last 20 answered predictions (form `guess`, 0, 1 or 2 each) against the maximum,
+  only from `MIN_GUESSES` (3) answered predictions; below that `accuracy` is null, so that one wrong guess does not
+  put a layer at 0 % and an application can show "not enough yet".
+- **Coverage**: the filled gaps against the filled and still open ones. Filled is an answered question with a source
+  in the brain (not `like` or `resolve`), and an answered `gap` question from the pool of the application
+  (`pool#<key>`, in a log of 0.14 `voorraad#<key>`); another question from the pool and a test question
+  (`twin.json#<id>`) fill nothing. Open is a gap `gapsFor` still finds and that is not filled.
+- A layer or domain has a score only from `MIN_ANSWERS` (5) answered questions; the total is the average of the
+  layers with a score.
+
 `metrics.json` (optional, `metrics.schema.json`): per date the number of notes, raw, archived,
 orphans, long, similar, without description and the median of the number of links (`date`, `notes`, `raw`,
 `archived`, `orphans`, `long`, `similar`, `withoutDescription`, `medianLinks`; `measure`).
@@ -285,7 +299,29 @@ icon, the command (`runtime: node`), what it needs (a connector as two environme
 `PATH`, `HOME`, `APP_DATA`, `NODE_OPTIONS`, `NODE_ENV`, `LD_PRELOAD` or `GIT_*`; a file in the brain) and whether
 it can be configured via the brain: then the app reads `apps/<id>.yaml` and answers `--options` and
 `--validate <file>` (`readValidation`). An app preferably publishes a JSON Schema for its `apps/<id>.yaml`. A
-product may add its own fields (a gallery); the reader (`readManifest`, `readApp` in `app.ts`) leaves them out.
+product may add its own fields; the readers leave them out.
+
+### Gallery
+
+How an app describes itself before it is installed (`app/3`; `readGallery` in `app.ts`, separate from
+`readManifest`). All fields are optional; a value that is not right falls away.
+
+- `category`: `home`, `garden`, `family`, `money`, `health`, `work` or `brain`.
+- `explanation`: what the app does in a few sentences (at most 600 characters); `description` stays the one-liner.
+- `brainConfig`: at most 8 conditions on the brain, so that an application can show what is already there and what
+  is missing: `{ kind: file, path, explanation }` (a file in the brain), `{ kind: notes, folder, field?, minimum,
+  explanation }` (at least `minimum` notes in a folder, optionally with `field` in the frontmatter) or
+  `{ kind: text, explanation }` (not to be checked yet). Paths are relative, without `..` or hidden folders.
+- `example`: a tile (§10b) with made-up data, shown before installing.
+- `withoutModel`: at most 6 short texts (30 characters): what the app can do without a language model.
+- `points`: what the app adds to the brain and the chat, 1 to 5: 1 by itself at the right moment, 2 live data or
+  actions through a connector, 3 fixed rules as code, 4 quick capture without the chat, 5 showing what text cannot.
+- `translations`: per language (two letters) `title`, `description` and `explanation`; a missing field falls back
+  to the ordinary one.
+
+The Dutch names of before are in the table (§15, kind `app.json`): `categorie`, `uitleg` (→ `explanation`,
+not `description`, which is `beschrijving`), `voorbeeld` (with the names of a tile), `zonderModel`, `punten`,
+`vertalingen`, and in a condition `soort` (`bestand`, `notities`, `tekst`), `pad`, `map` and `veld`.
 
 ## 11. Registry and workspaces
 
@@ -315,7 +351,11 @@ to 62). A connection with Home Assistant may control what is in `write` (at most
 scene, `start` for a script, `open-close` and `position` for a cover, `temperature` for climate (`min` and `max`
 required, between 10 and 25 in steps of 0.5), `number` for input_number and `datetime` for input_datetime; never
 lock or alarm_control_panel. A source that only reads allows the actions `note` and `share` only (they do not
-touch the data), and a timeline over notes or a connection needs no `every`: the date itself is the moment. A data file without an app is an error. The data contains nothing with
+touch the data), and a timeline over notes or a connection needs no `every`: the date itself is the moment. The view `floorplan` (`kit/3`) places
+every item on a site: `site: { width, depth }` in meters (required with a floorplan, not allowed with another view),
+and in the data each item has the fixed keys `x`, `y`, `width` and `depth`, in meters from the top left corner of
+the site; they are not in `fields`, which say what a tap on an item shows. An item without a place, or outside the
+site, is only in the list. A floorplan allows the actions `add`, `note` and `share`. A data file without an app is an error. The data contains nothing with
 `source: client` and nothing that is never shared: it is in the brain and goes along in export and clone. The
 schemas are derived from the first application that uses the kit.
 
@@ -354,8 +394,9 @@ registry but with the workspace that publishes (see `checkDocumentation` and `st
 - Every schema carries its name and version in its `$id`, a fixed web address:
   `https://schema.contextura.io/<name>/<version>.json`. A schema version no longer changes once it is
   published; a change that makes a file that was valid until then invalid is a new version. The schemas of
-  0.17 (the same as in 0.16): `note/3`, `twin/3`, `brain/2`, `app/2`, `readers/1`, `bundles/1`, `metrics/1`, `documentation/1`,
-  `projects/1`, `tile/2`, `kit/2` and `kit-data/1` (0.15 had `tile/1` and `kit/1`).
+  0.18: `note/3`, `twin/3`, `brain/2`, `app/3`, `readers/1`, `bundles/1`, `metrics/1`, `documentation/1`,
+  `projects/1`, `tile/2`, `kit/3` and `kit-data/1` (0.16 and 0.17 had `app/2` and `kit/2`, 0.15 also `tile/1` and
+  `kit/1`).
 - The code (`contextura-core`) follows semver and names the version of this text that it implements.
 
 ## 15. Migration from 0.14
@@ -402,8 +443,11 @@ cannot drift apart. Another implementation reads the same file. Keys are old nam
   `experience`, `category`, `kind` and `recipients`).
 - **json**: per kind of file the keys and the values of known keys: `readers.json`, `bundles.json`, `twin.json`,
   `metrics.json`, `brain.json` (`taal` → `language`), `documentation.json`, `projects.json`, `tile.json`, the
-  tile a command prints (`tile`), `app.json`, the answer to `--validate` (`validation`), the YAML of a kit app
-  (`kit`, with `bouwdoos` → `kit`), `pack.json`, `data.json`, `persona-rules.json` and `pack-rules.json`.
+  tile a command prints (`tile`), `app.json` (since 0.18 with the gallery and the names of a tile for its
+  `example`), the answer to `--validate` (`validation`), the YAML of a kit app (`kit`, with `bouwdoos` → `kit`, and
+  since 0.18 `plattegrond` → `floorplan`, `terrein` → `site`, `breedte` → `width`, `diepte` → `depth`), the data
+  of a floorplan (`kit-data`: `breedte` and `diepte`; only for the data of a floorplan, other data keeps its own
+  field names), `pack.json`, `data.json`, `persona-rules.json` and `pack-rules.json`.
 - **prefixes**: party ids `persoon:` → `person:`, `gezin:` → `household:`, `bedrijf:` → `company:` (anywhere in
   `projects.json`) and the pool questions in the log of `twin.json` (`source`: `voorraad#` → `pool#`).
 
@@ -432,8 +476,9 @@ What it changes:
 - the keys and the values of known fields in the frontmatter of notes, line by line, quoting and everything else
   as it is;
 - the markers of the generated block;
-- the JSON files at the root, in packs and in data packs, and the YAML of apps in `apps/` (not their data
-  files);
+- the JSON files at the root, in packs and in data packs, and the YAML of a kit app in `apps/` (a file with a top-level
+  `kit` or `bouwdoos` key; its data file only for a floorplan, kind `kit-data`). The settings of an ordinary app
+  (`apps/<id>.yaml` without that key) follow the schema of that app, not of the format, and stay as they are;
 - `brain.json`: an existing brain without `brain.json` gets `{"language": "nl"}`, because its content is Dutch and
   the default changes (below).
 

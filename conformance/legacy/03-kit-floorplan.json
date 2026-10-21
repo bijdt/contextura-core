@@ -1,0 +1,69 @@
+{
+  "description": "The view floorplan of the kit (0.18) in the Dutch names of before: plattegrond, terrein with breedte and diepte.",
+  "function": "legacy.normalize",
+  "input": {
+    "kind": "kit",
+    "value": {
+      "bouwdoos": 1,
+      "titel": "Moestuin",
+      "bron": {
+        "soort": "eigen"
+      },
+      "weergave": {
+        "soort": "plattegrond",
+        "velden": [
+          "naam",
+          "inhoud"
+        ],
+        "terrein": {
+          "breedte": 12,
+          "diepte": 8.5
+        }
+      },
+      "acties": [
+        "toevoegen",
+        "notitie"
+      ]
+    }
+  },
+  "expected": {
+    "value": {
+      "kit": 1,
+      "title": "Moestuin",
+      "source": {
+        "kind": "own"
+      },
+      "view": {
+        "kind": "floorplan",
+        "fields": [
+          "naam",
+          "inhoud"
+        ],
+        "site": {
+          "width": 12,
+          "depth": 8.5
+        }
+      },
+      "actions": [
+        "add",
+        "note"
+      ]
+    },
+    "warnings": [
+      "old name 'bouwdoos': use 'kit'",
+      "old name 'titel': use 'title'",
+      "old name 'bron': use 'source'",
+      "old name 'soort': use 'kind'",
+      "old name 'eigen': use 'own'",
+      "old name 'weergave': use 'view'",
+      "old name 'plattegrond': use 'floorplan'",
+      "old name 'velden': use 'fields'",
+      "old name 'terrein': use 'site'",
+      "old name 'breedte': use 'width'",
+      "old name 'diepte': use 'depth'",
+      "old name 'acties': use 'actions'",
+      "old name 'toevoegen': use 'add'",
+      "old name 'notitie': use 'note'"
+    ]
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "description": "The gallery fields of app.json (0.18) in the English names and in the Dutch names of before: the same gallery, the old names each with a warning; uitleg becomes explanation (description is beschrijving).",
+  "function": "app.gallery",
+  "input": {
+    "app": {
+      "version": 1,
+      "apps": {
+        "garden-en": {
+          "title": "Moestuin",
+          "description": "Je bakken op een plattegrond.",
+          "color": "green",
+          "icon": "leaf",
+          "runtime": "node",
+          "command": [
+            "node",
+            "tile.mjs"
+          ],
+          "category": "garden",
+          "explanation": "Toont elke bak op zijn plaats, met wat erin staat en wanneer je zaaide.",
+          "brainConfig": [
+            {
+              "kind": "file",
+              "path": "apps/moestuin.yaml",
+              "explanation": "De instellingen van de moestuin"
+            },
+            {
+              "kind": "notes",
+              "folder": "notes",
+              "field": "gezaaid",
+              "minimum": 3,
+              "explanation": "Notities met een zaaidatum"
+            },
+            {
+              "kind": "text",
+              "explanation": "Later: het weer"
+            }
+          ],
+          "example": {
+            "title": "Moestuin",
+            "color": "green",
+            "icon": "leaf",
+            "summary": {
+              "text": "4 bakken, 1 te oogsten",
+              "state": "warning"
+            },
+            "blocks": [
+              {
+                "kind": "list",
+                "items": [
+                  {
+                    "text": "Bak 1: sla",
+                    "done": false
+                  }
+                ]
+              }
+            ]
+          },
+          "withoutModel": [
+            "lijst",
+            "afvinken"
+          ],
+          "points": [
+            5,
+            4,
+            4
+          ],
+          "translations": {
+            "en": {
+              "title": "Vegetable garden",
+              "description": "Your beds on a floorplan.",
+              "explanation": "Shows every bed in its place."
+            }
+          }
+        },
+        "garden-nl": {
+          "titel": "Moestuin",
+          "beschrijving": "Je bakken op een plattegrond.",
+          "kleur": "groen",
+          "icoon": "blad",
+          "runtime": "node",
+          "opdracht": [
+            "node",
+            "tile.mjs"
+          ],
+          "categorie": "tuin",
+          "uitleg": "Toont elke bak op zijn plaats, met wat erin staat en wanneer je zaaide.",
+          "brainConfig": [
+            {
+              "soort": "bestand",
+              "pad": "apps/moestuin.yaml",
+              "uitleg": "De instellingen van de moestuin"
+            },
+            {
+              "soort": "notities",
+              "map": "notes",
+              "veld": "gezaaid",
+              "minimum": 3,
+              "uitleg": "Notities met een zaaidatum"
+            },
+            {
+              "soort": "tekst",
+              "uitleg": "Later: het weer"
+            }
+          ],
+          "voorbeeld": {
+            "titel": "Moestuin",
+            "kleur": "groen",
+            "icoon": "blad",
+            "samenvatting": {
+              "tekst": "4 bakken, 1 te oogsten",
+              "toestand": "let-op"
+            },
+            "blokken": [
+              {
+                "soort": "lijst",
+                "items": [
+                  {
+                    "tekst": "Bak 1: sla",
+                    "klaar": false
+                  }
+                ]
+              }
+            ]
+          },
+          "zonderModel": [
+            "lijst",
+            "afvinken"
+          ],
+          "punten": [
+            5,
+            4,
+            4
+          ],
+          "vertalingen": {
+            "en": {
+              "titel": "Vegetable garden",
+              "beschrijving": "Your beds on a floorplan.",
+              "uitleg": "Shows every bed in its place."
+            }
+          }
+        }
+      }
+    }
+  },
+  "expected": {
+    "garden-en": {
+      "category": "garden",
+      "explanation": "Toont elke bak op zijn plaats, met wat erin staat en wanneer je zaaide.",
+      "brainConfig": [
+        {
+          "kind": "file",
+          "path": "apps/moestuin.yaml",
+          "explanation": "De instellingen van de moestuin"
+        },
+        {
+          "kind": "notes",
+          "folder": "notes",
+          "field": "gezaaid",
+          "minimum": 3,
+          "explanation": "Notities met een zaaidatum"
+        },
+        {
+          "kind": "text",
+          "explanation": "Later: het weer"
+        }
+      ],
+      "example": {
+        "id": "garden-en",
+        "project": "garden-en",
+        "title": "Moestuin",
+        "color": "green",
+        "icon": "leaf",
+        "summary": {
+          "text": "4 bakken, 1 te oogsten",
+          "state": "warning"
+        },
+        "blocks": [
+          {
+            "kind": "list",
+            "items": [
+              {
+                "text": "Bak 1: sla",
+                "done": false
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "refreshed": "1970-01-01T00:00:00.000Z"
+      },
+      "withoutModel": [
+        "lijst",
+        "afvinken"
+      ],
+      "points": [
+        4,
+        5
+      ],
+      "translations": {
+        "en": {
+          "title": "Vegetable garden",
+          "description": "Your beds on a floorplan.",
+          "explanation": "Shows every bed in its place."
+        }
+      }
+    },
+    "garden-nl": {
+      "category": "garden",
+      "explanation": "Toont elke bak op zijn plaats, met wat erin staat en wanneer je zaaide.",
+      "brainConfig": [
+        {
+          "kind": "file",
+          "path": "apps/moestuin.yaml",
+          "explanation": "De instellingen van de moestuin"
+        },
+        {
+          "kind": "notes",
+          "folder": "notes",
+          "field": "gezaaid",
+          "minimum": 3,
+          "explanation": "Notities met een zaaidatum"
+        },
+        {
+          "kind": "text",
+          "explanation": "Later: het weer"
+        }
+      ],
+      "example": {
+        "id": "garden-nl",
+        "project": "garden-nl",
+        "title": "Moestuin",
+        "color": "green",
+        "icon": "leaf",
+        "summary": {
+          "text": "4 bakken, 1 te oogsten",
+          "state": "warning"
+        },
+        "blocks": [
+          {
+            "kind": "list",
+            "items": [
+              {
+                "text": "Bak 1: sla",
+                "done": false
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "refreshed": "1970-01-01T00:00:00.000Z"
+      },
+      "withoutModel": [
+        "lijst",
+        "afvinken"
+      ],
+      "points": [
+        4,
+        5
+      ],
+      "translations": {
+        "en": {
+          "title": "Vegetable garden",
+          "description": "Your beds on a floorplan.",
+          "explanation": "Shows every bed in its place."
+        }
+      },
+      "warnings": [
+        "old name 'titel': use 'title'",
+        "old name 'beschrijving': use 'description'",
+        "old name 'kleur': use 'color'",
+        "old name 'groen': use 'green'",
+        "old name 'icoon': use 'icon'",
+        "old name 'blad': use 'leaf'",
+        "old name 'opdracht': use 'command'",
+        "old name 'categorie': use 'category'",
+        "old name 'tuin': use 'garden'",
+        "old name 'uitleg': use 'explanation'",
+        "old name 'soort': use 'kind'",
+        "old name 'bestand': use 'file'",
+        "old name 'pad': use 'path'",
+        "old name 'notities': use 'notes'",
+        "old name 'map': use 'folder'",
+        "old name 'veld': use 'field'",
+        "old name 'tekst': use 'text'",
+        "old name 'voorbeeld': use 'example'",
+        "old name 'samenvatting': use 'summary'",
+        "old name 'toestand': use 'state'",
+        "old name 'let-op': use 'warning'",
+        "old name 'blokken': use 'blocks'",
+        "old name 'lijst': use 'list'",
+        "old name 'klaar': use 'done'",
+        "old name 'zonderModel': use 'withoutModel'",
+        "old name 'punten': use 'points'",
+        "old name 'vertalingen': use 'translations'"
+      ]
+    }
+  }
+}

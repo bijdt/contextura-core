@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.contextura.io/kit/2.json",
+  "$id": "https://schema.contextura.io/kit/3.json",
   "title": "Contextura Bouwdoos (kit): apps/<id>.yaml",
-  "description": "A small app built from the Bouwdoos kit: what it shows and which actions it offers. kit/2 adds the sources notes and connection (with write for Home Assistant) and the actions note and share; the field kit stays 1. Not in this schema: which operation fits which domain (on-off for light, switch and input_boolean; activate for scene; start for script; open-close and position for cover; temperature for climate, with min and max between 10 and 25 in steps of 0.5; number for input_number; datetime for input_datetime), lock and alarm_control_panel never, and a timeline needs every except with notes or a connection.",
+  "description": "A small app built from the Bouwdoos kit: what it shows and which actions it offers. kit/2 adds the sources notes and connection (with write for Home Assistant) and the actions note and share; kit/3 adds the view floorplan (site with width and depth in meters; the actions add, note and share only); the field kit stays 1. Not in this schema: which operation fits which domain (on-off for light, switch and input_boolean; activate for scene; start for script; open-close and position for cover; temperature for climate, with min and max between 10 and 25 in steps of 0.5; number for input_number; datetime for input_datetime), lock and alarm_control_panel never, and a timeline needs every except with notes or a connection.",
   "type": "object",
   "properties": {
     "kit": { "type": "number", "const": 1 },
@@ -130,7 +130,7 @@
     "view": {
       "type": "object",
       "properties": {
-        "kind": { "type": "string", "enum": ["list", "checklist", "counter", "meter", "timeline", "table", "chart"] },
+        "kind": { "type": "string", "enum": ["list", "checklist", "counter", "meter", "timeline", "table", "chart", "floorplan"] },
         "fields": {
           "minItems": 1,
           "maxItems": 8,
@@ -146,7 +146,17 @@
         },
         "value": { "type": "string", "pattern": "^[a-z][a-z0-9_]{0,29}$" },
         "max": { "type": "number", "exclusiveMinimum": 0 },
-        "unit": { "type": "string", "maxLength": 20 }
+        "unit": { "type": "string", "maxLength": 20 },
+        "site": {
+          "description": "Only with a floorplan: the size of the site in meters. Each item has the fixed keys x, y, width and depth in its data (meters from the top left corner of the site); they are not in fields.",
+          "type": "object",
+          "properties": {
+            "width": { "type": "number", "exclusiveMinimum": 0, "maximum": 1000 },
+            "depth": { "type": "number", "exclusiveMinimum": 0, "maximum": 1000 }
+          },
+          "required": ["width", "depth"],
+          "additionalProperties": false
+        }
       },
       "required": ["kind", "fields"],
       "additionalProperties": false
@@ -161,5 +171,22 @@
     "who": { "default": "owner", "type": "string", "const": "owner" }
   },
   "required": ["kit", "title", "view"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "view": { "properties": { "kind": { "const": "floorplan" } }, "required": ["kind"] } },
+        "required": ["view"]
+      },
+      "then": {
+        "properties": {
+          "view": { "required": ["site"] },
+          "actions": { "items": { "enum": ["add", "note", "share"] } }
+        }
+      },
+      "else": {
+        "properties": { "view": { "not": { "required": ["site"] } } }
+      }
+    }
+  ],
   "additionalProperties": false
 }

@@ -1,0 +1,51 @@
+{
+  "description": "The data of a floorplan (kind kit-data, only for the data of a floorplan) in the Dutch names of before: the fixed keys of a place x, y, breedte and diepte; other keys stay as they are.",
+  "function": "legacy.normalize",
+  "input": {
+    "kind": "kit-data",
+    "value": {
+      "items": [
+        {
+          "naam": "Bak 1",
+          "inhoud": "sla",
+          "x": 0,
+          "y": 0,
+          "breedte": 1.2,
+          "diepte": 3
+        },
+        {
+          "naam": "Bak 2",
+          "x": 2,
+          "y": 0,
+          "width": 1.2,
+          "depth": 3
+        }
+      ]
+    }
+  },
+  "expected": {
+    "value": {
+      "items": [
+        {
+          "naam": "Bak 1",
+          "inhoud": "sla",
+          "x": 0,
+          "y": 0,
+          "width": 1.2,
+          "depth": 3
+        },
+        {
+          "naam": "Bak 2",
+          "x": 2,
+          "y": 0,
+          "width": 1.2,
+          "depth": 3
+        }
+      ]
+    },
+    "warnings": [
+      "old name 'breedte': use 'width'",
+      "old name 'diepte': use 'depth'"
+    ]
+  }
+}
