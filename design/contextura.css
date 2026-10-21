@@ -1,0 +1,157 @@
+/* contextura.css 0.1.0: the house style of Contextura. MIT, see LICENSE.
+   The tokens of tokens.json as CSS variables (light and dark), the fonts, and the parts of the metro map.
+   Only classes and variables, no JavaScript. Every class starts with ctx-; nothing styles bare elements. */
+
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800;900&family=Overpass+Mono:wght@400;600&display=swap");
+
+/* Tokens */
+
+:root {
+  --ctx-home: #f7931e; --ctx-work: #1565c0; --ctx-company: #0a9a5a; --ctx-platform: #7b3fb5;
+  --ctx-platform-ink: #5b2d8f; --ctx-alert: #c62828; --ctx-muted: #8a8f99; --ctx-ok: #0a9a5a; --ctx-warn: #e8820c;
+  --ctx-paper: #fdfdfb; --ctx-surface: #ffffff; --ctx-ink: #15171d; --ctx-ink-soft: #5d6270; --ctx-rule: #dcdde2;
+
+  --ctx-font-display: "Overpass", "Segoe UI", Arial, sans-serif;
+  --ctx-font-mono: "Overpass Mono", Consolas, monospace;
+
+  --ctx-space-1: 4px; --ctx-space-2: 8px; --ctx-space-3: 12px; --ctx-space-4: 16px;
+  --ctx-space-5: 24px; --ctx-space-6: 32px; --ctx-space-7: 48px;
+  --ctx-radius-small: 6px; --ctx-radius-medium: 10px; --ctx-radius-pill: 999px;
+
+  --ctx-stroke-line: 16px; --ctx-stroke-branch: 10px; --ctx-stroke-terminus: 8px;
+  --ctx-stroke-stop: 6px; --ctx-stroke-transfer: 5px;
+
+  /* The colour of the current line; set with .ctx-home, .ctx-work, ... */
+  --ctx-c: var(--ctx-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ctx-home: #f5a54a; --ctx-work: #5aa6f0; --ctx-company: #3fc48a; --ctx-platform: #b48cf0;
+    --ctx-platform-ink: #c9aef5; --ctx-alert: #ef6b6b; --ctx-muted: #7d8290; --ctx-ok: #3fc48a; --ctx-warn: #f5a54a;
+    --ctx-paper: #121419; --ctx-surface: #1a1d24; --ctx-ink: #eceef3; --ctx-ink-soft: #a3a9b6; --ctx-rule: #2c303a;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ctx-home: #f5a54a; --ctx-work: #5aa6f0; --ctx-company: #3fc48a; --ctx-platform: #b48cf0;
+  --ctx-platform-ink: #c9aef5; --ctx-alert: #ef6b6b; --ctx-muted: #7d8290; --ctx-ok: #3fc48a; --ctx-warn: #f5a54a;
+  --ctx-paper: #121419; --ctx-surface: #1a1d24; --ctx-ink: #eceef3; --ctx-ink-soft: #a3a9b6; --ctx-rule: #2c303a;
+  color-scheme: dark;
+}
+
+/* Line colours: put one on an element, and every part inside it takes that colour */
+
+.ctx-home { --ctx-c: var(--ctx-home); }
+.ctx-work { --ctx-c: var(--ctx-work); }
+.ctx-company { --ctx-c: var(--ctx-company); }
+.ctx-platform { --ctx-c: var(--ctx-platform); }
+.ctx-alert { --ctx-c: var(--ctx-alert); }
+.ctx-muted { --ctx-c: var(--ctx-muted); }
+.ctx-ink { --ctx-c: var(--ctx-ink); }
+
+/* Page */
+
+.ctx-page {
+  background: var(--ctx-paper); color: var(--ctx-ink);
+  font-family: var(--ctx-font-display); font-size: 16px; line-height: 1.5;
+}
+.ctx-title { margin: 0; font-size: clamp(32px, 6vw, 52px); font-weight: 900; line-height: 1.02; letter-spacing: -.01em; }
+.ctx-heading { margin: 0; font-size: 26px; font-weight: 800; line-height: 1.2; }
+.ctx-kicker {
+  font-family: var(--ctx-font-mono); font-size: 12.5px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ctx-c);
+}
+.ctx-soft { color: var(--ctx-ink-soft); }
+.ctx-num { font-family: var(--ctx-font-mono); font-variant-numeric: tabular-nums; }
+.ctx-card { background: var(--ctx-surface); border: 1px solid var(--ctx-rule); border-radius: var(--ctx-radius-small); }
+
+/* The four lines as a bar, for a page header */
+.ctx-lines { display: flex; height: 8px; max-width: 220px; border-radius: 4px; overflow: hidden; }
+.ctx-lines > * { flex: 1; background: var(--ctx-c); }
+
+/* Metro map, in SVG. Put .ctx-map on the <svg>; give each part a line colour (.ctx-home, ...). */
+
+.ctx-map { background: var(--ctx-paper); }
+.ctx-map text { font-family: var(--ctx-font-display); fill: var(--ctx-ink); }
+
+/* Line: thick, in the colour of its process. A branch is a feeder; a planned line is dotted. */
+.ctx-line {
+  fill: none; stroke: var(--ctx-c); stroke-width: var(--ctx-stroke-line);
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.ctx-line.ctx-branch { stroke-width: var(--ctx-stroke-branch); }
+.ctx-line.ctx-planned { stroke-dasharray: 2 16; }
+
+/* Station: a circle with a thick ring, the name in heavy capitals, a note below. A stop is the small version. */
+.ctx-station { fill: var(--ctx-surface); stroke: var(--ctx-c); stroke-width: var(--ctx-stroke-branch); }
+.ctx-stop { fill: var(--ctx-surface); stroke: var(--ctx-c); stroke-width: var(--ctx-stroke-stop); }
+.ctx-stop.ctx-planned { stroke-dasharray: 3 3; }
+.ctx-map .ctx-station-name { font-size: 22px; font-weight: 900; letter-spacing: .01em; text-transform: uppercase; }
+.ctx-map .ctx-station-note { font-size: 13px; font-weight: 600; fill: var(--ctx-ink-soft); }
+.ctx-map .ctx-label { font-size: 22px; font-weight: 600; }
+.ctx-map .ctx-label.ctx-strong { font-weight: 800; }
+.ctx-map .ctx-label.ctx-coloured { fill: var(--ctx-c); }
+.ctx-map .ctx-zone { font-family: var(--ctx-font-mono); font-size: 15px; font-weight: 600; letter-spacing: .14em; fill: var(--ctx-c); }
+/* A label on a line gets a halo in the paper colour, so it stays readable across a line */
+.ctx-map .ctx-halo { paint-order: stroke; stroke: var(--ctx-paper); stroke-width: 7px; stroke-linejoin: round; }
+
+/* Transfer: two short strokes across a line, where content passes a gate */
+.ctx-transfer { fill: none; stroke: var(--ctx-ink); stroke-width: var(--ctx-stroke-transfer); }
+
+/* Terminus: a rounded box where lines end (a rect with rx = half its height); the end of a line is a short bar */
+.ctx-terminus { fill: var(--ctx-surface); stroke: var(--ctx-ink); stroke-width: var(--ctx-stroke-terminus); }
+.ctx-map .ctx-terminus-name { font-size: 36px; font-weight: 900; letter-spacing: .01em; text-transform: uppercase; }
+.ctx-end { fill: none; stroke: var(--ctx-c); stroke-width: var(--ctx-stroke-branch); stroke-linecap: round; }
+
+/* Person: walks between stations on a dotted path; the icon is a ring with a head and shoulders */
+.ctx-person { fill: none; stroke: var(--ctx-ink); stroke-width: var(--ctx-stroke-stop); stroke-dasharray: 1 13; stroke-linecap: round; }
+.ctx-person-ring { fill: var(--ctx-surface); stroke: var(--ctx-ink); stroke-width: var(--ctx-stroke-stop); }
+.ctx-person-icon { fill: none; stroke: var(--ctx-ink); stroke-width: 3.6; stroke-linecap: round; }
+
+/* Never leaves: a dead-end track, ended by a red stroke */
+.ctx-dead-end { fill: none; stroke: var(--ctx-muted); stroke-width: 8; stroke-dasharray: 2 11; stroke-linecap: round; }
+.ctx-dead-end-stop { fill: none; stroke: var(--ctx-alert); stroke-width: var(--ctx-stroke-stop); stroke-linecap: round; }
+
+/* Metro parts in HTML, for pages and lists */
+
+/* A station as a dot before a name */
+.ctx-dot {
+  display: inline-block; width: 14px; height: 14px; margin-right: 9px; vertical-align: -1px;
+  border-radius: 50%; border: 4px solid var(--ctx-c); background: var(--ctx-surface);
+}
+
+/* A route: a vertical line with a station per item */
+.ctx-route { list-style: none; margin: 0; padding: 0; }
+.ctx-route > li { position: relative; padding: 0 0 var(--ctx-space-5) 40px; }
+.ctx-route > li::before {
+  content: ""; position: absolute; left: 9px; top: 6px; bottom: -6px; width: 8px; background: var(--ctx-c);
+}
+.ctx-route > li:last-child::before { display: none; }
+.ctx-route > li::after {
+  content: ""; position: absolute; left: 0; top: 0; width: 14px; height: 14px;
+  border-radius: 50%; border: 6px solid var(--ctx-c); background: var(--ctx-surface);
+}
+.ctx-route > li.ctx-planned::before { background: none; border-left: 8px dotted var(--ctx-c); width: 0; }
+
+/* Lamp: green, orange, red, off */
+.ctx-lamp {
+  display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px;
+  background: var(--ctx-lamp, var(--ctx-muted));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctx-lamp, var(--ctx-muted)) 22%, transparent);
+}
+.ctx-lamp-ok { --ctx-lamp: var(--ctx-ok); }
+.ctx-lamp-warn { --ctx-lamp: var(--ctx-warn); }
+.ctx-lamp-alert { --ctx-lamp: var(--ctx-alert); }
+.ctx-lamp.ctx-lamp-off { background: transparent; box-shadow: inset 0 0 0 2px var(--ctx-muted); }
+
+/* Meter: a track with a fill; set --ctx-value from 0 to 1 */
+.ctx-meter {
+  display: block; height: 10px; border-radius: var(--ctx-radius-pill); overflow: hidden;
+  background: color-mix(in srgb, var(--ctx-muted) 25%, transparent);
+}
+.ctx-meter > * {
+  display: block; height: 100%; border-radius: inherit;
+  width: calc(var(--ctx-value, 0) * 100%); background: var(--ctx-c);
+}

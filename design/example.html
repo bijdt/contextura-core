@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contextura metro map</title>
+<link rel="stylesheet" href="contextura.css">
+<style>
+  body { margin: 0; padding: 32px 16px 56px; }
+  .sheet { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .sheet svg { display: block; width: 100%; height: auto; border-radius: var(--ctx-radius-small); }
+</style>
+</head>
+<body class="ctx-page">
+<main class="sheet">
+<header>
+  <div class="ctx-lines" aria-hidden="true"><i class="ctx-home"></i><i class="ctx-work"></i><i class="ctx-company"></i><i class="ctx-platform"></i></div>
+  <p class="ctx-kicker ctx-ink">Example · design 0.1.0</p>
+  <h1 class="ctx-title">The metro map</h1>
+  <p class="ctx-soft">The teaser rebuilt with <code class="ctx-num">contextura.css</code> only: every part is a class, every colour a token. The page follows the light or dark setting of the system. All tokens and parts: <a href="components.html">components.html</a>.</p>
+</header>
+
+<svg class="ctx-map" viewBox="0 0 1080 940" role="img" aria-labelledby="map-title">
+<title id="map-title">Home, work and company brain, one person between home and work, and the exchange for people, companies and experts</title>
+<defs>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/></filter>
+</defs>
+
+<!-- feeders -->
+<path class="ctx-line ctx-home" d="M200 60 V410"/>
+<path class="ctx-line ctx-work" d="M560 60 V410"/>
+<path class="ctx-line ctx-company" d="M900 60 V410"/>
+<!-- company context to the work brain -->
+<path class="ctx-line ctx-company" d="M900 410 H560"/>
+
+<!-- sharing -->
+<g class="ctx-platform">
+  <path class="ctx-line" d="M200 410 V590 L290 670"/>
+  <path class="ctx-line" d="M560 410 V670"/>
+  <path class="ctx-line" d="M900 410 V590 L810 670"/>
+  <path class="ctx-line" d="M340 774 V800 L310 830 V858"/>
+  <path class="ctx-line" d="M540 774 V858"/>
+  <path class="ctx-line" d="M740 774 V800 L770 830 V858"/>
+</g>
+
+<!-- one person -->
+<path class="ctx-person" d="M284 410 H476"/>
+<circle class="ctx-person-ring" cx="380" cy="410" r="36"/>
+<g class="ctx-person-icon"><circle cx="380" cy="398" r="9"/><path d="M362 429 c3-11 10-16 18-16 s15 5 18 16"/></g>
+<text x="380" y="476" class="ctx-label ctx-strong" text-anchor="middle">one person</text>
+
+<!-- transfers: sharing to the exchange, and company context to the work brain -->
+<path class="ctx-transfer" d="M180 530 H220 M180 542 H220 M540 530 H580 M540 542 H580 M880 530 H920 M880 542 H920 M724 390 V430 M736 390 V430"/>
+
+<!-- first stops -->
+<circle class="ctx-stop ctx-home" cx="200" cy="140" r="13"/>
+<circle class="ctx-stop ctx-work" cx="560" cy="140" r="13"/>
+<circle class="ctx-stop ctx-company" cx="900" cy="140" r="13"/>
+<text x="176" y="134" class="ctx-label" text-anchor="end">home</text><text x="176" y="162" class="ctx-label" text-anchor="end">knowledge</text>
+<text x="536" y="134" class="ctx-label" text-anchor="end">work</text><text x="536" y="162" class="ctx-label" text-anchor="end">knowledge</text>
+<text x="876" y="134" class="ctx-label" text-anchor="end">company</text><text x="876" y="162" class="ctx-label" text-anchor="end">knowledge</text>
+
+<!-- stations, in the colour of their feeder -->
+<circle class="ctx-station ctx-home" cx="200" cy="410" r="76"/>
+<text x="200" y="394" class="ctx-station-name" text-anchor="middle">Home</text><text x="200" y="418" class="ctx-station-name" text-anchor="middle">Brain</text>
+<text x="200" y="446" class="ctx-station-note" text-anchor="middle">answers · apps</text>
+<circle class="ctx-station ctx-work" cx="560" cy="410" r="76"/>
+<text x="560" y="394" class="ctx-station-name" text-anchor="middle">Work</text><text x="560" y="418" class="ctx-station-name" text-anchor="middle">Brain</text>
+<text x="560" y="446" class="ctx-station-note" text-anchor="middle">answers · apps</text>
+<circle class="ctx-station ctx-company" cx="900" cy="410" r="76"/>
+<text x="900" y="394" class="ctx-station-name" text-anchor="middle">Company</text><text x="900" y="418" class="ctx-station-name" text-anchor="middle">Brain</text>
+<text x="900" y="442" class="ctx-station-note" text-anchor="middle">context · platforms</text><text x="900" y="458" class="ctx-station-note" text-anchor="middle">projects · products</text>
+
+<!-- the exchange -->
+<rect class="ctx-terminus" x="230" y="666" width="620" height="108" rx="54"/>
+<text x="540" y="718" class="ctx-terminus-name" text-anchor="middle">The exchange</text>
+<text x="540" y="750" class="ctx-label ctx-coloured ctx-platform" text-anchor="middle" style="font-size:19px;font-weight:800">your digital twin, on your terms</text>
+
+<!-- ends of the line -->
+<g class="ctx-platform"><path class="ctx-end" d="M282 858 H338"/><path class="ctx-end" d="M512 858 H568"/><path class="ctx-end" d="M742 858 H798"/></g>
+<text x="310" y="900" class="ctx-label ctx-strong" text-anchor="middle" style="font-size:24px">people</text>
+<text x="540" y="900" class="ctx-label ctx-strong" text-anchor="middle" style="font-size:24px">companies</text>
+<text x="770" y="900" class="ctx-label ctx-strong" text-anchor="middle" style="font-size:24px">experts</text>
+
+<rect width="1080" height="940" filter="url(#grain)" pointer-events="none"/>
+</svg>
+</main>
+</body>
+</html>

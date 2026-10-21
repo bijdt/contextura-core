@@ -17,6 +17,7 @@ the same way.
 | [`schema/`](schema/) | JSON Schemas for the files the specification describes |
 | [`conformance/`](conformance/) | The conformance tests: cases as data (input and expected result), independent of a language |
 | [`migration/`](migration/) | The translation table from the Dutch names of 0.14 to the English names of 0.15 (`nl-en.json`), used by readers and by the migration |
+| [`design/`](design/) | The house style: design tokens, a stylesheet with the parts of the metro map, and examples; its own version (0.1.0) |
 | [`docs/`](docs/) | The site at https://schema.contextura.io: every schema at its `$id` (`<name>/<version>.json`), made from `schema/` |
 
 ## Status
@@ -33,8 +34,9 @@ published under their Dutch names.
 ## License
 
 - The text of the specification: [CC BY 4.0](LICENSE) (free to use, implement and cite, with attribution).
-- The schemas in `schema/`, the cases in `conformance/` and the table in `migration/`: MIT
-  ([schema/LICENSE](schema/LICENSE), [conformance/LICENSE](conformance/LICENSE), [migration/LICENSE](migration/LICENSE)),
+- The schemas in `schema/`, the cases in `conformance/` and the table in `migration/` and the house style in `design/`: MIT
+  ([schema/LICENSE](schema/LICENSE), [conformance/LICENSE](conformance/LICENSE), [migration/LICENSE](migration/LICENSE),
+  [design/LICENSE](design/LICENSE)),
   so an implementation can include them without conditions.
 
 © 2026 BIJDT
