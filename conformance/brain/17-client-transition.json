@@ -1,0 +1,24 @@
+{
+  "description": "Transition: as long as the brain has no client/ folder, source: client outside client/ is a warning, not an error.",
+  "function": "brain.check",
+  "input": {
+    "files": {
+      "notes/offerte.md": "---\nname: offerte\ndescription: \"Notitie offerte.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Offerte\n",
+      "people/jan.md": "---\nname: jan\ndescription: \"Notitie jan.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Jan\n\nZie [[offerte]].\n"
+    }
+  },
+  "expected": {
+    "notes/offerte.md": {
+      "errors": [],
+      "warnings": [
+        "source: client belongs in client/<client>/ (move the note to the folder of its client)"
+      ]
+    },
+    "people/jan.md": {
+      "errors": [],
+      "warnings": [
+        "orphan: no note links here"
+      ]
+    }
+  }
+}
