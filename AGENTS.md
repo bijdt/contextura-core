@@ -1,8 +1,8 @@
 # contextura-core: instructions for agents
 
 This public repository holds the open standard contextura-core: the specification (`specification.md`), the JSON
-Schemas (`schema/`), the conformance cases (`conformance/`), the translation table of 0.15 (`migration/`) and the
-site at https://schema.contextura.io (`docs/`). Everything here is public: no secrets, no personal data, no names of
+Schemas (`schema/`), the conformance cases (`conformance/`), the translation table of 0.15 (`migration/`), the
+house style (`design/`) and the site at https://schema.contextura.io (`docs/`). Everything here is public: no secrets, no personal data, no names of
 clients or people, no local paths and no references to internal repositories or notes.
 
 ## How the content changes
@@ -13,6 +13,10 @@ clients or people, no local paths and no references to internal repositories or 
 - Each version of the specification states its number and date at the top; the README names the same version.
 - A published schema version never changes. A schema is published as `docs/<name>/<version>.json` at the URL of its
   `$id`, and `docs/index.html` lists it. A change that makes a valid file invalid is a new version.
+- The house style in `design/` is maintained here, not copied from the implementation. It has its own version in
+  `design/VERSION`, also at the top of `tokens.json`, `contextura.css` and the example pages; `tokens.json` and
+  `contextura.css` carry the same values. A released version never changes: a changed token, class or part is a new
+  version.
 - The conformance cases are data. A new case or a changed expected result comes with the change to the
   specification that explains it.
 
