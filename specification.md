@@ -476,8 +476,9 @@ What it changes:
 - the keys and the values of known fields in the frontmatter of notes, line by line, quoting and everything else
   as it is;
 - the markers of the generated block;
-- the JSON files at the root, in packs and in data packs, and the YAML of apps in `apps/` (their data files only
-  for a floorplan, kind `kit-data`);
+- the JSON files at the root, in packs and in data packs, and the YAML of a kit app in `apps/` (a file with a top-level
+  `kit` or `bouwdoos` key; its data file only for a floorplan, kind `kit-data`). The settings of an ordinary app
+  (`apps/<id>.yaml` without that key) follow the schema of that app, not of the format, and stay as they are;
 - `brain.json`: an existing brain without `brain.json` gets `{"language": "nl"}`, because its content is Dutch and
   the default changes (below).
 
