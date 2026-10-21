@@ -1,0 +1,245 @@
+{
+  "description": "The score of 0.18: accuracy only from three answered predictions (otherwise null, the layer shows not enough yet); an answered gap question from the pool (pool#, in 0.14 voorraad#) fills the coverage like a gap at a note, other pool questions do not.",
+  "function": "twin.score",
+  "input": {
+    "log": [
+      {
+        "id": "a1",
+        "date": "2026-01-15",
+        "form": "guess",
+        "layer": "thinking",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/a1.md",
+        "score": 0
+      },
+      {
+        "id": "a2",
+        "date": "2026-01-15",
+        "form": "guess",
+        "layer": "thinking",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/a2.md",
+        "score": 2
+      },
+      {
+        "id": "a3",
+        "date": "2026-01-15",
+        "form": "opinion",
+        "layer": "thinking",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/a3.md",
+        "source": "notes/roof.md"
+      },
+      {
+        "id": "a4",
+        "date": "2026-01-15",
+        "form": "this-or-that",
+        "layer": "thinking",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/a4.md",
+        "source": "pool#coffee"
+      },
+      {
+        "id": "a5",
+        "date": "2026-01-15",
+        "form": "true-false",
+        "layer": "thinking",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/a5.md",
+        "source": "pool#early"
+      },
+      {
+        "id": "b1",
+        "date": "2026-01-15",
+        "form": "guess",
+        "layer": "judging",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/b1.md",
+        "score": 2
+      },
+      {
+        "id": "b2",
+        "date": "2026-01-15",
+        "form": "guess",
+        "layer": "judging",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/b2.md",
+        "score": 1
+      },
+      {
+        "id": "b3",
+        "date": "2026-01-15",
+        "form": "guess",
+        "layer": "judging",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/b3.md",
+        "score": 2
+      },
+      {
+        "id": "b4",
+        "date": "2026-01-15",
+        "form": "like",
+        "layer": "judging",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/b4.md"
+      },
+      {
+        "id": "b5",
+        "date": "2026-01-15",
+        "form": "like",
+        "layer": "judging",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/b5.md"
+      },
+      {
+        "id": "c1",
+        "date": "2026-01-15",
+        "form": "gap",
+        "layer": "knowing",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/c1.md",
+        "source": "pool#first-car"
+      },
+      {
+        "id": "c2",
+        "date": "2026-01-15",
+        "form": "gap",
+        "layer": "knowing",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/c2.md",
+        "source": "voorraad#school"
+      },
+      {
+        "id": "c3",
+        "date": "2026-01-15",
+        "form": "gap",
+        "layer": "knowing",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/c3.md",
+        "source": "notes/roof.md"
+      },
+      {
+        "id": "c4",
+        "date": "2026-01-15",
+        "form": "true-false",
+        "layer": "knowing",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/c4.md",
+        "source": "pool#city"
+      },
+      {
+        "id": "c5",
+        "date": "2026-01-15",
+        "form": "gap",
+        "layer": "knowing",
+        "question": "Q?",
+        "status": "answered",
+        "landing": "inbox/c5.md",
+        "source": "pool#first-car"
+      },
+      {
+        "id": "c6",
+        "date": "2026-01-15",
+        "form": "gap",
+        "layer": "knowing",
+        "source": "pool#job",
+        "question": "Q?",
+        "status": "skipped",
+        "reason": "personal"
+      }
+    ],
+    "gaps": [
+      {
+        "kind": "expiry-missing",
+        "layer": "knowing",
+        "source": "documents/policy.md",
+        "title": "Policy"
+      },
+      {
+        "kind": "expiry-missing",
+        "layer": "knowing",
+        "source": "notes/roof.md",
+        "title": "Roof"
+      }
+    ]
+  },
+  "expected": {
+    "total": {
+      "asked": 16,
+      "answered": 15,
+      "guesses": 5,
+      "points": 7,
+      "accuracy": 70,
+      "filled": 3,
+      "open": 1,
+      "coverage": 75,
+      "enough": true,
+      "score": 86
+    },
+    "layers": {
+      "thinking": {
+        "asked": 5,
+        "answered": 5,
+        "guesses": 2,
+        "points": 2,
+        "accuracy": null,
+        "filled": 1,
+        "open": 0,
+        "coverage": 100,
+        "enough": true,
+        "score": 100
+      },
+      "knowing": {
+        "asked": 6,
+        "answered": 5,
+        "guesses": 0,
+        "points": 0,
+        "accuracy": null,
+        "filled": 3,
+        "open": 1,
+        "coverage": 75,
+        "enough": true,
+        "score": 75
+      },
+      "judging": {
+        "asked": 5,
+        "answered": 5,
+        "guesses": 3,
+        "points": 5,
+        "accuracy": 83,
+        "filled": 0,
+        "open": 0,
+        "coverage": null,
+        "enough": true,
+        "score": 83
+      },
+      "rhythm": {
+        "asked": 0,
+        "answered": 0,
+        "guesses": 0,
+        "points": 0,
+        "accuracy": null,
+        "filled": 0,
+        "open": 0,
+        "coverage": null,
+        "enough": false,
+        "score": null
+      }
+    },
+    "domains": {}
+  }
+}

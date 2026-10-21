@@ -22,13 +22,17 @@ Each case is a file `<group>/<name>.json`:
 | `twin.check` | `twin`: the content of `twin.json` | `errors` |
 | `export.validate` | `files`, optional `language` (`en` or `nl`) | `valid`, `findings` (path, kind, severity, text), `counts` |
 | `registry.tracks` | `registry` (the content of `projects.json`) and `brain` | the tracks |
+| `twin.score` | `log` (the log of `twin.json`), optional `gaps` (the gaps of the brain) | the score: `total`, `layers`, `domains` |
+| `app.gallery` | `app`: the content of `app.json` | per app id the gallery fields, with `warnings` for old names |
+| `legacy.normalize` | `kind` (a kind of the table under `json`) and `value` | `value` with the new names and `warnings` |
 
 JSON files at the root (`bundles.json`, `readers.json`, `twin.json`, `brain.json`, `metrics.json`) are text in
 `files`; attachments are the paths under `attachments/` and `client/<client>/attachments/`. The check of a brain
 depends on the day (no date in the future): the cases use only dates in the past, or a date far in the future.
 
 The messages are English; a case with `language: nl` expects the Dutch translation. The group `legacy` holds the
-Dutch names of 0.14, which a reader accepts until 1.0 with a warning per old name (specification, Migration from
+Dutch names of 0.14 (and the Dutch names of later additions, such as the gallery of `app.json` and the floorplan of
+the kit in 0.18), which a reader accepts until 1.0 with a warning per old name (specification, Migration from
 0.14).
 
 No case with a real key or token: such a file would itself contain a secret. The detection of secrets is in the

@@ -1,5 +1,5 @@
 {
-  "$comment": "The translation table of contextura-core 0.15: every Dutch name of the format (0.14 and earlier) and its English name. Readers accept the old names until the last 0.x release, with a warning; the migration (migrateBrain) renames them. Keys are old names, values new names. Values under 'values' are keyed by the new (English) key they belong to.",
+  "$comment": "The translation table of contextura-core 0.15: every Dutch name of the format (0.14 and earlier) and its English name. Readers accept the old names until the last 0.x release, with a warning; the migration (migrateBrain) renames them. Keys are old names, values new names. Values under 'values' are keyed by the new (English) key they belong to. The kind kit-data (the data of a kit app) applies only to the data of a floorplan (the fixed keys of a place); other data keeps its own field names.",
   "version": 1,
   "files": {
     "lezers.json": "readers.json",
@@ -486,7 +486,48 @@
         "bestanden": "files",
         "schrijven": "write",
         "pad": "path",
-        "wijzigen": "edit"
+        "wijzigen": "edit",
+        "categorie": "category",
+        "uitleg": "explanation",
+        "voorbeeld": "example",
+        "zonderModel": "withoutModel",
+        "punten": "points",
+        "soort": "kind",
+        "map": "folder",
+        "veld": "field",
+        "vertalingen": "translations",
+        "beeld": "image",
+        "samenvatting": "summary",
+        "tekst": "text",
+        "toestand": "state",
+        "acties": "actions",
+        "bevestig": "confirm",
+        "gevaar": "danger",
+        "blokken": "blocks",
+        "gevoelig": "sensitive",
+        "waarde": "value",
+        "waarden": "values",
+        "nu": "now",
+        "legende": "legend",
+        "balk": "bar",
+        "nadruk": "emphasis",
+        "klaar": "done",
+        "afvinken": "check",
+        "toevoegen": "add",
+        "vakken": "cells",
+        "weken": "weeks",
+        "vormen": "shapes",
+        "vorm": "shape",
+        "rol": "role",
+        "midden": "center",
+        "straal": "radius",
+        "klein": "small",
+        "noord": "north",
+        "voorstel": "proposal",
+        "ververst": "refreshed",
+        "knop": "button",
+        "invoer": "input",
+        "stap": "step"
       },
       "values": {
         "color": {
@@ -508,6 +549,51 @@
         },
         "edit": {
           "eigenaar": "owner"
+        },
+        "category": {
+          "huis": "home",
+          "tuin": "garden",
+          "gezin": "family",
+          "geld": "money",
+          "gezondheid": "health",
+          "werk": "work"
+        },
+        "kind": {
+          "bestand": "file",
+          "notities": "notes",
+          "getallen": "numbers",
+          "staven": "bars",
+          "voortgang": "progress",
+          "lijst": "list",
+          "raster": "grid",
+          "kaart": "map",
+          "vraag": "question",
+          "tekst": "text",
+          "getal": "number",
+          "tijd": "time",
+          "datum": "date",
+          "datum-tijd": "datetime"
+        },
+        "state": {
+          "goed": "good",
+          "let-op": "warning",
+          "actie": "action",
+          "neutraal": "neutral"
+        },
+        "shape": {
+          "vlak": "polygon",
+          "lijn": "line",
+          "cirkel": "circle"
+        },
+        "role": {
+          "perceel": "plot",
+          "haag": "hedge",
+          "muur": "wall",
+          "gebouw": "building",
+          "kruin": "crown",
+          "stam": "trunk",
+          "pad": "path",
+          "lijn": "line"
         }
       }
     },
@@ -544,7 +630,10 @@
         "dagen": "days",
         "entiteit": "entity",
         "handeling": "operation",
-        "stap": "step"
+        "stap": "step",
+        "terrein": "site",
+        "breedte": "width",
+        "diepte": "depth"
       },
       "values": {
         "kind": {
@@ -555,7 +644,8 @@
           "tabel": "table",
           "grafiek": "chart",
           "notities": "notes",
-          "koppeling": "connection"
+          "koppeling": "connection",
+          "plattegrond": "floorplan"
         },
         "actions": {
           "afvinken": "check",
@@ -589,6 +679,13 @@
           "tijdstip": "datetime"
         }
       }
+    },
+    "kit-data": {
+      "keys": {
+        "breedte": "width",
+        "diepte": "depth"
+      },
+      "values": {}
     },
     "pack.json": {
       "keys": {
