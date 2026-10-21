@@ -1,0 +1,68 @@
+{
+  "description": "client/<client>/: notes in a client folder count as notes in the ordinary folder (hub, index, area, attachments, unique names). A note in client/ without source: client, and once the brain has a client folder a note with source: client outside it, are errors.",
+  "function": "brain.check",
+  "input": {
+    "files": {
+      "areas/areas.md": "---\nname: areas\ndescription: \"Notitie areas.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [index]\n---\n\n# Domeinen\n\n- [[huis]]\n- [[acme]]\n",
+      "areas/huis.md": "---\nname: huis\ndescription: \"Notitie huis.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Huis\n\n- [[dak]]\n",
+      "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# Dak\n\nZie [[huis]].\n",
+      "notes/offerte.md": "---\nname: offerte\ndescription: \"Notitie offerte.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Offerte\n\nVan [[jan]].\n",
+      "projects/projects.md": "---\nname: projects\ndescription: \"Notitie projects.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Projecten\n\n- [[migratie]]\n",
+      "client/acme/areas/acme.md": "---\nname: acme\ndescription: \"Notitie acme.\"\ntype: reference\nsource: client\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Acme\n\n- [[jan]]\n- [[migratie]]\n",
+      "client/acme/people/jan.md": "---\nname: jan\ndescription: \"Notitie jan.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\narea: acme\nattachments: [client/acme/attachments/jan/visitekaartje.pdf]\n---\n\n# Jan\n\nWerkt bij [[acme]].\n",
+      "client/acme/projects/migratie.md": "---\nname: migratie\ndescription: \"Notitie migratie.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\narea: acme\n---\n\n# Migratie\n\nVoor [[acme]]; plan in [het plan](../attachments/migratie/plan.pdf).\n",
+      "client/acme/projects/rapport.md": "---\nname: rapport\ndescription: \"Notitie rapport.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\narea: acme\n---\n\n# Rapport\n\nVoor [[acme]].\n",
+      "client/acme/topics/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Dak\n\nZie [[acme]].\n",
+      "client/acme/notes/intern.md": "---\nname: intern\ndescription: \"Notitie intern.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Intern\n\nZie [[acme]].\n",
+      "client/losse-notitie.md": "---\nname: losse-notitie\ndescription: \"Notitie losse-notitie.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Losse-notitie\n",
+      "client/acme/attachments/jan/visitekaartje.pdf": null,
+      "client/acme/attachments/migratie/plan.pdf": null,
+      "client/acme/attachments/oud.pdf": null
+    }
+  },
+  "expected": {
+    "notes/dak.md": {
+      "errors": [
+        "name 'dak' also occurs as client/acme/topics/dak.md"
+      ],
+      "warnings": []
+    },
+    "notes/offerte.md": {
+      "errors": [
+        "source: client belongs in client/<client>/ (move the note to the folder of its client)"
+      ],
+      "warnings": []
+    },
+    "client/acme/projects/rapport.md": {
+      "errors": [
+        "is not in the hub client/acme/areas/acme.md (add [[rapport]])",
+        "is not in the index projects/projects.md (add [[rapport]])"
+      ],
+      "warnings": []
+    },
+    "client/acme/topics/dak.md": {
+      "errors": [
+        "name 'dak' also occurs as notes/dak.md"
+      ],
+      "warnings": []
+    },
+    "client/acme/notes/intern.md": {
+      "errors": [
+        "a note in client/ has source: client"
+      ],
+      "warnings": []
+    },
+    "client/losse-notitie.md": {
+      "errors": [
+        "a note in client/ belongs in the folder of its client (client/<client>/...)"
+      ],
+      "warnings": []
+    },
+    "attachments": {
+      "errors": [],
+      "warnings": [
+        "attachment without a note: client/acme/attachments/oud.pdf"
+      ]
+    }
+  }
+}

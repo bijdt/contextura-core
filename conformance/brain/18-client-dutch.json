@@ -1,0 +1,32 @@
+{
+  "description": "The messages about client/ translated to Dutch (language nl).",
+  "function": "brain.check",
+  "input": {
+    "language": "nl",
+    "files": {
+      "notes/offerte.md": "---\nname: offerte\ndescription: \"Notitie offerte.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Offerte\n",
+      "client/acme/notes/intern.md": "---\nname: intern\ndescription: \"Notitie intern.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Intern\n",
+      "client/los.md": "---\nname: los\ndescription: \"Notitie los.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\n---\n\n# Los\n"
+    }
+  },
+  "expected": {
+    "notes/offerte.md": {
+      "errors": [
+        "source: client hoort in client/<klant>/ (verplaats de notitie naar de map van haar klant)"
+      ],
+      "warnings": []
+    },
+    "client/acme/notes/intern.md": {
+      "errors": [
+        "een notitie in client/ heeft source: client"
+      ],
+      "warnings": []
+    },
+    "client/los.md": {
+      "errors": [
+        "een notitie in client/ hoort in de map van haar klant (client/<klant>/...)"
+      ],
+      "warnings": []
+    }
+  }
+}

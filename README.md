@@ -13,7 +13,7 @@ the same way.
 
 | Path | What |
 |---|---|
-| [`specification.md`](specification.md) | The specification (version 0.16, draft) |
+| [`specification.md`](specification.md) | The specification (version 0.17, draft) |
 | [`schema/`](schema/) | JSON Schemas for the files the specification describes |
 | [`conformance/`](conformance/) | The conformance tests: cases as data (input and expected result), independent of a language |
 | [`migration/`](migration/) | The translation table from the Dutch names of 0.14 to the English names of 0.15 (`nl-en.json`), used by readers and by the migration |

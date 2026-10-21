@@ -24,8 +24,8 @@ Each case is a file `<group>/<name>.json`:
 | `registry.tracks` | `registry` (the content of `projects.json`) and `brain` | the tracks |
 
 JSON files at the root (`bundles.json`, `readers.json`, `twin.json`, `brain.json`, `metrics.json`) are text in
-`files`; attachments are the paths under `attachments/`. The check of a brain depends on the day (no date in the
-future): the cases use only dates in the past, or a date far in the future.
+`files`; attachments are the paths under `attachments/` and `client/<client>/attachments/`. The check of a brain
+depends on the day (no date in the future): the cases use only dates in the past, or a date far in the future.
 
 The messages are English; a case with `language: nl` expects the Dutch translation. The group `legacy` holds the
 Dutch names of 0.14, which a reader accepts until 1.0 with a warning per old name (specification, Migration from

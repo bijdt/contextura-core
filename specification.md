@@ -1,6 +1,6 @@
 # contextura-core: specification
 
-Version 0.16 (draft), 2026-10-20. Belongs to contextura-core 0.20.0. Text under CC BY 4.0; the
+Version 0.17 (draft), 2026-10-21. Belongs to contextura-core 0.21.0. Text under CC BY 4.0; the
 reference implementation under MIT.
 
 This document describes the format itself, apart from the code: whoever reads it must be able to build
@@ -20,15 +20,17 @@ translation.
 Version 0.15 gives every name of the format an English name. The Dutch names of 0.14 are still read
 until 1.0, with a warning; §15 describes the transition and the migration. Version 0.16 extends the kit
 (`kit/2`: the sources notes and connection, the actions note and share) and the tile (`tile/2`: `button`, and
-`input` on an action of a list); a file that was valid stays valid.
+`input` on an action of a list); a file that was valid stays valid. Version 0.17 adds the client folder
+(`client/<client>/`, §2): the knowledge of a client in one place, with the ordinary folders inside.
 
 ## 1. Concepts
 
 - **Brain**: a folder with Markdown notes and their attachments. A brain belongs to one owner.
 - **Note**: a `.md` file with frontmatter (§3), on a path that is a note (§2).
-- **Hub**: a note in `areas/` with the tag `area`; one per area of life.
-- **Index**: a note that names every note from its folder (`projects/projects.md`, `ideas/ideas.md`,
-  `documents/documents.md`, and `areas/areas.md` for the hubs).
+- **Hub**: a note in `areas/` (or `client/<client>/areas/`) with the tag `area`; one per area of life, or per
+  client.
+- **Index**: a note that names every note from its folder, also from that folder in a client folder
+  (`projects/projects.md`, `ideas/ideas.md`, `documents/documents.md`, and `areas/areas.md` for the hubs).
 - **Error**: breaks the contract. **Warning**: a recommendation.
 - **Persona**: the shareable, context-free part of what an owner knows about themselves (§9).
 - **Pack**: shareable knowledge about a subject, with roles instead of the owner's own data (§10).
@@ -66,11 +68,30 @@ workspace or the context. At home there is no shared context: the workspace and 
 | `requests/` | work for another project (messages) | no |
 | `apps/` | settings of apps, `apps/<app-id>.yaml`; an own app from the kit also `apps/<app-id>.data.yaml` | no |
 | `persona/` | the imported persona layer, read-only | yes, with its own contract (§9) |
+| `client/` | the knowledge of clients: one folder `client/<client>/` per client, with the ordinary folders inside | yes, with `source: client` |
 | `persona-proposal/`, `pack-proposal/`, `packs/`, `data-proposal/`, `data/`, `docs/` | proposals, packs, data packs, explanation | no |
 
 A path (relative, with `/`) is a note when it ends in `.md`, no part starts with a dot, the first
 part is not a folder from the "no" rows (except `persona/`) and the file name is not `AGENTS.md`,
 `CLAUDE.md` or `README.md` (`isNotePath`). Other folders are allowed and contain notes.
+
+### Client folder
+
+Knowledge from a client (`source: client`) is in one place: `client/<client>/`, one folder per client, its name a
+slug (`client/acme/`). The name `client/` is fixed, so a server or an app can leave out everything under it
+without a setting. Inside are the ordinary folders: `areas/`, `notes/`, `people/`, `projects/`, `topics/`,
+`documents/` and `attachments/` (the hub of the client is usually `client/<client>/areas/<client>.md`; a finished
+engagement stays one folder). A note there counts as a note in the ordinary folder (`innerPath`, `folderOf`): it can
+be a hub, belongs in the index of its folder at the root (`projects/projects.md`, `areas/areas.md`, ...), has
+`area`, aliases and links like any other note, and its `name` is unique across the whole brain. A folder from the
+"no" rows inside a client folder (`client/<client>/attachments/`, `client/<client>/inbox/`) holds no notes either.
+
+- A note in `client/` **must** have `source: client`; a note directly in `client/` (outside the folder of a
+  client) and a client folder whose name is not a slug are errors.
+- A note with `source: client` outside `client/` is an error. Transition: as long as the brain has no note under
+  `client/`, it is a warning, so a brain can move its client knowledge in its own time.
+- Readers (§5) and bundles (§6) are unchanged: `source: client` is the owner only and never shared.
+- In the graph a node in a client folder has `folder` the ordinary folder and `client` the name of the client.
 
 ## 3. Frontmatter
 
@@ -83,7 +104,7 @@ quotes. No YAML comment in the fields `name`, `type`, `source`, `status`, `updat
 |---|---|---|
 | `name` | yes | slug `[a-z0-9]` with hyphens, equal to the file name, unique across all folders |
 | `type` | yes | `note`, `decision` or `reference` |
-| `source` | yes | `own`, `client` (confidential, from a client) or `public` |
+| `source` | yes | `own`, `client` (confidential, from a client; only in `client/`, §2) or `public` |
 | `status` | yes | `raw`, `distilled` or `archived` |
 | `updated` | yes | `YYYY-MM-DD`, an existing date, not in the future |
 | `description` | recommended (warning) | one line, at most 250 characters |
@@ -114,7 +135,9 @@ Schema: `note.schema.json` (`note/3`). The frontmatter is read with `parseFrontm
   does not resolve is an error ("dead link").
 - A note with `area` must be in that hub (a link to its `name`), unless it is archived
   or the hub has a generated block. A hub must be in `areas/areas.md`; a note in
-  `projects/`, `ideas/` or `documents/` in its index, with the same exception.
+  `projects/`, `ideas/` or `documents/` in its index, with the same exception. The same goes for a hub and a note in
+  a client folder: `client/<client>/areas/<hub>.md` is a hub, and a note in `client/<client>/projects/` belongs in
+  `projects/projects.md`.
 - **Generated block**: between `<!-- brain:list begin -->` and `<!-- brain:list end -->` is a
   list that follows entirely from the frontmatter. A block that differs from what the frontmatter gives is
   a warning. The shape of the block is that of the reference implementation (`hubBlocks`); its headings
@@ -122,9 +145,12 @@ Schema: `note.schema.json` (`note/3`). The frontmatter is read with `parseFrontm
   (`_12 notes, <explanation>._`) does not count: a tool may put its own explanation there. `setBlock`
   puts a block in a note.
 - A note in `topics/` or `people/` that nothing links to is a warning ("orphan").
-- Every path in `attachments` must be a file in the brain. A file under `attachments/` (except
-  `.gitkeep`) that occurs in no frontmatter and in no text as `attachments/...` is a warning.
-- From 400 lines a note is "long" (warning). Two notes in the same folder with an equal or
+- Every path in `attachments` must be a file in the brain. A file under `attachments/` or
+  `client/<client>/attachments/` (except `.gitkeep`, `isAttachmentPath`) that occurs in no frontmatter and in no
+  text as `attachments/...` is a warning; in the text of a note in a client folder, `attachments/...` (relative, as
+  `../attachments/...`) also counts for the attachments of that client.
+- From 400 lines a note is "long" (warning). Two notes in the same folder (a client folder counts as the ordinary
+  folder) with an equal or
   nearly equal name or alias are a warning (see `similarNames`).
 - The title (the first heading `#`) is plain language with a capital letter; the slug stays in `name` and the
   file name. A title equal to the slug is a warning (except when archived).
@@ -328,7 +354,7 @@ registry but with the workspace that publishes (see `checkDocumentation` and `st
 - Every schema carries its name and version in its `$id`, a fixed web address:
   `https://schema.contextura.io/<name>/<version>.json`. A schema version no longer changes once it is
   published; a change that makes a file that was valid until then invalid is a new version. The schemas of
-  0.16: `note/3`, `twin/3`, `brain/2`, `app/2`, `readers/1`, `bundles/1`, `metrics/1`, `documentation/1`,
+  0.17 (the same as in 0.16): `note/3`, `twin/3`, `brain/2`, `app/2`, `readers/1`, `bundles/1`, `metrics/1`, `documentation/1`,
   `projects/1`, `tile/2`, `kit/2` and `kit-data/1` (0.15 had `tile/1` and `kit/1`).
 - The code (`contextura-core`) follows semver and names the version of this text that it implements.
 

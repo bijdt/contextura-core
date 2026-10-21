@@ -1,0 +1,97 @@
+{
+  "description": "A note in client/<client>/ in the graph: folder is the ordinary folder, client the client; source: client is never shared.",
+  "function": "brain.graph",
+  "input": {
+    "files": {
+      "areas/huis.md": "---\nname: huis\ndescription: \"Notitie huis.\"\ntype: reference\nsource: own\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Huis\n\n- [[dak]]\n",
+      "notes/dak.md": "---\nname: dak\ndescription: \"Notitie dak.\"\ntype: note\nsource: own\nstatus: raw\nupdated: 2026-01-15\narea: huis\n---\n\n# Dak\n\nZie [[huis]].\n",
+      "client/acme/areas/acme.md": "---\nname: acme\ndescription: \"Notitie acme.\"\ntype: reference\nsource: client\nstatus: raw\nupdated: 2026-01-15\ntags: [area]\n---\n\n# Acme\n\n- [[jan]]\n",
+      "client/acme/people/jan.md": "---\nname: jan\ndescription: \"Notitie jan.\"\ntype: note\nsource: client\nstatus: raw\nupdated: 2026-01-15\narea: acme\n---\n\n# Jan\n\nWerkt bij [[acme]].\n"
+    }
+  },
+  "expected": {
+    "nodes": [
+      {
+        "name": "huis",
+        "title": "Huis",
+        "path": "areas/huis.md",
+        "folder": "areas",
+        "bundles": [],
+        "share": "unclassified",
+        "incoming": 1,
+        "outgoing": 1,
+        "status": "raw",
+        "source": "own",
+        "type": "reference",
+        "updated": "2026-01-15"
+      },
+      {
+        "name": "dak",
+        "title": "Dak",
+        "path": "notes/dak.md",
+        "folder": "notes",
+        "bundles": [],
+        "share": "unclassified",
+        "incoming": 1,
+        "outgoing": 1,
+        "area": "huis",
+        "status": "raw",
+        "source": "own",
+        "type": "note",
+        "updated": "2026-01-15"
+      },
+      {
+        "name": "acme",
+        "title": "Acme",
+        "path": "client/acme/areas/acme.md",
+        "folder": "areas",
+        "bundles": [],
+        "share": "never",
+        "incoming": 1,
+        "outgoing": 1,
+        "status": "raw",
+        "source": "client",
+        "type": "reference",
+        "updated": "2026-01-15",
+        "client": "acme"
+      },
+      {
+        "name": "jan",
+        "title": "Jan",
+        "path": "client/acme/people/jan.md",
+        "folder": "people",
+        "bundles": [],
+        "share": "never",
+        "incoming": 1,
+        "outgoing": 1,
+        "area": "acme",
+        "status": "raw",
+        "source": "client",
+        "type": "note",
+        "updated": "2026-01-15",
+        "client": "acme"
+      }
+    ],
+    "edges": [
+      {
+        "from": "huis",
+        "to": "dak"
+      },
+      {
+        "from": "dak",
+        "to": "huis"
+      },
+      {
+        "from": "acme",
+        "to": "jan"
+      },
+      {
+        "from": "jan",
+        "to": "acme"
+      }
+    ],
+    "deadLinks": 0,
+    "bundles": [],
+    "colors": {}
+  }
+}
