@@ -29,7 +29,7 @@ the source.
 | 3 | `main` only through a pull request | klaar | `AGENTS.md`, ruleset "main via pull request" on GitHub |
 | 4 | House style `design/` 0.1.0, released and published | klaar | tag `design-0.1.0`, `docs/design/0.1.0/` |
 | 5 | Audit 2026-10-22 | klaar | `docs/audit-2026-10-22.md`; findings followed up below |
-| 6 | Follow up the audit of 2026-10-22: this plan, the findings as rows, how the site deploys and what is live | bezig · nu | this pull request |
+| 6 | Follow up the audit of 2026-10-22: this plan, the findings as rows, how the site deploys and what is live | bezig · nu | PR #7 (ready; the owner merges) |
 | 7 | Version 1.0: the reference implementation and the runner of the conformance cases move into this repository | open · later | when the specification is 1.0 |
 
 Status: `open`, `bezig`, `klaar`, `geparkeerd`, followed by the priority: `· nu`, `· later` or `· parkeren`.
