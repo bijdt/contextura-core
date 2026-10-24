@@ -1,0 +1,11 @@
+# Secrets and local settings never belong in this public repository.
+.env
+.env.*
+.claude/settings.local.json
+.claude/worktrees/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+node_modules/

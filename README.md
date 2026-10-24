@@ -18,6 +18,8 @@ the same way.
 | [`conformance/`](conformance/) | The conformance tests: cases as data (input and expected result), independent of a language |
 | [`migration/`](migration/) | The translation table from the Dutch names of 0.14 to the English names of 0.15 (`nl-en.json`), used by readers and by the migration |
 | [`design/`](design/) | The house style: design tokens, a stylesheet with the parts of the metro map, and examples; its own version (0.1.0) |
+| [`checks/`](checks/) | The check of the rules between files (`node checks/check.mjs`), run on every pull request |
+| [`PLAN.md`](PLAN.md) | Steps, decisions and backlog of this repository |
 | [`docs/`](docs/) | The site at https://schema.contextura.io: every schema at its `$id` (`<name>/<version>.json`), made from `schema/` |
 
 ## Status
@@ -25,7 +27,9 @@ the same way.
 Draft. Until version 1.0 the format can still change; each version is at the top of the specification. An
 implementation conforms when it gives the same result for every case in `conformance/`. The reference
 implementation (pure functions in TypeScript, without files or processes, with the runner of the cases) appears in
-this repo with version 1.0.
+this repo with version 1.0. Until then the header of the specification also names the version of the reference
+implementation it was copied from ("Belongs to contextura-core <version>"); that number counts releases of the
+implementation, not of the specification.
 
 Version 0.15 renamed the format from Dutch to English. Until the last 0.x release a reader accepts the Dutch names
 of 0.14 with a warning; see the chapter "Migration from 0.14" of the specification. The schemas of 0.14 stay

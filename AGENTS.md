@@ -20,6 +20,9 @@ clients or people, no local paths and no references to internal repositories or 
   lists; tag and publish only when the owner asks.
 - The conformance cases are data. A new case or a changed expected result comes with the change to the
   specification that explains it.
+- `node checks/check.mjs` checks the rules above that hold between files and runs on every pull request
+  (`.github/workflows/check.yml`, tests in `checks/check.test.mjs`). Run it before you open a pull request.
+- `PLAN.md` holds the steps, the decisions and the backlog of this repository, in the same public terms as the rest.
 
 ## Git
 
@@ -29,4 +32,5 @@ clients or people, no local paths and no references to internal repositories or 
   review. Do not merge your own pull request.
 - A new version of the specification (its number at the top, the README, a tag) is released only when the owner asks
   for it.
-- Commits use the identity configured in this clone (the organization), never a personal name.
+- Commits use the identity configured in this clone (the organization), never a personal name. Commit messages and
+  pull requests are in English, like the rest of the repository.
