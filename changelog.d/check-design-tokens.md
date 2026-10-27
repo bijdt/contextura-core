@@ -1,0 +1,1 @@
+- The check (`checks/check.mjs`) now also compares `tokens.json` with `contextura.css` and `design/VERSION` with the top of every design file, and every error it reports has a test.
