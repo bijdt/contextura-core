@@ -31,7 +31,7 @@ the source.
 | 5 | Audit 2026-10-22 | klaar | `docs/audit-2026-10-22.md`; findings followed up below |
 | 6 | Follow up the audit of 2026-10-22: this plan, the findings as rows, how the site deploys and what is live | klaar | PR #7 |
 | 7 | Version 1.0: the reference implementation and the runner of the conformance cases move into this repository | open · later | when the specification is 1.0 |
-| 8 | Audit 2026-11-25 | klaar | `docs/audit-2026-11-25.md`; findings D1 to D8, nothing fixed; D1 waits for a choice of the owner |
+| 8 | Audit 2026-11-25 | klaar | `docs/audit-2026-11-25.md`; findings D1 to D8, nothing fixed; PR #10; D1 waits for a choice of the owner |
 
 Status: `open`, `bezig`, `klaar`, `geparkeerd`, followed by the priority: `· nu`, `· later` or `· parkeren`.
 
