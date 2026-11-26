@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { check } from './check.mjs';
 
 const schema = JSON.stringify({ $id: 'https://schema.contextura.io/note/1.json', type: 'object' }, null, 2) + '\n';
@@ -142,4 +143,41 @@ test('a specification without a version at the top is reported', () => {
 
 test('a README that names another version of the specification is reported', () => {
   assert.match(errors((f) => { f['README.md'] = '(version 0.17, draft)'; }), /README\.md: does not name version 0\.18/);
+});
+
+test('without docs/index.html every published file is reported as not listed', () => {
+  assert.match(errors((f) => { f['docs/index.html'] = null; }), /docs\/note\/1\.json: not listed in docs\/index\.html/);
+});
+
+test('without tokens.json and contextura.css their rules are skipped', () => {
+  assert.deepEqual(check(repo((f) => {
+    for (const n of ['tokens.json', 'contextura.css']) f[`design/${n}`] = f[`docs/design/0.1.0/${n}`] = null;
+  })), []);
+});
+
+test('without the specification or the README the version rule is skipped', () => {
+  assert.deepEqual(check(repo((f) => { f['specification.md'] = null; })), []);
+  assert.deepEqual(check(repo((f) => { f['README.md'] = null; })), []);
+});
+
+const cli = (...args) => spawnSync(process.execPath, [path.join(import.meta.dirname, 'check.mjs'), ...args], { encoding: 'utf8' });
+
+test('the command exits 0 and says so when every check passes', () => {
+  const r = cli(repo());
+  assert.equal(r.status, 0);
+  assert.equal(r.stdout, 'all checks pass\n');
+  assert.equal(r.stderr, '');
+});
+
+test('without a root the command checks this repository', () => {
+  const r = cli();
+  assert.equal(r.status, 0);
+  assert.equal(r.stdout, 'all checks pass\n');
+});
+
+test('the command exits 1 with one line per error and a count', () => {
+  const r = cli(repo((f) => { f['conformance/case.json'] = '{'; f['specification.md'] = '# Specification\n'; }));
+  assert.equal(r.status, 1);
+  assert.equal(r.stderr.trim().split('\n').length, 2);
+  assert.equal(r.stdout, '2 error(s)\n');
 });

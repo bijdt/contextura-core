@@ -49,6 +49,7 @@ The findings of the audit of 2026-10-22 (`docs/audit-2026-10-22.md`), numbered a
 | A7 | The language of commit messages is not set | klaar | `AGENTS.md`, section Git: commit messages and pull requests in English |
 | B1 | The check does not compare `tokens.json` with `contextura.css` | klaar | from A1; `designTokens` in `checks/check.mjs`, with tests |
 | B2 | The check does not compare `design/VERSION` with the top of the design files, and several of its branches have no test | klaar | `designVersion` in `checks/check.mjs`; every error the check reports now has a test |
+| B3 | The command line of the check (exit code, output) and its rules for absent files have no test | klaar | tests in `checks/check.test.mjs` bring the check to 100% of lines, branches and functions; the workflow fails below that |
 
 ## Decisions
 
