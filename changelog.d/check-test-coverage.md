@@ -1,0 +1,1 @@
+- The tests of the check now cover its command line and its rules for absent files, 100% of lines, branches and functions, and the workflow fails when coverage drops below that.
